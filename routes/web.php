@@ -17,8 +17,12 @@ Route::group([
     "middleware" => ["auth:sanctum"]
 ],function(){
 
-//Profile    
+//User Page    
 Route::get("home",[ApiController::class,"home"]);
+
+//Admin Page    
+Route::get("admin",[ApiController::class,"admin"]);
+
 //Logout
 Route::post("logout",[ApiController::class,"logout"]);
 

@@ -13,7 +13,7 @@
     class="registerbtn p-2"
     id="logout"
 >
-    <h3>User Logout</h3>
+    <h3>Admin Logout</h3>
 </button>
 @include('ajax')
 </body>

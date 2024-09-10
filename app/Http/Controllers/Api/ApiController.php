@@ -57,9 +57,7 @@ class ApiController extends Controller
     public function login(Request $request){
         try
         {
-
             $validateuser = Validator::make($request->all(), [
-                
                 'email' => 'required|email',
                 'password' => 'required', 
             ]);
@@ -70,30 +68,32 @@ class ApiController extends Controller
                     'message' => 'validation error', 
                 ], 401);
             }
-
-            if(!Auth::attempt($request->only(['email','password']))){
+    
+            if (!Auth::attempt($request->only(['email', 'password']))) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Email & Password does not match our record',
                     'errors' => $validateuser->errors()  
                 ], 401);
             }
-
+    
             $user = User::where('email', $request->email)->first();
+    
             return response()->json([
                 'status' => true,
                 'message' => 'User logged in successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken  
+                'token' => $user->createToken("API TOKEN")->plainTextToken,
+                'userType' => $user->userType  
             ], 200);
         
         } catch (\Throwable $th) {
-        return response()->json([
-            'status' => false,
-            'message' => $th->getMessage(),
-        ], 500);
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage(),
+            ], 500);
+        }
     }
-
-    }
+    
 
     public function profile(){
          $userData = auth()->user();
@@ -119,6 +119,10 @@ class ApiController extends Controller
     
     public function home(){          
         return view('home'); 
+    }
+
+    public function admin(){          
+        return view('admin'); 
     }
     
     

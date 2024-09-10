@@ -201,7 +201,7 @@ $(document).ready(function () {
 
         var valid = true;
 
-        
+       
         if (!formData.email) {
             $('#loginEmailError').text('The email field is required.');
             valid = false;
@@ -216,39 +216,43 @@ $(document).ready(function () {
             return;  
         }
 
-        
+      
         $.ajax({
             url: '/login',   
             type: 'POST',
             data: formData,
             success: function (response) {
-                
                 if (response.status) {
-                     
-                     
+                    
                     localStorage.setItem('token', response.token);
-                    window.location.href = '/home';  
+                    
+                    
+                    if (response.userType === '1') {
+                         
+                        window.location.href = '/admin';
+                    } else {
+                         
+                        window.location.href = '/home';
+                    }
                 } else {
                     
                     if (response.errors) {
-                        
                         $.each(response.errors, function (key, error) {
                             if (key === 'email' || key === 'password') {
                                 $('#' + key + 'Error').text(error[0]);
                             }
                         });
                     } else {
+                        
                         $('#loginEmailError').text(response.message);
                         $('#loginPasswordError').text(response.message);
                     }
                 }
             },
             error: function (xhr) {
-                
                 if (xhr.status === 401) {
                     var response = xhr.responseJSON;
                     if (response) {
-                        console.error('Login Failed', response);
                         $('#loginEmailError').text(response.message);
                         $('#loginPasswordError').text(response.message);
                     } else {
@@ -256,13 +260,14 @@ $(document).ready(function () {
                         $('#loginPasswordError').text('Invalid credentials');
                     }
                 } else {
-                    $('#loginEmailError').text('The credentials does not match our record.');
-                    $('#loginPasswordError').text('The credentials does not match our record.');
+                    $('#loginEmailError').text('The credentials do not match our record.');
+                    $('#loginPasswordError').text('The credentials do not match our record.');
                 }
             }
         });
     });
 });
+
 
 //logout
 $(document).ready(function () {
@@ -278,14 +283,13 @@ $(document).ready(function () {
             url: '/logout',
             type: 'POST',
             headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                'Authorization': 'Bearer ' + localStorage.getItem('token')  
             },
             success: function (response) {
                 if (response.status) {
-                   
+                    
                     localStorage.removeItem('token');
 
-                    
                     window.location.href = '/';
                 } else {
                     alert('Logout failed. Please try again.');
@@ -299,17 +303,11 @@ $(document).ready(function () {
     });
 
    
-    if (window.location.pathname === '/home' && !localStorage.getItem('token')) {
+    if ((window.location.pathname === '/home' || window.location.pathname === '/admin') && !localStorage.getItem('token')) {
         window.location.href = '/';
     }
 });
 
 
-
-
 </script>
-
-
-
-
 </body>
