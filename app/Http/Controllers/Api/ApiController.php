@@ -115,6 +115,15 @@ class ApiController extends Controller
                
         ], 200);
     }
+
+    
+
+
+    public function home(){ 
+       
+          
+        return view('home'); 
+    }
     
     
 }

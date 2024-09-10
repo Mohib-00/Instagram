@@ -189,7 +189,8 @@ $(document).ready(function () {
         }
     });
 
-    $('#login').on('click', function () {
+    $('#login').on('click', function (e) {
+        e.preventDefault();
         
         $('.text-danger').text('');  
 
@@ -226,7 +227,7 @@ $(document).ready(function () {
                      
                      
                     localStorage.setItem('token', response.token);
-                    // window.location.href = '/home';  
+                    window.location.href = '/home';  
                 } else {
                     
                     if (response.errors) {
@@ -262,6 +263,48 @@ $(document).ready(function () {
         });
     });
 });
+
+//logout
+$(document).ready(function () {
+    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('#logout').on('click', function () {
+        $.ajax({
+            url: '/logout',
+            type: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            success: function (response) {
+                if (response.status) {
+                    // Remove token from localStorage
+                    localStorage.removeItem('token');
+
+                    // Redirect user to the login or landing page
+                    window.location.href = '/';
+                } else {
+                    alert('Logout failed. Please try again.');
+                }
+            },
+            error: function (xhr) {
+                console.error(xhr);
+                alert('An error occurred while logging out.');
+            }
+        });
+    });
+
+    // Check if the user is on a restricted page like /home, and if not authenticated, redirect to login
+    if (window.location.pathname === '/home' && !localStorage.getItem('token')) {
+        window.location.href = '/';
+    }
+});
+
+
 
 
 </script>
