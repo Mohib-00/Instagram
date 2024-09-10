@@ -282,10 +282,10 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response.status) {
-                    // Remove token from localStorage
+                   
                     localStorage.removeItem('token');
 
-                    // Redirect user to the login or landing page
+                    
                     window.location.href = '/';
                 } else {
                     alert('Logout failed. Please try again.');
@@ -298,7 +298,7 @@ $(document).ready(function () {
         });
     });
 
-    // Check if the user is on a restricted page like /home, and if not authenticated, redirect to login
+   
     if (window.location.pathname === '/home' && !localStorage.getItem('token')) {
         window.location.href = '/';
     }
