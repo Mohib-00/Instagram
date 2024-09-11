@@ -86,18 +86,28 @@ $("#register-tab").click(function() {
 
 //register
 $(document).ready(function () {
-   
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
 
+    // Register
     $('#register').on('click', function () {
-      
+        handleRegister();
+    });
+
+    // Trigger registration on Enter key press in registration form
+    $('#registrationForm').on('keypress', function (e) {
+        if (e.which === 13) { // Enter key
+            e.preventDefault(); // Prevent form submission
+            handleRegister();
+        }
+    });
+
+    function handleRegister() {
         $('.text-danger').text('');
 
-        
         var formData = {
             name: $('#name').val(),
             email: $('#email').val(),
@@ -105,39 +115,36 @@ $(document).ready(function () {
             confirmPassword: $('#confirmPassword').val()
         };
 
-        
         var valid = true;
 
-if (!formData.name) {
-$('#nameError').text('The name field is required.');
-valid = false;
-}
+        if (!formData.name) {
+            $('#nameError').text('The name field is required.');
+            valid = false;
+        }
 
-if (!formData.email) {
-$('#emailError').text('The name field is required.');
-valid = false;
-}
+        if (!formData.email) {
+            $('#emailError').text('The email field is required.');
+            valid = false;
+        }
 
-if (!formData.password) {
-$('#passwordError').text('The name field is required.');
-valid = false;
-}
+        if (!formData.password) {
+            $('#passwordError').text('The password field is required.');
+            valid = false;
+        }
 
-if (!formData.password) {
-$('#confirmPasswordError').text('The name field is required.');
-valid = false;
-}
+        if (!formData.confirmPassword) {
+            $('#confirmPasswordError').text('The confirm password field is required.');
+            valid = false;
+        }
 
+        if (formData.password !== formData.confirmPassword) {
+            $('#confirmPasswordError').text('Passwords do not match');
+            valid = false;
+        }
 
-
-if (formData.password !== formData.confirmPassword) {
-$('#confirmPasswordError').text('Password do not match');
-valid = false;
-}
-
-if (!valid) {
-return; 
-}
+        if (!valid) {
+            return;
+        }
 
         $.ajax({
             url: '/register', 
@@ -149,13 +156,10 @@ return;
                     $('.login').show();
                     $('.registr').hide();
                 } else {
-                    
                     if (response.errors) {
                         $.each(response.errors, function (key, error) {
                             $('#' + key + 'Error').text(error[0]);
                         });
-                    } else {
-                        
                     }
                 }
             },
@@ -163,36 +167,34 @@ return;
                 if (xhr.status === 401) {
                     var response = xhr.responseJSON;
                     if (response) {
-                        console.error('Login Failed', response);
-                        
+                        console.error('Registration Failed', response);
                         $('#emailError').text('The email has already been taken');
                     } else {
-                       
                         $('#emailError').text('The email has already been taken');
                     }
                 } else {
-                   
                     $('#emailError').text('The email has already been taken');
                 }
             }
         });
+    }
+
+    // Login
+    $('#login').on('click', function (e) {
+        e.preventDefault();
+        handleLogin();
     });
-});
 
-
-//login
-$(document).ready(function () {
-    
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    // Trigger login on Enter key press in login form
+    $('#loginForm').on('keypress', function (e) {
+        if (e.which === 13) { // Enter key
+            e.preventDefault(); // Prevent form submission
+            handleLogin();
         }
     });
 
-    $('#login').on('click', function (e) {
-        e.preventDefault();
-        
-        $('.text-danger').text('');  
+    function handleLogin() {
+        $('.text-danger').text('');
 
         var formData = {
             email: $('#loginEmail').val(),
@@ -201,7 +203,6 @@ $(document).ready(function () {
 
         var valid = true;
 
-       
         if (!formData.email) {
             $('#loginEmailError').text('The email field is required.');
             valid = false;
@@ -213,29 +214,22 @@ $(document).ready(function () {
         }
 
         if (!valid) {
-            return;  
+            return;
         }
 
-      
         $.ajax({
-            url: '/login',   
+            url: '/login',
             type: 'POST',
             data: formData,
             success: function (response) {
                 if (response.status) {
-                    
                     localStorage.setItem('token', response.token);
-                    
-                    
                     if (response.userType === '1') {
-                         
                         window.location.href = '/admin';
                     } else {
-                         
                         window.location.href = '/home';
                     }
                 } else {
-                    
                     if (response.errors) {
                         $.each(response.errors, function (key, error) {
                             if (key === 'email' || key === 'password') {
@@ -243,7 +237,6 @@ $(document).ready(function () {
                             }
                         });
                     } else {
-                        
                         $('#loginEmailError').text(response.message);
                         $('#loginPasswordError').text(response.message);
                     }
@@ -265,7 +258,7 @@ $(document).ready(function () {
                 }
             }
         });
-    });
+    }
 });
 
 

@@ -14,6 +14,7 @@
     id="logout"
 >
     <h3>Admin Logout</h3>
+    <h1>Welcome, {{ $userName }}</h1>
 </button>
 @include('ajax')
 </body>

@@ -117,12 +117,14 @@ class ApiController extends Controller
     }
 
     
-    public function home(){          
-        return view('home'); 
+    public function home(){ 
+        $user = Auth::user();         
+        return view('home', ['userName' => $user->name]);
     }
 
-    public function admin(){          
-        return view('admin'); 
+    public function admin(){ 
+        $user = Auth::user();         
+        return view('admin', ['userName' => $user->name]);
     }
     
     
