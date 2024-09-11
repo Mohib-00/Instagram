@@ -92,20 +92,20 @@ $(document).ready(function () {
         }
     });
 
-    // Register
+    
     $('#register').on('click', function () {
-        handleRegister();
+        Register();
     });
 
-    // Trigger registration on Enter key press in registration form
+     
     $('#registrationForm').on('keypress', function (e) {
-        if (e.which === 13) { // Enter key
-            e.preventDefault(); // Prevent form submission
-            handleRegister();
+        if (e.which === 13) {  
+            e.preventDefault(); 
+            Register();
         }
     });
 
-    function handleRegister() {
+    function Register() {
         $('.text-danger').text('');
 
         var formData = {
@@ -179,21 +179,22 @@ $(document).ready(function () {
         });
     }
 
-    // Login
+    
+    //login
     $('#login').on('click', function (e) {
         e.preventDefault();
-        handleLogin();
+        Login();
     });
 
-    // Trigger login on Enter key press in login form
+    
     $('#loginForm').on('keypress', function (e) {
-        if (e.which === 13) { // Enter key
-            e.preventDefault(); // Prevent form submission
-            handleLogin();
+        if (e.which === 13) {  
+            e.preventDefault(); 
+            Login();
         }
     });
 
-    function handleLogin() {
+    function Login() {
         $('.text-danger').text('');
 
         var formData = {
@@ -252,10 +253,7 @@ $(document).ready(function () {
                         $('#loginEmailError').text('Invalid credentials');
                         $('#loginPasswordError').text('Invalid credentials');
                     }
-                } else {
-                    $('#loginEmailError').text('The credentials do not match our record.');
-                    $('#loginPasswordError').text('The credentials do not match our record.');
-                }
+                }  
             }
         });
     }

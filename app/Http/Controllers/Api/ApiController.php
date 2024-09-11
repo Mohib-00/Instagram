@@ -72,7 +72,7 @@ class ApiController extends Controller
             if (!Auth::attempt($request->only(['email', 'password']))) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Email & Password does not match our record',
+                    'message' => 'The credentials does not match our record.',
                     'errors' => $validateuser->errors()  
                 ], 401);
             }
