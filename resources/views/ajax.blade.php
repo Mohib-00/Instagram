@@ -195,110 +195,158 @@ $(document).ready(function () {
     });
 
     function Login() {
-        $('.text-danger').text('');
+    $('.text-danger').text('');
 
-        var formData = {
-            email: $('#loginEmail').val(),
-            password: $('#loginPassword').val()
-        };
+    var formData = {
+        email: $('#loginEmail').val(),
+        password: $('#loginPassword').val()
+    };
 
-        var valid = true;
+    var valid = true;
 
-        if (!formData.email) {
-            $('#loginEmailError').text('The email field is required.');
-            valid = false;
-        }
-
-        if (!formData.password) {
-            $('#loginPasswordError').text('The password field is required.');
-            valid = false;
-        }
-
-        if (!valid) {
-            return;
-        }
-
-        $.ajax({
-            url: '/login',
-            type: 'POST',
-            data: formData,
-            success: function (response) {
-                if (response.status) {
-                    localStorage.setItem('token', response.token);
-                    if (response.userType === '1') {
-                        window.location.href = '/admin';
-                    } else {
-                        window.location.href = '/home';
-                    }
-                } else {
-                    if (response.errors) {
-                        $.each(response.errors, function (key, error) {
-                            if (key === 'email' || key === 'password') {
-                                $('#' + key + 'Error').text(error[0]);
-                            }
-                        });
-                    } else {
-                        $('#loginEmailError').text(response.message);
-                        $('#loginPasswordError').text(response.message);
-                    }
-                }
-            },
-            error: function (xhr) {
-                if (xhr.status === 401) {
-                    var response = xhr.responseJSON;
-                    if (response) {
-                        $('#loginEmailError').text(response.message);
-                        $('#loginPasswordError').text(response.message);
-                    } else {
-                        $('#loginEmailError').text('Invalid credentials');
-                        $('#loginPasswordError').text('Invalid credentials');
-                    }
-                }  
-            }
-        });
+    if (!formData.email) {
+        $('#loginEmailError').text('The email field is required.');
+        valid = false;
     }
-});
 
+    if (!formData.password) {
+        $('#loginPasswordError').text('The password field is required.');
+        valid = false;
+    }
 
+    if (!valid) {
+        return;
+    }
+
+    $.ajax({
+        url: '/login',
+        type: 'POST',
+        data: formData,
+        success: function (response) {
+            if (response.status) {
+                localStorage.setItem('token', response.token); 
+
+                $('meta[name="csrf-token"]').attr('content', response.csrfToken);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': response.csrfToken
+                    }
+                });
+
+               
+                var url = response.userType === '1' ? '/admin' : '/home';                    
+                window.history.pushState({}, '', url);
+
+                
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (content) {
+                        $('body').html(content);
+
+                        var newCsrfToken = $('meta[name="csrf-token"]').attr('content');
+    
+                        $.ajaxSetup({
+                        headers: {
+                        'X-CSRF-TOKEN': newCsrfToken
+                        }
+                    });
+                    },
+                    error: function () {
+                        alert('Failed to load content.');
+                    }
+                });
+            } else {
+                if (response.errors) {
+                    $.each(response.errors, function (key, error) {
+                        if (key === 'email' || key === 'password') {
+                            $('#' + key + 'Error').text(error[0]);
+                        }
+                    });
+                } else {
+                    $('#loginEmailError').text(response.message);
+                    $('#loginPasswordError').text(response.message);
+                }
+            }
+        },
+        error: function (xhr) {
+            if (xhr.status === 401) {
+                var response = xhr.responseJSON;
+                if (response) {
+                    $('#loginEmailError').text(response.message);
+                    $('#loginPasswordError').text(response.message);
+                } else {
+                    $('#loginEmailError').text('Invalid credentials');
+                    $('#loginPasswordError').text('Invalid credentials');
+                }
+            }
+        }
+    });
+}
+
+    });
+
+     
 //logout
 $(document).ready(function () {
+       
+       $.ajaxSetup({
+           headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+           }
+       });
+
+     
+       $('#logout').on('click', function () {
+   
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
     
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'X-CSRF-TOKEN': csrfToken
         }
     });
 
-    $('#logout').on('click', function () {
-        $.ajax({
-            url: '/logout',
-            type: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token')  
-            },
-            success: function (response) {
-                if (response.status) {
-                    
-                    localStorage.removeItem('token');
+    $.ajax({
+        url: '/logout',
+        type: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: function (response) {
+            if (response.status) {
+                localStorage.removeItem('token');
+                window.history.pushState({}, '', '/');
 
-                    window.location.href = '/';
-                } else {
-                    alert('Logout failed. Please try again.');
-                }
-            },
-            error: function (xhr) {
-                console.error(xhr);
-                alert('An error occurred while logging out.');
+                
+                $.ajax({
+                    url: '/',
+                    type: 'GET',
+                    success: function (content) {
+                        $('body').html(content);
+                    },
+                    error: function () {
+                        alert('Failed to load content.');
+                    }
+                });
+            } else {
+                alert('Logout failed. Please try again.');
             }
-        });
+        },
+        error: function (xhr) {
+            console.error(xhr);
+            alert('An error occurred while logging out.');
+        }
     });
-
-   
-    if ((window.location.pathname === '/home' || window.location.pathname === '/admin') && !localStorage.getItem('token')) {
-        window.location.href = '/';
-    }
 });
 
+
+        
+       if ((window.location.pathname === '/home' || window.location.pathname === '/admin') && !localStorage.getItem('token')) {
+           window.location.href = '/';
+       }
+   });
 
 </script>
 </body>

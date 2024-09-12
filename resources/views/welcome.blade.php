@@ -16,12 +16,12 @@
 </head>
 <body>
 
-       <div class="col-12" style="background: -webkit-linear-gradient(left, #3931af, #00c6ff);height:920px">
+       <div id="hideloginregister" class="col-12" style="background: -webkit-linear-gradient(left, #3931af, #00c6ff);height:920px">
 
         <div class="container register registr"    style=" height:820px">
             <div class="row">
                 <div class="col-md-3 register-left ">
-                    <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+                 
                     <h3>Welcome</h3>
                     <p> </p>
                     <input type="submit" name="" value="Register Here"/><br/>
@@ -29,10 +29,10 @@
                 <div class="col-md-9 register-right">
                     <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#register"  role="tab" aria-controls="home" aria-selected="true">Register</a>
+                            <a class="nav-link active" id="home-tab" data-toggle="tab"    role="tab" aria-controls="home" aria-selected="true">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#login"   role="tab" aria-controls="profile" aria-selected="false">Login</a>
+                            <a class="nav-link" id="profile-tab" data-toggle="tab"     role="tab" aria-controls="profile" aria-selected="false">Login</a>
                         </li>
                     </ul>
                     
@@ -43,6 +43,7 @@
                                 <div class="col-md-12">
 
                                     <form id="registrationForm">
+                                        @csrf
                                         <div class="row">
                                             <div class="col-6">
                                                 <input type="text" class="form-control" id="name" name="name" placeholder="First Name *" />
@@ -99,7 +100,7 @@
             <div class="container register login"  style=" height:820px;display:none">
                 <div class="row">
                     <div class="col-md-3 register-left ">
-                        <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+                       
                         <h3>Welcome</h3>
                         <p> </p> 
                         <input type="submit" name="" value="Login Here"/><br/>
@@ -124,6 +125,7 @@
                                     <div class="col-md-12">
     
                                         <form id="loginForm">
+                                            @csrf
                                             <div class="row">
                                                 <div class="col-6">
                                                     <input type="text" id="loginEmail" class="form-control" name="email" placeholder="Email *" />
@@ -135,7 +137,7 @@
                                                     <span id="loginPasswordError" class="text-danger"></span>
                                                 </div>
                                         
-                                                <div class="col-6 my-4">
+                                                <div class="col-6 my-4 loginbutton">
                                                     <button
                                                         type="button"
                                                         style="border-radius: 20px; border: 1px solid green; transition: background-color 0.5s ease, color 0.3s ease;"
@@ -163,17 +165,7 @@
                              
                         </div>
                     </div>
-                </div>
-
-
-
-
-
-
-
-        </div>
-
-       
+                  </div>
 
        @include('ajax')
 

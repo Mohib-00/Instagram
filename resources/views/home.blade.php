@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>User Page</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
-    <button
-    type="button"
-    style="border-radius: 20px; border: 1px solid green; transition: background-color 0.5s ease, color 0.3s ease;"
-    class="registerbtn p-2"
-    id="logout"
->
-    <h3>User Logout</h3>
-    <h1>Welcome, {{ $userName }}</h1>
-</button>
-@include('ajax')
+    <div id="content-container">
+        <button
+            type="button"
+            style="border-radius: 20px; border: 1px solid green; transition: background-color 0.5s ease, color 0.3s ease;"
+            class="registerbtn p-2"
+            id="logout">
+            <h3>User Logout</h3>
+            <h1>Welcome, {{ $userName }}</h1>
+        </button>
+    </div>
+    @include('ajax')
 </body>
 </html>
