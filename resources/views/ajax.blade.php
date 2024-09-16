@@ -13,62 +13,7 @@
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-{{--register form css--}}
-   <script>
- $(document).ready(function () {
-   
-
-  $('#home-tab').on('click', function () {
-    $('#home-tab').addClass('active').removeClass('inactive');
-    $('#profile-tab').addClass('inactive').removeClass('active');
-    
-     
-    $('#home-tab').css('background-color', '#0062cc');
-    $('#home-tab').css('color', 'white');
-    $('#profile-tab').css('background-color', 'white');
-    $('#profile-tab').css('color', 'black');
-  });
-
-  
-  $('#profile-tab').on('click', function () {
-    $('#profile-tab').addClass('active').removeClass('inactive');
-    $('#home-tab').addClass('inactive').removeClass('active');
-    
-    
-    $('#profile-tab').css('background-color', '#0062cc');
-    $('#profile-tab').css('color', 'white');
-    $('#home-tab').css('background-color', 'white');
-    $('#home-tab').css('color', 'black');
-  });
-});
-
-
-
-</script>
-
-{{--login form css--}}
-<script>
-$(document).ready(function () {
-  
-    $('#login-tab').addClass('active1').removeClass('inactive');
-    $('#register-tab').addClass('inactive').removeClass('active1');
-
-    
-    $('#register-tab').on('click', function () {
-        $('#register-tab').addClass('active1').removeClass('inactive');
-        $('#login-tab').addClass('inactive').removeClass('active1');
-    });
-
-   
-    $('#login-tab').on('click', function () {
-        $('#login-tab').addClass('active1').removeClass('inactive');
-        $('#register-tab').addClass('inactive').removeClass('active1');
-    });
-});
-
-</script>
-
+ 
  
 <script>
 //click to show login form    

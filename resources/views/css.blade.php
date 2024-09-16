@@ -1,157 +1,264 @@
 <style>
-.register {
-    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
-    padding: 3%;
-}
-
-#register:hover {
-    background-color: black;
-    color: white;
-  }
-
-  #login:hover {
-    background-color: black;
-    color: white;
-  }
-
-.register-left {
-    text-align: center;
-    color: #fff;
-    margin-top: 4%;
-}
-
-.register-left input {
-    border: none;
-    border-radius: 1.5rem;
-    padding: 2%;
-    width: 60%;
-    font-weight: bold;
-    color: #383d41;
-    margin-top: 30%;
-    margin-bottom: 3%;
-    cursor: pointer;
-}
-
-.register-right {
-    background: #f8f9fa;
-    border-top-left-radius: 10% 50%;
-    border-bottom-left-radius: 10% 50%;
-}
-
-.register-left img {
-    margin-top: 15%;
-    margin-bottom: 5%;
-    width: 25%;
-    -webkit-animation: mover 2s infinite alternate;
-    animation: mover 1s infinite alternate;
-}
-
-@-webkit-keyframes mover {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(-20px);
-    }
-}
-
-@keyframes mover {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(-20px);
-    }
-}
-
-.register-left p {
-    font-weight: lighter;
-    padding: 12%;
-    margin-top: -9%;
-}
-
-.register .register-form {
-    padding: 10%;
-    margin-top: 10%;
-}
-
-.btnRegister {
-    float: right;
-    margin-top: 10%;
-    border: none;
-    border-radius: 1.5rem;
-    padding: 2%;
-    color: #fff;
-    font-weight: 600;
-    width: 50%;
-    cursor: pointer;
-}
-
-.register .nav-tabs {
-    margin-top: 3%;
-    border: none;
-    border-radius: 1.5rem;
-    width: 28%;
-    float: right;
-}
-
-.register .nav-tabs .nav-link {
-    padding: 2%;
-    font-weight: 600;
-    border-radius: 1.5rem;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.register .nav-tabs .nav-link:hover {
-    border: none;
-}
-
-.register .nav-tabs .nav-link.active {
-    border-radius: 1.5rem;
-}
-
  
-#home-tab, #profile-tab {
-    background-color: white;
-    color: black;
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
- 
-.nav-link.active {
-    background-color: #0062cc !important;
-    color: white !important;
+body{
+  background-color: #fafafa;
 }
 
- 
-.nav-link.inactive {
-    background-color: white;
-    color: black;
+main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 30px;
 }
 
 
- 
-.nav-link {
-    background-color: white;
-    color: black;
-    transition: background-color 0.3s ease, color 0.3s ease;
+.logo {
+    font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+    font-weight: bolder;
+    font-size: 55px;
+}
+
+
+/* header style */
+.page .header{
+  text-align: center;
+}
+
+.page .header .logo, 
+.page .header p, 
+.page .header button{
+  margin-bottom: 15px;
+}
+
+.page .header > p{
+  font-weight: bold;
+  color: #8e8e8e;
+  font-size: 18px;
+}
+
+.page .header > button{
+  width: inherit;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #0095f6;
+  color: #ffffff;
+}
+
+.page .header div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #8e8e8e;
+}
+
+.page .header div p{
+  padding: 0 20px;  
+}
+
+.page .header div hr{
+  width: 200px;
+  
+}
+
+/* container style*/
+.page .container{
+  display: flex;
+  flex-direction: column;
+}
+
+.page .container form, input{
+  width: inherit;
+}
+
+.page .container form input{
+  border: 1px solid #dbdbdb;
+  background-color: #fafafa;
+  padding: 10px 5px;
+  margin: 5px 0;
+}
+
+.page .container form input:last-of-type{
+  margin-bottom: 10px;  
+}
+
+.page .container form button{
+  width: inherit;
+  margin-bottom: 20px;
+  padding: 7px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #0095f6;
+  color: #ffffff;
+}
+
+.page .container ul{
+  list-style: none;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.page .container ul li{
+  display: inline;
+  color: #8e9096;
+}
+
+.page .container ul li a{
+  text-decoration: none;
+  font-weight: bold;
+  color: #8e9096;
+}
+
+/* option style */
+.option p > a{
     text-decoration: none;
+    color: #00a0f7;
 }
 
- 
-.nav-link.active1 {
-    background-color: #0062cc !important;
-    color: white !important;
-    text-decoration: none;
+/* otherapps style */
+.otherapps{
+  text-align: center;
 }
 
- 
-.nav-link.inactive {
+.otherapps p{
+  margin-bottom: 15px;
+}
+
+.otherapps > button{
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  font-size: 18px;
+}
+
+/* footer style */
+.footer{
+  bottom: 0;
+  height: 2.5rem;
+  margin-top: 50px;
+}
+
+.footer ul{
+  text-align: center;
+}
+.footer ul li{
+  display: inline;
+  margin-right: 5px;
+}
+.footer ul li a{
+  text-decoration: none;
+  font-size: 12px; 
+  color: #00376b;
+}
+
+.footer p{
+  margin: 10px 0;
+  text-align: center;
+  color: #8e9096;
+  font-size: 14px;
+}
+
+
+
+/* Mobile Styles */
+
+@media only screen and (max-width: 400px) {
+    body {
+        font-family: Freight Sans
+    }
+  
+  .page{
+    width: 250px;
+    background-color: #fafafa;
+  }
+  
+  .page .header{
+    width: inherit;
+    margin-top: 10px;
+  }
+  
+  .page .container{
+    width: inherit;
+  }
+  
+  .option{
+    margin: 80px 0;
+  }
+  
+  .page .container input{
+    padding: 10px 5px;
+    margin: 5px 0;
+  }
+  
+  .page .footer{
+    width: inherith
+  }
+}
+
+@media only screen and (min-width: 401px){
+    body {
+        font-family: Neue Helvetica
+    }
+  .page{
+    border: 1px solid #dbdbdb;
+    width: 450px;
     background-color: white;
-    color: black;
+    margin: 40px 40px 10px 40px;
+  }
+  
+  .page .header{
+    width: 270px;
+    margin-top: 15px;
+  }
+  
+  .page .container{
+    width: 270px;
+  }
+  
+  .option{
+    border: 1px solid #dbdbdb;
+    background-color: white;
+    width: 450px;
+    height: 70px;
+    margin-top: 20px 0;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    
+  }
+  
+  .otherapps{
+    margin: 20px 0px 0px 180px;
+  }
+  
+  .otherapps button{
+    margin-right: 5px;
+  }
+  
+  .otherapps button:after-of-type{
+    margin-right: none;
+  }
+  
+  .page .footer{
+    width: 100%;
+  }
 }
 
-
-
-
-
+ 
 </style>
