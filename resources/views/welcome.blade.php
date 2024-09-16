@@ -16,7 +16,7 @@
 </head>
 <body>
                
-                     {{--sign upp--}}
+                     {{--sign up--}}
                   <div class="page register registr" style="margin-left:40%">
                     <div class="header" style="width:80%"  >
                       <h1 class="logo">Instagram</h1>
