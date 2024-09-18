@@ -13,8 +13,7 @@
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
- 
- 
+
 <script>
 //click to show login form    
 $("#profile-tab").click(function() {
@@ -26,6 +25,16 @@ $("#profile-tab").click(function() {
 $("#register-tab").click(function() {
     $(".login").hide();
     $(".registr").show();
+});
+
+//open logout
+$("#openlogout").click(function() { 
+    $("#showlogout").fadeIn(150);
+});
+
+//close logout
+$("#closelogout").click(function() { 
+    $("#showlogout").fadeOut(150);
 });
 
 

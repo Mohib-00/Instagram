@@ -215,6 +215,18 @@ main{
     body {
         font-family: Neue Helvetica
     }
+
+    .img{
+      width:1250%;
+      border-radius:50%;
+     
+    }
+    .secondcolumn{
+      border-left:1px solid #262626;
+      height:915px;
+      margin-left:320px;
+      position:fixed
+    }
   .page{
     border: 1px solid #dbdbdb;
     width: 450px;
@@ -258,7 +270,66 @@ main{
   .page .footer{
     width: 100%;
   }
+
+  .logohome {
+    font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+    margin-top:35px;
+    margin-left:30px;
+}
+.home {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+  margin-top:4px;
+  margin-left:80px;
+  position: fixed;
+}
+.homesvg{
+   margin-left:30px;
+}
+.top{
+  margin-top:55px;
 }
 
- 
+
+.srch{
+  margin-top:45px;
+}
+
+.explore{
+  margin-top:45px;
+}
+
+.threads{
+  margin-top:80px;
+}
+
+.settings {
+     margin-left:30px;
+}
+
+.hoverdiv:hover:{
+  background-color: gray;
+}
+ .stsvg{
+  margin-left:30px;
+  margin-top:35px;
+ }
+ .Settingss{
+  margin-left:70px;
+  margin-top:-25px;
+ }
+
+}
+
+.settings {
+    background-color: #262626;
+    position: absolute;
+    margin-top: -600px;
+    height:525px;
+    width: 340px;  
+    border-radius:25px;
+    display:none
+}
+
+
 </style>
