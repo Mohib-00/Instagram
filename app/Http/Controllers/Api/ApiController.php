@@ -95,7 +95,7 @@ class ApiController extends Controller
     }
     
 
-    public function profile(){
+    /*public function profile(){
          $userData = auth()->user();
          return response()->json([
             'status' => true,
@@ -103,7 +103,7 @@ class ApiController extends Controller
             'data' => $userData,
             'id' => auth()->user()->id  
         ], 200);
-    }
+    }*/
 
 
     public function logout(){
@@ -125,6 +125,18 @@ class ApiController extends Controller
     public function admin(){ 
         $user = Auth::user();         
         return view('admin', ['userName' => $user->name]);
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();  
+        return view('profile', ['userName' => $user->name]); 
+    }
+
+    public function posts()
+    {
+        $user = Auth::user();  
+        return view('posts', ['userName' => $user->name]); 
     }
     
     

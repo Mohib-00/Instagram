@@ -5,7 +5,7 @@
     </div>
 
     <div class="col-12 top" id="homeSection">
-       <div class="row srchdiv">
+       <div class="row srchdiv" id="home">
            <div class="col-1 homesvg">
                <svg id="homeSvg"  aria-label="Home" class="x1lliihq x1n2onr6 x5n08af" fill="currentColor" height="30" role="img" viewBox="0 0 24 24" width="30">
                    <title>Home</title>
@@ -109,7 +109,7 @@
     </div>
 
     <div class="col-12  explore">
-       <div class="row srchdiv">
+       <div class="row srchdiv" id="profile">
 
            <div class="col-1 homesvg ">
                <img  class="img" src="https://bootdey.com/img/Content/avatar/avatar6.png">

@@ -297,10 +297,75 @@ $(document).ready(function () {
 
 
         
-       if ((window.location.pathname === '/home' || window.location.pathname === '/admin') && !localStorage.getItem('token')) {
+       if ((window.location.pathname === '/home' || window.location.pathname === '/profile' || window.location.pathname === '/posts' || window.location.pathname === '/admin') && !localStorage.getItem('token')) {
            window.location.href = '/';
        }
    });
+
+ 
+ //to open profile page  
+ $(document).ready(function(){
+        $('#profile').click(function() {
+             
+            $.ajax({
+                url: '/profile',
+                type: 'GET',
+                success: function(response) {
+                   
+                    $('body').html(response);
+
+                 
+                    window.history.pushState(null, null, '/profile');
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error: ', status, error);
+                }
+            });
+        });
+    }); 
+    
+ //to open home page  
+ $(document).ready(function(){
+        $('#home').click(function() {
+             
+            $.ajax({
+                url: '/home',
+                type: 'GET',
+                success: function(response) {
+                   
+                    $('body').html(response);
+
+                 
+                    window.history.pushState(null, null, '/home');
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error: ', status, error);
+                }
+            });
+        });
+    }); 
+    
+    
+    //to open post page 
+ $(document).ready(function(){
+        $('#posts').click(function() {
+             
+            $.ajax({
+                url: '/posts',
+                type: 'GET',
+                success: function(response) {
+                   
+                    $('body').html(response);
+
+                 
+                    window.history.pushState(null, null, '/posts');
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error: ', status, error);
+                }
+            });
+        });
+    }); 
 
 </script>
 </body>

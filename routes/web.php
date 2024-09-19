@@ -23,6 +23,12 @@ Route::get("home",[ApiController::class,"home"]);
 //Admin Page    
 Route::get("admin",[ApiController::class,"admin"]);
 
+//profile page
+Route::get('/profile', [ApiController::class, 'profile'])->name('profile');
+
+//posts page
+Route::get('/posts', [ApiController::class, 'posts'])->name('posts');
+
 //Logout
 Route::post("logout",[ApiController::class,"logout"]);
 
