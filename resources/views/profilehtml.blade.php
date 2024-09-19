@@ -5,7 +5,7 @@
 
         @if(auth()->user()->user_image)
 
-        <div class="col-4 profileclick1">
+        <div class="col-4 profileclick1 profileclick1-large">
             <div class="note1"  >
                 <h5 class="textnote">Note...</h5>
             </div>
@@ -55,7 +55,7 @@
                     <h4>{{ $userName }}</h4>
                 </div>
 
-                <div class="col-3 editprofilesection">
+                <div class="col-3 editprofilesection" id="edit">
                       <h5 class="EditProfile">Edit Profile</h5>
                 </div>
 

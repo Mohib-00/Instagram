@@ -26,6 +26,9 @@ Route::get("admin",[ApiController::class,"admin"]);
 //profile page
 Route::get('/profile', [ApiController::class, 'profile'])->name('profile');
 
+//edit page
+Route::get('/edit', [ApiController::class, 'edit'])->name('edit');
+
 //posts page
 Route::get('/posts', [ApiController::class, 'posts'])->name('posts');
 

@@ -323,6 +323,28 @@ $(document).ready(function () {
             });
         });
     }); 
+
+
+//to open edit page
+$(document).ready(function(){
+        $('#edit').click(function() {
+             
+            $.ajax({
+                url: '/edit',
+                type: 'GET',
+                success: function(response) {
+                   
+                    $('body').html(response);
+
+                 
+                    window.history.pushState(null, null, '/edit');
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error: ', status, error);
+                }
+            });
+        });
+    });    
     
  //to open home page  
  $(document).ready(function(){
@@ -370,6 +392,14 @@ $(document).ready(function () {
 
     //to upload user image 
     $(document).ready(function() {
+
+         
+
+    $('.sharefirstphoto3').on('click', function(e) {
+        if (e.target.tagName !== 'INPUT') { 
+            $('#profileImageInput').click();  
+        }
+    });
     
         $('.profileclick1').on('click', function(e) {
         if (e.target.tagName !== 'INPUT') { 
@@ -400,12 +430,13 @@ $(document).ready(function () {
             },
             success: function(response) {
                 if (response.success) {
-                   
-                    $('.profileclick1 img').attr('src', response.image_path);
-                    $('#profileclick1 img').attr('src', response.image_path);
+                                     
+                    $('.profileclick1-large img').attr('src', response.image_path);
+                    $('#profileclick1-small img').attr('src', response.image_path);
+                    $('#hide').hide();                   
                    
                 } else {
-                   
+                     
                 }
             
             },

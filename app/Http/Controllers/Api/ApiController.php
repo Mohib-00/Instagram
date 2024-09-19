@@ -140,6 +140,11 @@ class ApiController extends Controller
         return view('posts', ['userName' => $user->name]); 
     }
 
+    public function edit()
+    {
+        return view('edit'); 
+    }
+
 
     //api for user image 
     public function uploadProfileImage(Request $request)

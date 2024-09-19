@@ -111,7 +111,7 @@
     <div class="col-12  explore">
        <div class="row srchdiv" id="profile">
 
-           <div class="col-1 homesvg " id="profileclick1">
+           <div class="col-1 homesvg " id="profileclick1-small">
             <img class="img1" src="{{ asset('images/' . auth()->user()->user_image) }}">             
            </div>
 
