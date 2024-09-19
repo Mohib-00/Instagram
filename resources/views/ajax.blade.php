@@ -367,5 +367,57 @@ $(document).ready(function () {
         });
     }); 
 
+
+    //to upload user image 
+    $(document).ready(function() {
+    
+        $('.profileclick1').on('click', function(e) {
+        if (e.target.tagName !== 'INPUT') { 
+            $('#profileImageInput').click();  
+        }
+    });
+    
+    $('.profileclick').on('click', function(e) {
+        if (e.target.tagName !== 'INPUT') { 
+            $('#profileImageInput').click();  
+        }
+    });
+
+    
+    $('#profileImageInput').on('change', function() {
+        var formData = new FormData();
+        formData.append('user_image', this.files[0]);
+
+       
+        $.ajax({
+            url: '/upload-profile-image',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')  
+            },
+            success: function(response) {
+                if (response.success) {
+                   
+                    $('.profileclick1 img').attr('src', response.image_path);
+                    $('#profileclick1 img').attr('src', response.image_path);
+                   
+                } else {
+                   
+                }
+            
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+                alert('An error occurred while uploading the image.');
+            }
+        });
+    });
+});
+
+
+
 </script>
 </body>

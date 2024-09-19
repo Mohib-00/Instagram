@@ -34,4 +34,7 @@ Route::post("logout",[ApiController::class,"logout"]);
 
 });
 
+
+//route for upload user image 
+Route::post('/upload-profile-image', [ApiController::class, 'uploadProfileImage']);
  

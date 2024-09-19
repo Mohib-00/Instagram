@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -138,6 +139,43 @@ class ApiController extends Controller
         $user = Auth::user();  
         return view('posts', ['userName' => $user->name]); 
     }
+
+
+    //api for user image 
+    public function uploadProfileImage(Request $request)
+    {
+         
+        $user = Auth::user();
     
+        
+        if ($request->hasFile('user_image')) {
+            
+ 
+            if ($user->user_image) {
+                $oldImagePath = public_path('images/' . $user->user_image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+    
+            
+            $imageName = time() . '.' . $request->user_image->extension();
+    
+            
+            $request->user_image->move(public_path('images'), $imageName);
+    
+            
+            $user->user_image = $imageName;
+            $user->save();
+     
+            return response()->json(['success' => 'Profile image uploaded successfully!', 'image_path' => asset('images/' . $imageName)]);
+        }
+    
+        
+        return response()->json(['error' => 'No image uploaded.'], 400);
+    }
     
 }
+    
+    
+

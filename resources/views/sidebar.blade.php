@@ -111,8 +111,8 @@
     <div class="col-12  explore">
        <div class="row srchdiv" id="profile">
 
-           <div class="col-1 homesvg ">
-               <img  class="img" src="https://bootdey.com/img/Content/avatar/avatar6.png">
+           <div class="col-1 homesvg " id="profileclick1">
+            <img class="img1" src="{{ asset('images/' . auth()->user()->user_image) }}">             
            </div>
 
            <div class="col-9 home">

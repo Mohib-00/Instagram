@@ -211,14 +211,17 @@
     }
   }
   
+  
   @media only screen and (min-width: 401px){
       body {
           font-family: Neue Helvetica
       }
   
-      .img{
+      .img1{
         width:1250%;
+        height:34px;
         border-radius:50%;
+        
        
       }
       .secondcolumn{
@@ -290,6 +293,10 @@
   .top{
     margin-top:55px;
   }
+  .img{
+    margin-left:-10px;
+    margin-top:100px
+  }
   
   
   .srch{
@@ -324,10 +331,12 @@
     margin-left:50px;
     margin-top:60px
    }
+
+   
   
    .svgprofile{
     margin-left:13px;
-    margin-top:18px
+    margin-top:18px;
    }
   
     
@@ -337,12 +346,25 @@
     margin-left:40px;
     margin-top:-20px
    }
+
+   .note1{
+    background: #363636;
+    margin-left:40px;
+    margin-top:-75px;
+    position:absolute;
+    border-radius:15px;
+    width:5%
+   }
+
+    
   
    .textnote{
     margin-left:10px;
     padding:12px 5px 5px 5px;
     color:#5e5e5e
    }
+
+    
   
    .usernamesection{
     margin-left:12%;
@@ -352,6 +374,8 @@
     margin-left:5px;
     margin-top:10px
    }
+
+   
   
    .editprofilesection{
     margin-top:-8px
@@ -377,6 +401,10 @@
     margin-top:5%;
     width:fit-content;
   }
+  .post1{
+    margin-left:10px;
+    width:32%
+  }
   
   .settings {
       background-color: #262626;
@@ -393,6 +421,30 @@
     width: 15%;
     background: #7d7d7d;
     border-radius: 55%;
+   
+  }
+
+  .profileclick1 {
+    height: 190px;
+    width: 15%;
+   margin-top:35px;
+    border-radius: 55%;
+   
+  }
+   
+
+  .profileclickimg {
+    height: 190px;
+    width: 23%;
+    border-radius: 55%;
+  }
+
+  .img{
+    height: 190px;
+    width:110%;
+    border-radius:55%;
+    margin-top:-50px
+    
   }
   
   .PlusIcon{
@@ -412,7 +464,9 @@
   }
   
    
-  
+  .paragrph{
+    width:fit-content
+  }
    
   
   .Posts{
@@ -427,6 +481,57 @@
     margin-left:35%;
   }
   
+  .postcamera{
+    height:80px;
+    width:80px;
+    border-radius:50%;
+    border:1px solid white;
+    margin-left:35%;
+     
+   }
+
+   
+
+   .postcamerasvg{
+    margin-left:21%;
+    margin-top:18%
+   }
+
+   .sharephotostext{
+    margin-left:32%;
+    margin-top:5%
+   }
+
+   .sharephotostextfacebook{
+    margin-left:20%;
+    margin-top:5%
+   }
+
+
+   .sharefirstphoto{
+    background-color:#0093f5;
+    padding:10px;
+    width:fit-content;
+    border-radius: 10px;
+    margin-left:25%;
+    margin-top:5%
+    
+   }
+
+   .sharefirstphoto3{
+    background-color:#0093f5;
+    padding:10px;
+    width:fit-content;
+    border-radius: 10px;
+    margin-left:25%;
+    margin-top:12%
+   }
+
+   .sharefirstphototext{
+    font-weight:bolder;
+    margin-top:5%
+   }
+   
 
      
   .POstCONtainer{
@@ -448,6 +553,42 @@
       width: 190px;        
       border-radius: 55%;  
     }
+
+    .profileclick1 {
+    height: 190px;
+    width: 15%;
+   margin-top:35px;
+    border-radius: 55%;
+   
+  }
+
+    .img{
+    height: 190px;
+    width:110%;
+    border-radius:55%;
+    margin-top:-50px
+    
+  }
+
+    .sharephotostext{
+    margin-left:32%;
+    margin-top:5%
+   }
+
+   .sharephotostextfacebook{
+    margin-left:20%;
+    margin-top:5%
+   }
+    
+   .sharefirstphoto{
+    background-color:#0093f5;
+    padding:10px;
+    width:fit-content;
+    border-radius: 10px;
+    margin-left:25%;
+    margin-top:5%
+    
+   }
   }
   
    
@@ -457,6 +598,42 @@
       width: 190px;        
       border-radius: 55%;   
     }
+    .profileclick1 {
+    height: 190px;
+    width: 15%;
+   margin-top:35px;
+    border-radius: 55%;
+   
+  }
+
+    .img{
+    height: 190px;
+    width:110%;
+    border-radius:55%;
+    margin-top:-50px
+    
+  }
+
+    .sharephotostext{
+    margin-left:32%;
+    margin-top:5%
+   }
+
+   .sharephotostextfacebook{
+    margin-left:20%;
+    margin-top:5%
+   }
+    
+   .sharefirstphoto{
+    background-color:#0093f5;
+    padding:10px;
+    width:fit-content;
+    border-radius: 10px;
+    margin-left:25%;
+     
+    
+   }
+
   }
   
    
@@ -466,6 +643,41 @@
       width: 190px;         
       border-radius: 55%;   
     }
+    .profileclick1 {
+    height: 190px;
+    width: 15%;
+   margin-top:35px;
+    border-radius: 55%;
+   
+  }
+
+    .img{
+    height: 190px;
+    width:110%;
+    border-radius:55%;
+    margin-top:-50px
+    
+  }
+
+    .sharephotostext{
+    margin-left:32%;
+    margin-top:5%
+   }
+
+   .sharephotostextfacebook{
+    margin-left:20%;
+    margin-top:5%
+   }
+    
+   .sharefirstphoto{
+    background-color:#0093f5;
+    padding:10px;
+    width:fit-content;
+    border-radius: 10px;
+    margin-left:25%;
+    margin-top:5%
+    
+   }
   }
   
    
@@ -475,6 +687,52 @@
       width: 190px;         
       border-radius: 55%;   
     }
+
+    .profileclick1 {
+    height: 190px;
+    width: 15%;
+   margin-top:35px;
+    border-radius: 55%;
+   
+  }
+    .img{
+    height: 190px;
+    width:110%;
+    border-radius:55%;
+    margin-top:-50px
+    
+  }
+
+    .sharephotostext{
+    margin-left:32%;
+    margin-top:5%
+   }
+
+   .sharephotostextfacebook{
+    margin-left:20%;
+    margin-top:5%
+   }
+    
+   .sharefirstphoto{
+    background-color:#0093f5;
+    padding:10px;
+    width:fit-content;
+    border-radius: 10px;
+    margin-left:25%;
+    margin-top:5%
+    
+   }
+
+   .footercontainer{
+  padding:100px 0px 100px 50px;
+}
+.paddingfooter{
+  padding: 10px
+}
+
+.paddingfooter2{
+  margin-left:30%
+}
   }
   
   
@@ -493,6 +751,17 @@
       width: 40%;       
       border-radius: 55%;  
     }
+
+    .footercontainer{
+  padding:100px 0px 100px 50px;
+}
+.paddingfooter{
+  padding: 10px
+}
+
+.paddingfooter2{
+  margin-left:30%
+}
   }
   
    
@@ -502,6 +771,7 @@
       width: 40%;        
       border-radius: 55%;   
     }
+    
   }
   
    
@@ -529,6 +799,15 @@
     border-radius:15px     
          
   }
+
+  .note1{
+    background: #363636;
+    margin-left:40px;
+    margin-top:-75px;
+    position:absolute;
+    border-radius:15px;
+    width:5%
+   }
   
   
   @media (max-width: 1605px) {
@@ -537,6 +816,15 @@
     width: 50%;  
     border-radius:15px   
     }
+
+    .note1{
+    background: #363636;
+    margin-left:40px;
+    margin-top:-75px;
+    position:absolute;
+    border-radius:15px;
+    width:5%
+   }
   }
   
    
@@ -546,6 +834,15 @@
     width: 50%;  
     border-radius:15px    
     }
+
+    .note1{
+    background: #363636;
+    margin-left:40px;
+    margin-top:-75px;
+    position:absolute;
+    border-radius:15px;
+    width:5%
+   }
   }
   
    
@@ -555,6 +852,15 @@
       width: 50%;  
     border-radius:15px    
     }
+
+    .note1{
+    background: #363636;
+    margin-left:40px;
+    margin-top:-75px;
+    position:absolute;
+    border-radius:15px;
+    width:5%
+   }
   }
   
    
@@ -564,6 +870,15 @@
     width: 50%;  
     border-radius:15px     
     }
+
+    .note1{
+    background: #363636;
+    margin-left:40px;
+    margin-top:-75px;
+    position:absolute;
+    border-radius:15px;
+    width:5%
+   }
   }
   
    
@@ -811,6 +1126,26 @@
     margin-top:5%;
     width:fit-content
    }
+
+   .post1{
+    margin-left:10px;
+    width:32%
+  }
+
+  .postcamera{
+    height:80px;
+    width:80px;
+    border-radius:50%;
+    border:1px solid white
+   }
+
+   .sharefirstphoto{
+    background-color:#0093f5;
+    padding:10px;
+    width:fit-content;
+    border-radius: 10px;
+    
+   }
   }
   
    
@@ -820,6 +1155,26 @@
     margin-left:16%;
     margin-top:5%;
     width:fit-content
+   }
+
+   .sharefirstphoto{
+    background-color:#0093f5;
+    padding:10px;
+    width:fit-content;
+    border-radius: 10px;
+    
+   }
+
+   .post1{
+    margin-left:10px;
+    width:32%
+  }
+
+  .postcamera{
+    height:80px;
+    width:80px;
+    border-radius:50%;
+    border:1px solid white
    }
   }
   
@@ -831,6 +1186,26 @@
     margin-top:5%;
     width:fit-content
    }
+
+   .sharefirstphoto{
+    background-color:#0093f5;
+    padding:10px;
+    width:fit-content;
+    border-radius: 10px;
+    
+   }
+
+   .post1{
+    margin-left:10px;
+    width:32%
+  }
+
+  .postcamera{
+    height:80px;
+    width:80px;
+    border-radius:50%;
+    border:1px solid white
+   }
   }
   
    
@@ -840,6 +1215,25 @@
     margin-left:16%;
     margin-top:5%;
     width:fit-content
+   }
+   .sharefirstphoto{
+    background-color:#0093f5;
+    padding:10px;
+    width:fit-content;
+    border-radius: 10px;
+    
+   }
+
+   .post1{
+    margin-left:10px;
+    width:32%
+  }
+
+  .postcamera{
+    height:80px;
+    width:80px;
+    border-radius:50%;
+    border:1px solid white
    }
   }
    
@@ -852,4 +1246,116 @@
                 width:88%;
                 margin-top:40px;
               }
+
+
+   .post1{
+    height:300px;
+    border-radius:5px; 
+    border:1px solid #262626
+   }       
+   
+   
+   .postcamera{
+    height:80px;
+    width:80px;
+    border-radius:50%;
+    border:1px solid white
+   }
+
+
+   .sharefirstphoto{
+    background-color:#0093f5;
+    padding:10px;
+    width:fit-content;
+    border-radius: 10px;
+    
+   }
+
+
+   @media only screen and (min-width: 1354px) and (max-width: 1354px) {
+    .c {
+        margin-top: 35px;  
+    }
+
+    .a{
+      margin-top: 33px;  
+    }
+
+    .b{
+      margin-top: 10px;  
+    }
+
+    .img{
+    height: 190px;
+    width:140%;
+    border-radius:55%;
+    margin-top:-50px
+    
+  }
+
+  .note1{
+    background: #363636;
+    margin-left:40px;
+    margin-top:-75px;
+    position:absolute;
+    border-radius:15px;
+    width:7%
+   }
+    
+
+    .footercontainer{
+  padding:100px 0px 100px 50px;
+}
+.paddingfooter{
+  padding: 10px
+}
+
+.footercontainer{
+  padding:100px 0px 100px 50px;
+}
+.paddingfooter{
+  padding: 10px
+}
+
+.paddingfooter2{
+  margin-left:3%
+}
+     
+}
+
+@media screen and (min-width: 1604px) {
+  .footercontainer {
+    padding: 100px 0px 100px 50px;
+  }
+  
+  .paddingfooter {
+    padding: 10px;
+  }
+  
+  .paddingfooter2 {
+    margin-left: 30%;
+  }
+
+  .profileclick1 {
+    height: 190px;
+    width: 15%;
+   margin-top:35px;
+    border-radius: 55%;
+   
+  }
+}
+.imgprofile{
+  height: 190px;
+    width: 290%;
+    background: #7d7d7d;
+    border-radius: 55%;
+}
+ 
+ 
+
+ 
+ 
+
+ 
+
   </style>
