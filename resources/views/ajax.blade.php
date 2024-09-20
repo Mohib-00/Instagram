@@ -297,7 +297,7 @@ $(document).ready(function () {
 
 
         
-       if ((window.location.pathname === '/home' || window.location.pathname === '/profile' || window.location.pathname === '/posts' || window.location.pathname === '/admin') && !localStorage.getItem('token')) {
+       if ((window.location.pathname === '/home' || window.location.pathname === '/profile' || window.location.pathname === '/edit' || window.location.pathname === '/posts' || window.location.pathname === '/admin') && !localStorage.getItem('token')) {
            window.location.href = '/';
        }
    });
