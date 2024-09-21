@@ -25,6 +25,11 @@
     color: #007bff;  
     transition: color 0.3s ease;  
   }
+
+  .font{
+    font-family: "Open Sans", system-ui;
+     
+  }
     </style>
 
     @include('css')
@@ -32,13 +37,16 @@
 </head>
 <body>
 
-    <div class="container-fluid" style="background-color:black;height:922px">
+    <div class="container-fluid  " style="background-color:black;height:922px">
         <div class="row">
           
           @include('sidebar')
             
-    
-            <div class="col-10 secondcolumn"  >
+           @include('editcolumn')
+           
+             
+
+            <div class="col-10 thirdcolumn"  >
                 <h1>Edit</h1>
             </div>
 

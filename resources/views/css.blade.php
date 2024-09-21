@@ -231,6 +231,35 @@
         position:fixed;
         width:95%
       }
+
+      .fourthcolumn{
+        border-left:1px solid #262626;
+        height:915px;
+        margin-left:320px;
+        padding:50px 0px 0px 55px;
+        position:fixed;
+        width:95%
+      }
+
+      .metacontainer{
+        margin-left:-30px;
+        padding:20px 10px 0px 25px;
+        
+  
+  background: #262626;
+  border-radius:10px
+      }
+
+      
+
+      .thirdcolumn{
+        border-left:1px solid #262626;
+        height:915px;
+        margin-left:710px;
+        position:fixed;
+        width:95%
+      }
+
     .page{
       border: 1px solid #dbdbdb;
       width: 450px;
@@ -1127,6 +1156,8 @@
     width:fit-content
    }
 
+ 
+
    .post1{
     margin-left:10px;
     width:32%
@@ -1156,6 +1187,8 @@
     margin-top:5%;
     width:fit-content
    }
+
+  
 
    .sharefirstphoto{
     background-color:#0093f5;
@@ -1187,6 +1220,8 @@
     width:fit-content
    }
 
+  
+
    .sharefirstphoto{
     background-color:#0093f5;
     padding:10px;
@@ -1216,6 +1251,8 @@
     margin-top:5%;
     width:fit-content
    }
+
+   
    .sharefirstphoto{
     background-color:#0093f5;
     padding:10px;
@@ -1285,6 +1322,8 @@
       margin-top: 10px;  
     }
 
+    
+
     .img{
     height: 190px;
     width:140%;
@@ -1351,11 +1390,93 @@
     border-radius: 55%;
 }
  
- 
+.metacontainer {
+  height: 300px;
+  width: 480px;  
+  background: #262626;
+  border-radius: 10px;
+}
 
  
- 
+@media only screen and (max-width: 600px) {
+  .metacontainer {
+    width: 430px;  
+  }
+}
 
  
+@media only screen and (min-width: 601px) and (max-width: 700px) {
+  .metacontainer {
+    width: 400px;  
+  }
+}
 
+ 
+@media only screen and (min-width: 701px) and (max-width: 800px) {
+  .metacontainer {
+    width: 400px;  
+  }
+}
+
+ 
+@media only screen and (min-width: 801px) and (max-width: 900px) {
+  .metacontainer {
+    width: 410px;  
+  }
+}
+
+ 
+@media only screen and (min-width: 901px) and (max-width: 1000px) {
+  .metacontainer {
+    width: 390px;  
+  }
+}
+
+ 
+@media only screen and (min-width: 1001px) and (max-width: 1100px) {
+  .metacontainer {
+    width: 380px;  
+  }
+}
+
+
+@media only screen and (min-width: 1101px) and (max-width: 1200px) {
+  .metacontainer {
+    width: 360px;  
+  }
+}
+
+ 
+@media only screen and (min-width: 1201px) {
+  .metacontainer {
+    width: 340px; 
+  }
+}
+
+.greybg{
+  background: #262626;
+  width:90%;
+  padding:10px;
+  border-radius: 10px
+}
+
+.greybg1{
+  
+  width:90%;
+  padding:10px;
+  border-radius: 10px
+}
+
+.greybg:hover{
+  background: #292929;
+}
+
+.greybg1:hover{
+  background: #292929;
+ 
+}
+
+.metacontainer:hover{
+  background: #292929;
+}
   </style>
