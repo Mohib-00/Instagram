@@ -399,7 +399,11 @@ $(document).ready(function(){
     //to upload user image 
     $(document).ready(function() {
 
-         
+    $('.marginleft').on('click', function(e) {
+        if (e.target.tagName !== 'INPUT') { 
+            $('#profileImageInput').click();  
+        }
+    });     
 
     $('.sharefirstphoto3').on('click', function(e) {
         if (e.target.tagName !== 'INPUT') { 
@@ -439,6 +443,7 @@ $(document).ready(function(){
                                      
                     $('.profileclick1-large img').attr('src', response.image_path);
                     $('#profileclick1-small img').attr('src', response.image_path);
+                    $('#ccolumn img').attr('src', response.image_path);
                     $('#hide').hide();                   
                    
                 } else {

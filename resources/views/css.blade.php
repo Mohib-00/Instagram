@@ -216,6 +216,12 @@
       body {
           font-family: Neue Helvetica
       }
+
+      .marginleft{
+         margin-top:40px;
+        height:40px;
+        width:fit-content;
+      }
   
       .img1{
         width:1250%;
@@ -231,6 +237,16 @@
         position:fixed;
         width:95%
       }
+
+      .ccolumn{
+  height:70px;
+  width:70px;
+  border-radius:50%;
+  background-color:grey;
+ 
+  margin-left:30px;
+  margin-top:20px
+}
 
       .fourthcolumn{
         border-left:1px solid #262626;
@@ -257,8 +273,9 @@
         height:915px;
         margin-left:710px;
         position:fixed;
-        width:95%
-      }
+        width:95%;
+        padding:50px 0px 0px 200px
+      }  
 
     .page{
       border: 1px solid #dbdbdb;
@@ -337,7 +354,7 @@
   }
   
   .threads{
-    margin-top:80px;
+    margin-top:110px;
   }
   
   .settings {
@@ -1127,17 +1144,17 @@
                                       }
                       
                                       .scrollbar::-webkit-scrollbar-track {
-                                          background-color:transparent;  
+                                          background-color:grey;  
                                       }
                       
                                       .scrollbar::-webkit-scrollbar-thumb {
-                                          background-color: #374045;  
+                                        background-color:grey;    
                                           border-radius: 5px;  
                                            
                                       }
                       
                                       .scrollbar::-webkit-scrollbar-thumb:hover {
-                                          background-color: #374045;  
+                                        background-color:grey;  
                                       } 
   
   
@@ -1407,42 +1424,42 @@
  
 @media only screen and (min-width: 601px) and (max-width: 700px) {
   .metacontainer {
-    width: 400px;  
+    width: 370px;  
   }
 }
 
  
 @media only screen and (min-width: 701px) and (max-width: 800px) {
   .metacontainer {
-    width: 400px;  
+    width: 350px;  
   }
 }
 
  
 @media only screen and (min-width: 801px) and (max-width: 900px) {
   .metacontainer {
-    width: 410px;  
+    width: 350px;  
   }
 }
 
  
 @media only screen and (min-width: 901px) and (max-width: 1000px) {
   .metacontainer {
-    width: 390px;  
+    width: 347px;  
   }
 }
 
  
 @media only screen and (min-width: 1001px) and (max-width: 1100px) {
   .metacontainer {
-    width: 380px;  
+    width: 345px;  
   }
 }
 
 
 @media only screen and (min-width: 1101px) and (max-width: 1200px) {
   .metacontainer {
-    width: 360px;  
+    width: 340px;  
   }
 }
 
@@ -1479,4 +1496,285 @@
 .metacontainer:hover{
   background: #292929;
 }
+
+
+
+
+
+.img1{
+        width:1.8%;
+        height:34px;
+        border-radius:50%;
+        position: fixed
+        
+       
+      }
+
+ 
+@media only screen and (max-width: 600px) {
+  
+
+  .img1{
+        width:6%;
+        height:34px;
+        border-radius:50%;
+        position: fixed
+        
+       
+      }
+}
+
+ 
+@media only screen and (min-width: 601px) and (max-width: 700px) {
+ 
+
+  .img1{
+        width:5%;
+        height:34px;
+        border-radius:50%;
+        position: fixed
+        
+       
+      }
+}
+
+ 
+@media only screen and (min-width: 701px) and (max-width: 800px) {
+  
+
+  .img1{
+        width:5%;
+        height:34px;
+        border-radius:50%;
+        position: fixed
+        
+       
+      }
+}
+
+ 
+@media only screen and (min-width: 801px) and (max-width: 900px) {
+ 
+
+  .img1{
+    width:4%;
+        height:34px;
+        border-radius:50%;
+        position: fixed
+        
+       
+      }
+}
+
+ 
+@media only screen and (min-width: 901px) and (max-width: 1000px) {
+  
+
+  .img1{
+    width:3.5%;
+        height:34px;
+        border-radius:50%;
+        position: fixed
+        
+       
+      }
+}
+
+ 
+@media only screen and (min-width: 1001px) and (max-width: 1100px) {
+  
+
+  .img1{
+    width:3%;
+        height:34px;
+        border-radius:50%;
+        position: fixed
+        
+       
+      }
+}
+
+
+@media only screen and (min-width: 1101px) and (max-width: 1200px) {
+  
+
+  .img1{
+    width:2.8%;
+        height:34px;
+        border-radius:50%;
+        position: fixed
+        
+       
+      }
+ 
+}
+
+ 
+@media only screen and (min-width: 1201px) and (max-width: 1300px) {
+ 
+
+  .img1{
+    width:2.7%;
+        height:34px;
+        border-radius:50%;
+        position: fixed
+        
+       
+      }
+}
+
+@media only screen and (min-width: 1301px) and (max-width: 1400px) {
+  
+
+  .img1{
+    width:2.5%;
+        height:34px;
+        border-radius:50%;
+        position: fixed
+        
+       
+      }
+}
+
+@media only screen and (min-width: 1401px) and (max-width: 1500px) {
+  
+
+  .img1{
+    width:2.5%;
+        height:34px;
+        border-radius:50%;
+        position: fixed
+        
+       
+      }
+}
+
+@media only screen and (min-width: 1501px) and (max-width: 1600px) {
+  
+
+  .img1{
+    width:2.3%;
+        height:34px;
+        border-radius:50%;
+        position: fixed
+        
+       
+      }
+
+      .vcolumn{
+        width:55%
+      }
+}
+
+@media only screen and (min-width: 1601px) and (max-width: 1700px) {
+  
+
+  .img1{
+    width:2.3%;
+        height:34px;
+        border-radius:50%;
+        position: fixed;      
+      }
+
+      .vcolumn{
+        width:45%
+      }
+
+
+      
+}
+
+
+.vcolumnn:hover {
+  cursor: not-allowed;
+}
+
+
+
+.vcolumn{
+  background-color:#262626;
+  height:120px;
+  width:40%;
+  border-radius:30px;
+  position: fixed
+}
+
+.vcolumnn{
+  background-color:#262626;
+  height:60px;
+  width:40%;
+  border-radius:15px;
+  position: fixed
+}
+
+.ccolumn{
+  height:80px;
+  width:80px;
+  border-radius:50%;
+  background-color:grey;
+   
+}
+
+@media only screen and (min-width: 890px) and (max-width: 1139px) {
+  .marginleft{
+   
+    margin-left:-40px
+  
+   
+}
+}
+
+.marginleft{
+         margin-top:40px;
+        height:40px;
+        width:fit-content;
+      }
+
+      @media only screen and (min-width: 1601px) and (max-width: 1700px) {
+  
+
+        .marginleft{
+       margin-left:-20px
+      }    
+}
+
+
+@media only screen and (min-width: 1501px) and (max-width: 1600px) {
+  
+
+  .marginleft{
+ margin-left:-20px
+}    
+}
+
+@media only screen and (min-width: 860px) and (max-width: 1500px) {
+  
+
+  .marginleft{
+ display: none
+}    
+}
+
+
+ 
+
+
+      
+
+.img2{
+        width:142%;
+        height:81px;
+        border-radius:50%;
+        margin-left:-11px
+       
+      }
+
+.margintop{
+  margin-top: 220px;
+   
+}
+
   </style>
+
+
+ 

@@ -113,7 +113,7 @@
                     </div>
                 </div>
 
-                <div class="option register login" id="register-tab" style="margin-left:40%">
+                <div class="option register login" id="register-tab" style="margin-left:40%;display:none">
                     <p id="register-tab">Don't have an account? <a href="">Sign Up </a></p>
                  </div>
                 

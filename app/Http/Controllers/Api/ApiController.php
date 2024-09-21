@@ -144,7 +144,8 @@ class ApiController extends Controller
 
     public function edit()
     {
-        return view('edit'); 
+        $user = Auth::user(); 
+        return view('edit', ['Name' => $user->name, 'userName' => $user->userName]);  
     }
 
 
