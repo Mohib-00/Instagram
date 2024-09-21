@@ -52,7 +52,7 @@
             <div class="row">
 
                 <div class="col-3">
-                    <h4>{{ $userName }}</h4>
+                    <h4>{{ $Name }}</h4>
                 </div>
 
                 <div class="col-3 editprofilesection" id="edit">

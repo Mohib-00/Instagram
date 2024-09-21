@@ -19,6 +19,7 @@ class ApiController extends Controller
        try{
         $validateuser = Validator::make($request->all(), [
             'name' => 'required',
+            'userName' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required', 
         ]);
@@ -34,6 +35,7 @@ class ApiController extends Controller
          
         $user = User::create([
             'name' => $request->name,
+            'userName' => $request->userName,
             'email' => $request->email,
             'password' => bcrypt($request->password),  
         ]);
@@ -120,24 +122,24 @@ class ApiController extends Controller
     
     public function home(){ 
         $user = Auth::user();         
-        return view('home', ['userName' => $user->name]);
+        return view('home', ['Name' => $user->name, 'userName' => $user->userName]); 
     }
 
     public function admin(){ 
         $user = Auth::user();         
-        return view('admin', ['userName' => $user->name]);
+        return view('admin', ['Name' => $user->name, 'userName' => $user->userName]);
     }
 
     public function profile()
     {
         $user = Auth::user();  
-        return view('profile', ['userName' => $user->name]); 
+        return view('profile', ['Name' => $user->name, 'userName' => $user->userName]); 
     }
 
     public function posts()
     {
         $user = Auth::user();  
-        return view('posts', ['userName' => $user->name]); 
+        return view('posts', ['Name' => $user->name, 'userName' => $user->userName]); 
     }
 
     public function edit()

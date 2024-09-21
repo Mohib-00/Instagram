@@ -32,8 +32,11 @@
                     </div>
                     <div class="container">
                         <form id="registrationForm">
-                            <input style="width:120%;margin-left:-30px" type="text" class="form-control" id="name" name="name" placeholder=" Name *" />
+                            <input style="width:120%;margin-left:-30px" type="text" class="form-control" id="name" name="name" placeholder="Full Name *" />
                             <span style="width:120%;margin-left:-30px" id="nameError" class="text-danger"></span>
+
+                            <input style="width:120%;margin-left:-30px" type="text" class="form-control" id="userName" name="userName" placeholder="User Name *" />
+                            <span style="width:120%;margin-left:-30px" id="usernameError" class="text-danger"></span>
 
                             <input style="width:120%;margin-left:-30px" type="text" id="email" name="email" class="form-control" placeholder="Email *" />
                             <span style="width:120%;margin-left:-30px" id="emailError" class="text-danger"></span>

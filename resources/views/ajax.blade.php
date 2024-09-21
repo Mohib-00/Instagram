@@ -64,6 +64,7 @@ $(document).ready(function () {
 
         var formData = {
             name: $('#name').val(),
+            userName: $('#userName').val(),
             email: $('#email').val(),
             password: $('#password').val(),
             confirmPassword: $('#confirmPassword').val()
@@ -73,6 +74,11 @@ $(document).ready(function () {
 
         if (!formData.name) {
             $('#nameError').text('The name field is required.');
+            valid = false;
+        }
+
+        if (!formData.userName) {
+            $('#usernameError').text('The userName field is required.');
             valid = false;
         }
 
