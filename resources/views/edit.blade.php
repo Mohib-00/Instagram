@@ -63,13 +63,12 @@
 
                         </div>
 
-                        <div   class="col-1 marginleft" style=" background-color:#0093f5;border-radius:10px; ">
+                        <div  class="col-1 marginleft" style=" background-color:#0093f5;border-radius:10px; ">
                             <p class="font mt-2 mx-2 " style="font-weight:bolder;">Change photo</p>
                             <input type="file" id="profileImageInput" style="display: none;" accept="image/*">  
                         </div>
 
-                         
-                        
+                                             
                     </div>
                 </div>
 
@@ -84,6 +83,46 @@
                 <div class="col-12" style="margin-top:100px">
                     <p class="font" style="color:#a8a8a8;font-size:14.4px ">Editing your links is only available on mobile. Visit the Instagram app and edit your profile to change the websites<br> in your bio.</p>
                 </div>
+
+
+                <form>
+
+                    <div class="col-1" style="margin-top:50px">
+                        <h5 class="font" style="font-weight:bolder; font-size:20px; margin-left:5px">Bio</h5>
+                        <div style="position: relative; margin-left:5px;">
+                            <input type="text" id="bioInput" class="form-control font" maxlength="150" placeholder="Bio"
+                                style="border-radius:15px;  margin-top:10px; background-color: transparent; border: 1px solid #313438; color: white;">
+                            
+                            <span id="charCount"  >0/150</span>
+                        </div>
+                    </div>
+
+
+                   
+
+
+                    <div   class="col-1  " style="margin-top:50px">
+                        <h5 class="font" style="font-weight:bolder; font-size:20px; margin-left:5px">Gender</h5>
+                        <div   style="position: relative; margin-left:5px;">
+                            <input type="text" id="bioInput2" class="form-control font  " maxlength="150" placeholder="Prefer not to say"
+                                style="border-radius:15px; margin-top:10px; background-color: transparent; border: 1px solid #313438; color: white; padding-right: 30px;">
+                            
+                            
+                            <span class="spandropdown"  >
+                                <svg class="minus" aria-label="Down chevron" fill="currentColor" height="12" role="img" viewBox="0 0 24 24" width="12">
+                                    <title>Down chevron</title>
+                                    <path d="M21 17.502a.997.997 0 0 1-.707-.293L12 8.913l-8.293 8.296a1 1 0 1 1-1.414-1.414l9-9.004a1.03 1.03 0 0 1 1.414 0l9 9.004A1 1 0 0 1 21 17.502Z"></path>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+
+                </form>
 
             </div>
 

@@ -460,6 +460,15 @@ $(document).ready(function(){
 });
 
 
+document.getElementById('bioInput').addEventListener('input', function() {
+    const maxLength = 150;
+    const currentLength = this.value.length;
+    document.getElementById('charCount').textContent = `${currentLength}/${maxLength}`;
+});
+
+
+
+
 
 </script>
 </body>

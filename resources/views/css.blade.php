@@ -217,6 +217,27 @@
           font-family: Neue Helvetica
       }
 
+      .spandropdown{
+        display: inline-block;
+         transform: rotate(180deg);
+         position: absolute;
+          left: 720px;
+           bottom: 25px;
+        
+      }
+
+      #charCount{
+      position: absolute;
+       left: 1620px;
+        top: 67%;
+         transform: translateY(-50%);
+          font-size: 14px;
+           color: grey;
+           position: fixed
+    }
+
+       
+
       .marginleft{
          margin-top:40px;
         height:40px;
@@ -306,7 +327,7 @@
     }
     
     .otherapps{
-      margin: 20px 0px 0px 180px;
+      margin: 20px 0px 0px 80px;
     }
     
     .otherapps button{
@@ -1773,6 +1794,39 @@
   margin-top: 220px;
    
 }
+
+#bioInput::placeholder {
+        color: #606770;
+        
+    }
+
+    #bioInput2::placeholder {
+        color: white;
+        font-size:20px
+        
+    }
+
+  
+    #bioInput{
+      width:585%;
+      height:80px
+    }
+
+    #bioInput2{
+      width:585%;
+      height:80px
+    }
+
+
+    
+    #bioInput2:hover {
+        background-color: white;
+    }
+
+    /* Optional: Add transition for a smooth background color change */
+    #bioInput2 {
+        transition: background-color 0.3s ease;
+    }
 
   </style>
 
