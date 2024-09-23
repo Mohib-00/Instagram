@@ -82,7 +82,12 @@
                 </div>
 
                 <div class="col-12 mt-4">
-                    <h5>{{ $userName }}</h5>
+                    <h5>
+                        {{ $userName }} <br>
+                        {{$bio}}
+                    </h5>
+                    
+                   
                 </div>
 
                  

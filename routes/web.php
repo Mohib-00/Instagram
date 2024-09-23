@@ -40,4 +40,11 @@ Route::post("logout",[ApiController::class,"logout"]);
 
 //route for upload user image 
 Route::post('/upload-profile-image', [ApiController::class, 'uploadProfileImage']);
+
+//route to remove user image 
+Route::delete('/remove-image', [ApiController::class, 'removeImage'])->name('remove.image');
+
+Route::post('/user-profile', [ApiController::class, 'update']);
+
+ 
  

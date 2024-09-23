@@ -14,6 +14,92 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+{{--previous checkbox remove--}}   
+<script>
+    
+    document.addEventListener('DOMContentLoaded', function() {
+    const genderCheckboxes = document.querySelectorAll('.gender-checkbox');
+
+   
+    genderCheckboxes.forEach(function(checkbox) {
+        checkbox.checked = false;  
+    });
+
+    genderCheckboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                
+                genderCheckboxes.forEach(function(otherCheckbox) {
+                    if (otherCheckbox !== checkbox) {
+                        otherCheckbox.checked = false;
+                    }
+                });
+            }
+        });
+    });
+});
+
+</script>  
+
+{{--change input borders in red--}}
+<script>
+const customCheckbox = document.getElementById('customCheckbox');
+const bioInput3 = document.getElementById('bioInput3');
+const bioInput2 = document.getElementById('bioInput2');
+
+ 
+function updateBorders() {
+    if (customCheckbox.checked) {
+        bioInput3.style.border = '1px solid red';
+        bioInput2.style.border = '1px solid red';
+    } else {
+        bioInput3.style.border = '';
+        bioInput2.style.border = '';
+    }
+}
+
+ 
+function handleGenderCheckboxChange(checkbox) {
+    if (checkbox.checked) {
+        bioInput2.value = checkbox.value;  
+        bioInput3.value = '';  
+    }
+}
+
+ 
+customCheckbox.addEventListener('change', function() {
+    updateBorders();  
+    if (this.checked) {
+        bioInput2.value = bioInput3.value;  
+    } else {
+        bioInput2.value = '';  
+    }
+});
+
+ 
+bioInput3.addEventListener('input', function() {
+    if (customCheckbox.checked) {
+        bioInput2.value = this.value; 
+    }
+    updateBorders();  
+});
+
+ 
+const otherCheckboxes = document.querySelectorAll('.gender-checkbox:not(#customCheckbox)');
+
+otherCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        handleGenderCheckboxChange(this);  
+        customCheckbox.checked = false;  
+        bioInput3.value = '';  
+        bioInput2.value = this.value;  
+        updateBorders();  
+    });
+});
+
+
+</script>
+
 <script>
 //click to show login form    
 $("#profile-tab").click(function() {
@@ -37,6 +123,32 @@ $("#closelogout").click(function() {
     $("#showlogout").fadeOut(150);
 });
 
+//to open checkbox hidden content
+$("#bioInput2").click(function() {
+    $(".hiddencontent").show();
+});
+
+//to close checkbox hidden content
+$(".checkbox").click(function() {
+    $(".hiddencontent").hide();
+});
+
+//to close checkbox hidden content
+$(".minus").click(function() {
+    $(".hiddencontent").hide();
+});
+
+
+//open profilehiddencontent section
+$(".marginleft").click(function() { 
+    $(".profilehiddencontent").fadeIn(150);
+});
+
+//close profilehiddencontent section
+$(".cancel").click(function() { 
+    $(".profilehiddencontent").fadeOut(150);
+});
+ 
 
 //register
 $(document).ready(function () {
@@ -399,7 +511,7 @@ $(document).ready(function(){
     //to upload user image 
     $(document).ready(function() {
 
-    $('.marginleft').on('click', function(e) {
+    $('.uploadphoto').on('click', function(e) {
         if (e.target.tagName !== 'INPUT') { 
             $('#profileImageInput').click();  
         }
@@ -444,7 +556,8 @@ $(document).ready(function(){
                     $('.profileclick1-large img').attr('src', response.image_path);
                     $('#profileclick1-small img').attr('src', response.image_path);
                     $('#ccolumn img').attr('src', response.image_path);
-                    $('#hide').hide();                   
+                    $('#hide').hide();
+                    $(".profilehiddencontent").fadeOut(150);                   
                    
                 } else {
                      
@@ -459,16 +572,81 @@ $(document).ready(function(){
     });
 });
 
+//to remove user image 
+$('#removePhoto').click(function() {
+        
+            $.ajax({
+                url: '{{ route('remove.image') }}', 
+                type: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}'  
+                },
+                success: function(response) {
+                    if (response.success) {
+                      
+                        $('.profileclick1-large img').attr('src', '');  
+                        $('#profileclick1-small img').attr('src', '');
+                        $('#ccolumn img').attr('src', '');
+                    }
+                },
+                error: function(xhr) {
+                    alert('An error occurred while removing the image.');
+                }
+            });
+       
+    });
 
-document.getElementById('bioInput').addEventListener('input', function() {
-    const maxLength = 150;
-    const currentLength = this.value.length;
-    document.getElementById('charCount').textContent = `${currentLength}/${maxLength}`;
+
+//for user profile
+$(document).ready(function() {
+    $('.submitbtn').on('click', function(e) {
+        e.preventDefault();  
+
+        const bio = $('#bioInput').val();
+        const gender = $('#bioInput2').val();
+        const accountSuggestions = $('input[name="account_suggestions"]').is(':checked') ? 1 : 0;
+
+        $.ajax({
+            url: '/user-profile',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                bio: bio,
+                gender: gender,
+                account_suggestions: accountSuggestions,
+            }),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),  
+            },
+            success: function(response) {
+                if (response.message) {
+                   
+                    $('.profilesavedcontent').fadeIn().delay(3000).fadeOut();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    });
 });
 
 
 
+//letter count
+document.addEventListener('DOMContentLoaded', function() {
+    const bioInput = document.getElementById('bioInput');
+    const charCount = document.getElementById('charCount');
 
+    if (bioInput && charCount) {
+        bioInput.addEventListener('input', function() {
+            const maxLength = 150;
+            const currentLength = this.value.length;
+            charCount.textContent = `${currentLength}/${maxLength}`;
+        });
+    }
+});
 
+ 
 </script>
 </body>

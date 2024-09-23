@@ -212,28 +212,59 @@
   }
   
   
+   
+
   @media only screen and (min-width: 401px){
       body {
           font-family: Neue Helvetica
+      }
+
+      .profilehiddencontent{
+        position: absolute;
+        margin-left:270px;
+        margin-top:150px;
+        background: #262626;
+        height:270px;
+        border-radius:15px;
+        padding:25px 0px 0px 125px;
+
+      }
+
+      .footeredit{
+        margin-left:-180px
+      }
+
+      .marginleftt{
+        margin-left:-50px;
+        margin-top:-20px
+      }
+      .rowpadding{
+        margin-left:40px;
+        margin-top:30px
+      }
+
+      .hiddencontent{
+        margin-top:-316px;
+        margin-left:285px
       }
 
       .spandropdown{
         display: inline-block;
          transform: rotate(180deg);
          position: absolute;
-          left: 720px;
-           bottom: 25px;
+          left: 920px;
+           margin-top: -45px;
         
       }
 
       #charCount{
       position: absolute;
-       left: 1620px;
+       left: 680px;
         top: 67%;
          transform: translateY(-50%);
           font-size: 14px;
            color: grey;
-           position: fixed
+           
     }
 
        
@@ -269,13 +300,23 @@
   margin-top:20px
 }
 
+
+.ccolumnn{
+  height:100px;
+  width:76%;
+  border-radius:15px;
+  border:1px solid #313438;
+  padding:25px 0px 20px 20px
+   
+}
+
       .fourthcolumn{
         border-left:1px solid #262626;
         height:915px;
         margin-left:320px;
         padding:50px 0px 0px 55px;
         position:fixed;
-        width:95%
+        width:721%
       }
 
       .metacontainer{
@@ -294,7 +335,7 @@
         height:915px;
         margin-left:710px;
         position:fixed;
-        width:95%;
+        width:63%;
         padding:50px 0px 0px 200px
       }  
 
@@ -1160,22 +1201,20 @@
   .scrollbar::-webkit-scrollbar {
                                           width: 10px;  
                                       }
-                                      .scrollbar{
-                                        overflow: auto;
-                                      }
+                                     
                       
                                       .scrollbar::-webkit-scrollbar-track {
-                                          background-color:grey;  
+                                        background-color:#424242;  
                                       }
                       
                                       .scrollbar::-webkit-scrollbar-thumb {
-                                        background-color:grey;    
-                                          border-radius: 5px;  
+                                        background-color: #696969;  
+                                        border-radius: 5px;   
                                            
                                       }
                       
                                       .scrollbar::-webkit-scrollbar-thumb:hover {
-                                        background-color:grey;  
+                                        background-color: #696969;   
                                       } 
   
   
@@ -1715,17 +1754,17 @@
 .vcolumn{
   background-color:#262626;
   height:120px;
-  width:40%;
+  width:76%;
   border-radius:30px;
-  position: fixed
+  
 }
 
 .vcolumnn{
   background-color:#262626;
   height:60px;
-  width:40%;
+  width:76%;
   border-radius:15px;
-  position: fixed
+  
 }
 
 .ccolumn{
@@ -1733,6 +1772,16 @@
   width:80px;
   border-radius:50%;
   background-color:grey;
+   
+}
+
+
+.ccolumnn{
+  height:100px;
+  width:76%;
+  border-radius:15px;
+  border:1px solid #313438;
+  padding:25px 0px 90px 20px
    
 }
 
@@ -1791,7 +1840,7 @@
       }
 
 .margintop{
-  margin-top: 220px;
+  margin-top: 60px;
    
 }
 
@@ -1806,27 +1855,216 @@
         
     }
 
+    #bioInput3::placeholder {
+        color: white;
+        font-size:20px
+        
+    }
+
+    
+
   
     #bioInput{
-      width:585%;
+      width:960%;
       height:80px
     }
 
     #bioInput2{
-      width:585%;
-      height:80px
+      width:960%;
+      height:80px;
+      color:white;
+      background: transparent
     }
+
+    #bioInput3{
+      width:117%;
+      height:60px;
+      color:white;
+      background: black
+    }
+
+    
 
 
     
     #bioInput2:hover {
-        background-color: white;
+        background-color: #262626;
     }
 
-    /* Optional: Add transition for a smooth background color change */
+     
     #bioInput2 {
         transition: background-color 0.3s ease;
     }
+
+    .iNput{
+      border-radius:15px; 
+      margin-top:10px; 
+      background-color: transparent; 
+      border: 1px solid #313438; 
+      color: white; 
+      padding-right: 30px;
+    }
+
+    .hiddencontent{
+      height:400px;
+      width:480px;
+      position: absolute;
+      background:#262626; 
+      border-radius:25px;
+    }
+
+
+    .custom-checkbox {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 30px;
+    width: 30px;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 50%;
+}
+
+.custom-checkbox input:checked + .checkmark {
+    background-color: white;
+}
+
+ 
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-checkbox input:checked + .checkmark:after {
+    display: block;
+}
+
+.custom-checkbox .checkmark:after {
+    left: 12.3px;
+    top: 5px;
+    width: 5px;
+    height: 15px;
+    border: solid black;  
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* From Uiverse.io by hahuy95 */ 
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 80px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.toggle-switch input[type="checkbox"] {
+  display: none;
+}
+
+.toggle-switch .toggle-switch-background:hover {
+  box-shadow: inset 0 0 0 2px #a9b1bf;
+  transition: all 0.2s ease-in-out;
+}
+
+.toggle-switch .toggle-switch-handle:hover {
+  transition: all 0.2s ease-in-out;
+}
+
+.toggle-switch-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ddd;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 2px #ccc;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.toggle-switch-handle {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 30px;
+  height: 30px;
+  background-color: black;
+  border-radius: 22%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+.toggle-switch::before {
+  content: "";
+  position: absolute;
+  top: -25px;
+  right: -35px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #aaa;
+  text-shadow: 1px 1px #fff;
+  transition: color 0.3s ease-in-out;
+}
+
+.toggle-switch input[type="checkbox"]:checked + .toggle-switch-handle {
+  transform: translateX(45px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 0 0 3px #12b76a;
+}
+
+.toggle-switch input[type="checkbox"]:checked + .toggle-switch-background {
+  background-color: #12b76a;
+  box-shadow: inset 0 0 0 2px #039855;
+}
+
+.toggle-switch input[type="checkbox"]:checked + .toggle-switch:before {
+  content: "On";
+  color: #12b76a;
+  right: -15px;
+}
+
+.toggle-switch
+  input[type="checkbox"]:checked
+  + .toggle-switch-background
+  .toggle-switch-handle {
+  transform: translateX(40px);
+}
+
+ .submitbtn{
+  background: #0093f5;
+  height:50px;
+   border-radius:10px;
+  margin-top:30px;
+  padding:10px 30px 10px 80px
+ }
+
+ .submitbtn:hover{
+  background: white;
+  color: black;
+   
+ }
+
+ .profilesavedcontent{
+  position: absolute;
+  background-color:#262626;
+  margin-top:-52px;
+  width:99.5%;
+  height:50px
+ }
 
   </style>
 

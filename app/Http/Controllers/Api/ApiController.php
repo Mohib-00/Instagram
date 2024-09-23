@@ -133,7 +133,7 @@ class ApiController extends Controller
     public function profile()
     {
         $user = Auth::user();  
-        return view('profile', ['Name' => $user->name, 'userName' => $user->userName]); 
+        return view('profile', ['Name' => $user->name, 'userName' => $user->userName, 'bio' => $user->bio]); 
     }
 
     public function posts()
@@ -145,7 +145,7 @@ class ApiController extends Controller
     public function edit()
     {
         $user = Auth::user(); 
-        return view('edit', ['Name' => $user->name, 'userName' => $user->userName]);  
+        return view('edit', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions]);  
     }
 
 
@@ -182,6 +182,40 @@ class ApiController extends Controller
         
         return response()->json(['error' => 'No image uploaded.'], 400);
     }
+
+    public function removeImage(Request $request)
+{
+    $user = Auth::user();  
+
+     
+    $user->user_image = null;
+    $user->save();
+
+    return response()->json(['success' => true, 'message' => 'Image removed successfully']);
+}
+
+
+public function update(Request $request)
+{
+    $request->validate([
+        'bio' => 'nullable|string|max:150',
+        'gender' => 'nullable|string|max:150',
+        'account_suggestions' => 'boolean',
+    ]);
+
+    $user = Auth::user();
+
+    $user->bio = $request->input('bio');
+    $user->gender = $request->input('gender');
+    $user->account_suggestions = $request->input('account_suggestions', 0);  
+
+    $user->save();
+
+    return response()->json(['message' => 'Profile updated successfully.']);
+}
+
+ 
+
     
 }
     

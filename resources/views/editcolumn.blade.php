@@ -1,4 +1,4 @@
-<div class="col-10 fourthcolumn  scrollbarr" style="overflow: auto;height:900px;position:fixed" >
+<div class="col-10 fourthcolumn  scrollbar" style="overflow: auto;height:915px;position:fixed" >
                 <h4 class="font" style="font-weight:bolder">Settings</h4>
 
                 <div class=" metacontainer vf mt-4 " >
