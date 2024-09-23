@@ -43,7 +43,7 @@
           @include('sidebar')
             
     
-          <div class="col-10 secondcolumn scrollbar"   >
+          <div class="col-10 secondcolumn scrollbar" style="overflow: auto"  >
                  <div class="container secondcontainer"  >
 
                     

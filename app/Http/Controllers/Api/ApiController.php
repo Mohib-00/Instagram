@@ -122,24 +122,24 @@ class ApiController extends Controller
     
     public function home(){ 
         $user = Auth::user();         
-        return view('home', ['Name' => $user->name, 'userName' => $user->userName]); 
+        return view('home', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions]);
     }
 
     public function admin(){ 
         $user = Auth::user();         
-        return view('admin', ['Name' => $user->name, 'userName' => $user->userName]);
+        return view('admin', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions]);
     }
 
     public function profile()
     {
         $user = Auth::user();  
-        return view('profile', ['Name' => $user->name, 'userName' => $user->userName, 'bio' => $user->bio]); 
+        return view('profile', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions]);
     }
 
     public function posts()
     {
         $user = Auth::user();  
-        return view('posts', ['Name' => $user->name, 'userName' => $user->userName]); 
+        return view('posts', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions]); 
     }
 
     public function edit()
