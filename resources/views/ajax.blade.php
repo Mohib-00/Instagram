@@ -43,60 +43,56 @@
 
 {{--change input borders in red--}}
 <script>
-const customCheckbox = document.getElementById('customCheckbox');
-const bioInput3 = document.getElementById('bioInput3');
-const bioInput2 = document.getElementById('bioInput2');
-
- 
-function updateBorders() {
-    if (customCheckbox.checked) {
-        bioInput3.style.border = '1px solid red';
-        bioInput2.style.border = '1px solid red';
-    } else {
-        bioInput3.style.border = '';
-        bioInput2.style.border = '';
+$(document).ready(function() {
+    const customCheckbox = document.getElementById('customCheckbox');
+    const bioInput3 = document.getElementById('bioInput3');
+    const bioInput2 = document.getElementById('bioInput2');
+    
+    function updateBorders() {
+        if (customCheckbox.checked) {
+            bioInput3.style.border = '1px solid red';
+            bioInput2.style.border = '1px solid red';
+        } else {
+            bioInput3.style.border = '';
+            bioInput2.style.border = '';
+        }
     }
-}
-
- 
-function handleGenderCheckboxChange(checkbox) {
-    if (checkbox.checked) {
-        bioInput2.value = checkbox.value;  
-        bioInput3.value = '';  
+    
+    function handleGenderCheckboxChange(checkbox) {
+        if (checkbox.checked) {
+            bioInput2.value = checkbox.value;  
+            bioInput3.value = '';  
+        }
     }
-}
-
- 
-customCheckbox.addEventListener('change', function() {
-    updateBorders();  
-    if (this.checked) {
-        bioInput2.value = bioInput3.value;  
-    } else {
-        bioInput2.value = '';  
-    }
-});
-
- 
-bioInput3.addEventListener('input', function() {
-    if (customCheckbox.checked) {
-        bioInput2.value = this.value; 
-    }
-    updateBorders();  
-});
-
- 
-const otherCheckboxes = document.querySelectorAll('.gender-checkbox:not(#customCheckbox)');
-
-otherCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-        handleGenderCheckboxChange(this);  
-        customCheckbox.checked = false;  
-        bioInput3.value = '';  
-        bioInput2.value = this.value;  
+    
+    customCheckbox.addEventListener('change', function() {
+        updateBorders();  
+        if (this.checked) {
+            bioInput2.value = bioInput3.value;  
+        } else {
+            bioInput2.value = '';  
+        }
+    });
+    
+    bioInput3.addEventListener('input', function() {
+        if (customCheckbox.checked) {
+            bioInput2.value = this.value; 
+        }
         updateBorders();  
     });
+    
+    const otherCheckboxes = document.querySelectorAll('.gender-checkbox:not(#customCheckbox)');
+    
+    otherCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            handleGenderCheckboxChange(this);  
+            customCheckbox.checked = false;  
+            bioInput3.value = '';  
+            bioInput2.value = this.value;  
+            updateBorders();  
+        });
+    });
 });
-
 
 </script>
 

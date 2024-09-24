@@ -121,8 +121,13 @@ class ApiController extends Controller
 
     
     public function home(){ 
-        $user = Auth::user();         
-        return view('home', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions]);
+        $user = Auth::user();    
+
+        $users = User::where('id', '!=', Auth::id())
+                 ->where('account_suggestions', 1)
+                 ->get();
+                 
+        return view('home', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions],compact('users'));
     }
 
     public function admin(){ 
