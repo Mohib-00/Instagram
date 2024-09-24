@@ -98,17 +98,6 @@ class ApiController extends Controller
     }
     
 
-    /*public function profile(){
-         $userData = auth()->user();
-         return response()->json([
-            'status' => true,
-            'message' => 'Profile Information',
-            'data' => $userData,
-            'id' => auth()->user()->id  
-        ], 200);
-    }*/
-
-
     public function logout(){
         auth()->user()->tokens()->delete();
         return response()->json([
@@ -218,11 +207,5 @@ public function update(Request $request)
 
     return response()->json(['message' => 'Profile updated successfully.']);
 }
-
- 
-
     
 }
-    
-    
-
