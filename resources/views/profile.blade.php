@@ -37,7 +37,7 @@
     
  
 
-    <div class="container-fluid  " style="background-color:black;height:922px;overflow-y: auto; ">
+    <div  class="container-fluid  " style="background-color:black;height:922px;overflow-y: auto; ">
         <div class="row">
           
           @include('sidebar')

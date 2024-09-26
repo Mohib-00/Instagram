@@ -25,6 +25,12 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function reels()
+{
+    return $this->hasMany(Reel::class);
+}
+
+
     /**
      * The attributes that should be hidden for serialization.
      *

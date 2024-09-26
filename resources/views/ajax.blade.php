@@ -14,6 +14,98 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
+   <script>
+ document.getElementById('openDesktop').addEventListener('click', function () {
+    document.getElementById('reelUploadInput').click();
+});
+
+document.getElementById('reelUploadInput').addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    const previewContainer = document.getElementById('previewContainer');
+    const bzContainer = document.getElementById('bz');
+    const discardContainer = document.getElementById('discardcontainer');  
+    discardContainer.style.display = 'none';   
+
+    previewContainer.innerHTML = '';   
+
+    if (file) {
+        const fileType = file.type;
+        const fileURL = URL.createObjectURL(file);
+
+        bzContainer.style.display = 'block';
+
+        if (fileType.startsWith('image/')) {
+            const img = document.createElement('img');
+            img.src = fileURL;
+            img.style.width = '103.2%';   
+            img.style.height = '600px';  
+            img.style.objectFit = 'cover';  
+            img.style.borderRadius = '0px 0px 0px 10px';
+            img.style.marginLeft = '-12px';
+            previewContainer.appendChild(img);
+        } 
+        else if (fileType.startsWith('video/')) {
+            const video = document.createElement('video');
+            video.src = fileURL;
+            video.controls = false;
+            video.setAttribute('muted', true);
+            video.setAttribute('playsinline', true);
+            video.setAttribute('autoplay', true);
+            video.style.width = '103.2%';   
+            video.style.height = '600px'; 
+            video.style.objectFit = 'cover';
+            video.style.borderRadius ='0px 0px 0px 10px';
+            video.style.marginLeft = '-12px';
+            previewContainer.appendChild(video);
+        } 
+        else {
+            alert('Please select a valid image or video file.');
+        }
+    }
+});
+
+document.querySelector('.discardsvg').addEventListener('click', function () {
+    const discardContainer = document.getElementById('discardcontainer');
+    discardContainer.style.display = 'block';   
+});
+
+document.getElementById('dddiscard').addEventListener('click', function () {
+    const bzContainer = document.getElementById('bz');
+    const discardContainer = document.getElementById('discardcontainer');
+    bzContainer.style.display = 'none';   
+    discardContainer.style.display = 'none';  
+});
+
+document.getElementById('cancelDiscard').addEventListener('click', function () {
+    const discardContainer = document.getElementById('discardcontainer');
+    discardContainer.style.display = 'none';   
+});
+
+
+</script>
+ 
+<script>
+   function initializeEmojiHandlers() {
+    const emojiElements = document.querySelectorAll('.showemojis');
+    const wordInput = document.getElementById('wordInput');
+
+   
+    emojiElements.forEach(emoji => {
+        const newEmoji = emoji.cloneNode(true);
+        emoji.replaceWith(newEmoji);
+        newEmoji.addEventListener('click', () => {
+            const selectedEmoji = newEmoji.textContent;
+            wordInput.value += selectedEmoji;
+            wordInput.focus();
+        });
+    });
+}
+
+initializeEmojiHandlers();
+
+</script>  
+
 {{--previous checkbox remove--}}   
 <script>
     
@@ -144,7 +236,59 @@ $(".marginleft").click(function() {
 $(".cancel").click(function() { 
     $(".profilehiddencontent").fadeOut(150);
 });
- 
+
+//open create container
+$("#create").click(function() { 
+    $(".showcreatecontainer").fadeIn(100);
+});
+
+//to close create container 
+ $(".showcreatecontainer").click(function() { 
+    $(".showcreatecontainer").fadeOut(100);
+});
+
+//to show emoji container 
+$(".showemojisvg").click(function() { 
+    $(".emojiS").show();
+});
+
+//to close emoji container 
+$("#smileyy").click(function() { 
+    $(".emojiS").hide();
+});
+
+
+//to close settings post container 
+$("#wordInput").click(function() { 
+    $("#htmlsetngs").hide();
+});
+
+//to show emoji container 
+$("#openSVG").click(function() { 
+    $("#htmlsetngs").show();
+});
+
+//to show post discard container 
+$(".discardsvg").click(function() { 
+    $("#discardcontainer").show();
+});
+
+//to hide discard container 
+$("#dddiscard").click(function() { 
+    $("#bz").hide();
+    $(".showcreatecontainer").show();
+});
+
+//to hide discard container 
+$("#cancelDiscard").click(function() { 
+    $("#discardcontainer").hide();
+    
+});
+
+
+
+
+
 
 //register
 $(document).ready(function () {
@@ -641,6 +785,44 @@ document.addEventListener('DOMContentLoaded', function() {
             charCount.textContent = `${currentLength}/${maxLength}`;
         });
     }
+});
+
+
+//to store reel
+$(document).ready(function() {
+    $('.share-button').on('click', function(e) {
+        e.preventDefault(); 
+
+        let formData = new FormData();
+        formData.append('caption', $('#wordInput').val());
+
+        
+        formData.append('hide_like', $('#hide_like').is(':checked') ? 1 : 0);  
+        formData.append('hide_comments', $('#hide_comments').is(':checked') ? 1 : 0); 
+
+         
+        formData.append('file', $('#reelUploadInput').prop('files')[0]);
+
+        $.ajax({
+            url: '/reels',  
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                
+                console.log(response);  
+            },
+            error: function(xhr) {
+                let errors = xhr.responseJSON.errors;
+                if (errors) {
+                    Object.values(errors).forEach(error => {
+                        alert(error[0]);  
+                    });
+                }
+            }
+        });
+    });
 });
 
  

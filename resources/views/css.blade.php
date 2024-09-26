@@ -223,6 +223,10 @@
           font-family: Neue Helvetica
       }
 
+      .newpost{
+        margin-left:35%
+      }
+
       .profilehiddencontent{
         position: absolute;
         margin-left:270px;
@@ -2251,7 +2255,107 @@
   height:40px;
   width:fit-content
 }
+.createcolumn{
+  margin-top:-790px;
+  margin-left:630px;
+  position: absolute;
+  background:black;
+  border-radius:0px 0px 20px 20px ;
+  height:700px;
+  
+}
 
+
+.sharecolumn{
+  margin-top:-790px;
+  margin-left:400px;
+  position: absolute;
+  background:#262626;
+  border-radius:0px 0px 20px 20px ;
+  height:660px;
+  
+}
+
+@media (min-width: 900px) and (max-width: 1000px) {
+    .createcolumn {
+        margin-left: 630px;  
+        
+    }
+}
+
+.postsecondcolumn{
+  height:660px;
+  background:#262626;
+  border-radius:0px 0px 20px 20px;
+ 
+}
+
+.hsvg1{
+  margin-top:40%;
+  margin-left:40%;
+}
+
+.contentcreate{
+ 
+  height:600px;
+  border-radius: 0px 0px 0px 20px;
+  background-color:grey
+}
+
+.img11{
+    width:670%;
+        height:46px;
+        border-radius:50%;
+           
+      }
+
+      .showemojis {
+    font-size: 25px;
+}
+/* From Uiverse.io by Muaz-Aldalil */ 
+.toggle-checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+.toggle-switch {
+  background-color: gray;
+  width: 78px;
+  height: 32px;
+  border-radius: 16px;
+  position: relative;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.toggle-switch::before {
+  content: "";
+  font-weight: 900;
+  background-color: white;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  border-radius: 50%;
+  top: 4px;
+  left: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ddd;
+  transition: 0.3s;
+}
+
+.toggle-checkbox:checked+.toggle-switch {
+  background-color: #0075ff;
+}
+
+.toggle-checkbox:checked+.toggle-switch::before {
+  content: "";
+  left: 50px;
+  color: #0075ff;
+}
 
   </style>
 

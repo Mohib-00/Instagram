@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\ReelController;
 use Illuminate\Support\Facades\Route;
  
 
@@ -46,5 +47,6 @@ Route::delete('/remove-image', [ApiController::class, 'removeImage'])->name('rem
 
 Route::post('/user-profile', [ApiController::class, 'update']);
 
- 
+//route to store reel
+Route::post('/reels', [ReelController::class, 'store'])->name('reels.store');
  
