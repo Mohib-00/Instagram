@@ -31,6 +31,48 @@
     </div>
 
 
+    <div class="container   animation"  style="display: none">
+        <div class="col-4 createcolumn">
+            <h5 class="font mt-2" style="margin-left:42%">Sharing</h5>
+    
+            <div class="col-12 postsecondcolumn" style="padding:220px 30px 0px 0px">
+               
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container postshared" style="display: none">
+        <div class="col-4 createcolumn ">
+            <h5 class="font mt-2" style="text-align:center;">Post Shared</h5>
+        
+            <div class="col-12 postsecondcolumn" style="padding: 200px 0px 0px 240px" >
+                 
+                    <svg class="checkmarkk" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#FF5733;stop-opacity:1" /> 
+                                <stop offset="50%" style="stop-color:#33FF57;stop-opacity:1" />  
+                                <stop offset="100%" style="stop-color:#3357FF;stop-opacity:1" />  
+                            </linearGradient>
+                        </defs>
+                       
+                        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                      
+                        <path class="checkmark__check" fill="none" stroke="currentColor" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                    </svg>
+
+                  
+                 
+            </div>
+            <h4  class="font" style="font-weight:lighter;margin-top:-45%;margin-left:25%">Your post has been shared</h4>
+        </div>
+    </div>
+    
+    
+    
+
+
     
 
 

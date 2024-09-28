@@ -5,7 +5,7 @@
                             </div>
                             <div class="col-2">
                                 <label class="custom-checkbox">
-                                    <input type="checkbox" name="gender" class="gender-checkbox checkbox" value="Female">
+                                    <input style="height:50px;width:50px" type="checkbox" name="gender" class="gender-checkbox checkbox" value="Female">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
@@ -15,7 +15,7 @@
                             </div>
                             <div class="col-2 mt-5">
                                 <label class="custom-checkbox">
-                                    <input type="checkbox" name="gender" class="gender-checkbox checkbox" value="Male">
+                                    <input  type="checkbox" name="gender" class="gender-checkbox checkbox" value="Male">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>

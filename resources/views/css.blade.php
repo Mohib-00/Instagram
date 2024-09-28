@@ -1981,7 +1981,7 @@
 }
 
 /* From Uiverse.io by hahuy95 */ 
-.toggle-switch {
+.toggle-switchh {
   position: relative;
   display: inline-block;
   width: 80px;
@@ -1989,20 +1989,20 @@
   cursor: pointer;
 }
 
-.toggle-switch input[type="checkbox"] {
+.toggle-switchh input[type="checkbox"] {
   display: none;
 }
 
-.toggle-switch .toggle-switch-background:hover {
+.toggle-switchh .toggle-switchh-background:hover {
   box-shadow: inset 0 0 0 2px #a9b1bf;
   transition: all 0.2s ease-in-out;
 }
 
-.toggle-switch .toggle-switch-handle:hover {
+.toggle-switchh .toggle-switchh-handle:hover {
   transition: all 0.2s ease-in-out;
 }
 
-.toggle-switch-background {
+.toggle-switchh-background {
   position: absolute;
   top: 0;
   left: 0;
@@ -2014,7 +2014,7 @@
   transition: background-color 0.3s ease-in-out;
 }
 
-.toggle-switch-handle {
+.toggle-switchh-handle {
   position: absolute;
   top: 5px;
   left: 5px;
@@ -2026,7 +2026,7 @@
   transition: transform 0.3s ease-in-out;
 }
 
-.toggle-switch::before {
+.toggle-switchh::before {
   content: "";
   position: absolute;
   top: -25px;
@@ -2038,28 +2038,88 @@
   transition: color 0.3s ease-in-out;
 }
 
-.toggle-switch input[type="checkbox"]:checked + .toggle-switch-handle {
+.toggle-switchh input[type="checkbox"]:checked + .toggle-switchh-handle {
   transform: translateX(45px);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 0 0 3px #12b76a;
 }
 
-.toggle-switch input[type="checkbox"]:checked + .toggle-switch-background {
+.toggle-switchh input[type="checkbox"]:checked + .toggle-switchh-background {
   background-color: #12b76a;
   box-shadow: inset 0 0 0 2px #039855;
 }
 
-.toggle-switch input[type="checkbox"]:checked + .toggle-switch:before {
+.toggle-switchh input[type="checkbox"]:checked + .toggle-switchh:before {
   content: "On";
   color: #12b76a;
   right: -15px;
 }
 
-.toggle-switch
+.toggle-switchh
   input[type="checkbox"]:checked
-  + .toggle-switch-background
-  .toggle-switch-handle {
+  + .toggle-switchh-background
+  .toggle-switchh-handle {
   transform: translateX(40px);
 }
+
+
+
+
+.toggle-checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+.toggle-switch {
+  background-color: gray;
+  width: 78px;
+  height: 32px;
+  border-radius: 16px;
+  position: relative;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.toggle-switch::before {
+  content: "";
+  font-weight: 900;
+  background-color: white;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  border-radius: 50%;
+  top: 4px;
+  left: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ddd;
+  transition: 0.3s;
+}
+
+.toggle-checkbox:checked+.toggle-switch {
+  background-color: #0075ff;
+}
+
+.toggle-checkbox:checked+.toggle-switch::before {
+  content: "";
+  left: 50px;
+  color: #0075ff;
+}*/
+ChatGPT said:
+ChatGPT
+It looks like you have a CSS snippet for a toggle switch that is currently commented out. If you'd like to enable this toggle switch and customize it further, you can follow the steps below to set it up in your HTML and CSS.
+
+HTML Setup
+Here’s how you
+
+
+
+
+
+
+
 
  .submitbtn{
   background: #0093f5;
@@ -2312,50 +2372,60 @@
       .showemojis {
     font-size: 25px;
 }
-/* From Uiverse.io by Muaz-Aldalil */ 
-.toggle-checkbox {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  display: none;
+ 
+
+.spinner {
+    margin: 0 auto;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid pink; 
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .tick-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.toggle-switch {
-  background-color: gray;
-  width: 78px;
-  height: 32px;
-  border-radius: 16px;
-  position: relative;
-  transition: 0.3s;
-  cursor: pointer;
+.checkmarkk {
+    width: 150px;
+    height: 150px;
+    display: block;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+    
 }
 
-.toggle-switch::before {
-  content: "";
-  font-weight: 900;
-  background-color: white;
-  width: 24px;
-  height: 24px;
-  position: absolute;
-  border-radius: 50%;
-  top: 4px;
-  left: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #ddd;
-  transition: 0.3s;
+.checkmark__circle {
+    stroke-width: 2;  
+    stroke-miterlimit: 10;
+    fill: none;
+    stroke: url(#gradient);  
 }
 
-.toggle-checkbox:checked+.toggle-switch {
-  background-color: #0075ff;
+.checkmark__check {
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    stroke: #4CAF50;  
+    stroke-width: 2;  
+    animation: tickAnimation 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.5s forwards;  
 }
 
-.toggle-checkbox:checked+.toggle-switch::before {
-  content: "";
-  left: 50px;
-  color: #0075ff;
+ 
+@keyframes tickAnimation {
+    100% {
+        stroke-dashoffset: 0;
+    }
 }
+
 
   </style>
 

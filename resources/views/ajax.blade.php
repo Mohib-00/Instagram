@@ -572,6 +572,7 @@ $(document).ready(function () {
                    
                     $('body').html(response);
 
+                     
                  
                     window.history.pushState(null, null, '/profile');
                 },
@@ -593,6 +594,12 @@ $(document).ready(function(){
                 success: function(response) {
                    
                     $('body').html(response);
+                    var newCsrfToken = $('meta[name="csrf-token"]').attr('content');
+                    $.ajaxSetup({
+                        headers: {
+                    'X-CSRF-TOKEN': newCsrfToken
+                    }
+                    });
 
                  
                     window.history.pushState(null, null, '/edit');
@@ -614,6 +621,12 @@ $(document).ready(function(){
                 success: function(response) {
                    
                     $('body').html(response);
+                    var newCsrfToken = $('meta[name="csrf-token"]').attr('content');
+                    $.ajaxSetup({
+                        headers: {
+                    'X-CSRF-TOKEN': newCsrfToken
+                    }
+                    });
 
                  
                     window.history.pushState(null, null, '/home');
@@ -636,6 +649,12 @@ $(document).ready(function(){
                 success: function(response) {
                    
                     $('body').html(response);
+                    var newCsrfToken = $('meta[name="csrf-token"]').attr('content');
+                    $.ajaxSetup({
+                        headers: {
+                    'X-CSRF-TOKEN': newCsrfToken
+                    }
+                    });
 
                  
                     window.history.pushState(null, null, '/posts');
@@ -802,6 +821,7 @@ $(document).ready(function() {
 
          
         formData.append('file', $('#reelUploadInput').prop('files')[0]);
+        
 
         $.ajax({
             url: '/reels',  
@@ -810,8 +830,13 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: function(response) {
+                $('.animation').show().delay(3000).fadeOut(function() {
+                $('.postshared').show().delay(3000).fadeOut();
+                });
+                $(".showcreatecontainer").hide(); 
+                $("#bz").hide(); 
+
                 
-                console.log(response);  
             },
             error: function(xhr) {
                 let errors = xhr.responseJSON.errors;

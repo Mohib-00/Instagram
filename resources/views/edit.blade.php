@@ -145,11 +145,11 @@
 
                             <div class="col-1  marginleftt" >
                                 
-                                <label class="toggle-switch">
+                                <label class="toggle-switchh">
                                     <input type="checkbox" name="account_suggestions" id="accountSuggestions" 
                                            {{ $user ? 'checked' : '' }} />
-                                    <div class="toggle-switch-background">
-                                        <div class="toggle-switch-handle"></div>
+                                    <div class="toggle-switchh-background">
+                                        <div class="toggle-switchh-handle"></div>
                                     </div>
                                 </label>
                                 
@@ -176,7 +176,7 @@
 
             </div>
 
-
+            @include('createhtml')
             
 
         </div>
