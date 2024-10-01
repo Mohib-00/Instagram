@@ -33,6 +33,9 @@ Route::get('/edit', [ApiController::class, 'edit'])->name('edit');
 //posts page
 Route::get('/posts', [ApiController::class, 'posts'])->name('posts');
 
+// reels page
+Route::get('/reelss', [ApiController::class, 'openreels'])->name('reelss');
+
 //Logout
 Route::post("logout",[ApiController::class,"logout"]);
 

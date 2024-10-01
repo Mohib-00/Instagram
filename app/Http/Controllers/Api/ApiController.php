@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Reel;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -117,6 +118,19 @@ class ApiController extends Controller
                  ->get();
                  
         return view('home', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions],compact('users'));
+    }
+
+    public function openreels()
+    {
+        $reels = Reel::with('user')->get();
+        $user = Auth::user();
+        return view('reelss', [
+            'Name' => $user->name,
+            'gender' => $user->gender,
+            'bio' => $user->bio,
+            'userName' => $user->userName,
+            'user' => $user->account_suggestions,
+        ], compact('reels'));
     }
 
     public function admin(){ 

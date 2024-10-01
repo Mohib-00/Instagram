@@ -14,7 +14,48 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+   <script>
+    function toggleSound() {
+        var video = document.getElementById("customVideo");
+        var soundOnIcon = document.getElementById("soundon");
+        var soundOffIcon = document.getElementById("soundoff");
 
+        if (video) {
+            if (video.muted) {
+                video.muted = false;
+                soundOnIcon.style.display = "block";
+                soundOffIcon.style.display = "none";
+            } else {
+                video.muted = true;
+                soundOnIcon.style.display = "none";
+                soundOffIcon.style.display = "block";
+            }
+        }
+    }
+
+    window.onload = function() {
+        var video = document.getElementById("customVideo");
+        var soundOnIcon = document.getElementById("soundon");
+        var soundOffIcon = document.getElementById("soundoff");
+
+        if (video) {
+            if (video.muted) {
+                soundOnIcon.style.display = "none";
+                soundOffIcon.style.display = "block";
+            } else {
+                soundOnIcon.style.display = "block";
+                soundOffIcon.style.display = "none";
+            }
+
+            soundOnIcon.parentNode.onclick = toggleSound;
+            soundOffIcon.parentNode.onclick = toggleSound;
+        }
+    };
+</script> 
+
+
+
+   
    <script>
  document.getElementById('openDesktop').addEventListener('click', function () {
     document.getElementById('reelUploadInput').click();
@@ -555,7 +596,7 @@ $(document).ready(function () {
 
 
         
-       if ((window.location.pathname === '/home' || window.location.pathname === '/profile' || window.location.pathname === '/edit' || window.location.pathname === '/posts' || window.location.pathname === '/admin') && !localStorage.getItem('token')) {
+       if ((window.location.pathname === '/home' || window.location.pathname === '/profile' || window.location.pathname === '/reelss' || window.location.pathname === '/edit' || window.location.pathname === '/posts' || window.location.pathname === '/admin') && !localStorage.getItem('token')) {
            window.location.href = '/';
        }
    });
@@ -665,6 +706,37 @@ $(document).ready(function(){
             });
         });
     }); 
+
+//to open reels page 
+$(document).ready(function(){
+     
+    $('#reelss').click(function() {
+        $.ajax({
+            url: '/reelss',  
+            type: 'GET',
+            success: function(response) {
+                
+                $('body').html(response);
+
+              
+                var newCsrfToken = $('meta[name="csrf-token"]').attr('content');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': newCsrfToken
+                    }
+                });
+
+               
+                window.history.pushState(null, null, '/reelss');
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error: ', status, error);
+            }
+        });
+    });
+
+});
+
 
 
     //to upload user image 
@@ -821,7 +893,9 @@ $(document).ready(function() {
 
          
         formData.append('file', $('#reelUploadInput').prop('files')[0]);
-        
+        $('.animation').show();
+        $(".showcreatecontainer").hide(); 
+        $("#bz").hide();
 
         $.ajax({
             url: '/reels',  
@@ -830,13 +904,9 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: function(response) {
-                $('.animation').show().delay(3000).fadeOut(function() {
+                $('.animation').hide();
                 $('.postshared').show().delay(3000).fadeOut();
-                });
-                $(".showcreatecontainer").hide(); 
-                $("#bz").hide(); 
-
-                
+              
             },
             error: function(xhr) {
                 let errors = xhr.responseJSON.errors;

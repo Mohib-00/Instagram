@@ -19,8 +19,6 @@ return new class extends Migration
             $table->text('caption')->nullable();  
             $table->boolean('hide_like')->default(0); 
             $table->boolean('hide_comments')->default(0);  
-            $table->unsignedBigInteger('likes')->default(0);   
-            $table->unsignedBigInteger('comments')->default(0);
             $table->timestamps();
         });
     }

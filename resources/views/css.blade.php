@@ -307,6 +307,17 @@
         padding:50px 0px 0px 430px;
       }
 
+      .secondreelscolumnn{
+        border-left:1px solid #262626;
+        height:915px;
+        margin-left:320px;
+        position:fixed;
+        width:83.3%;
+        
+      }
+
+
+
       .ccolumn{
   height:70px;
   width:70px;
@@ -1233,6 +1244,9 @@
                                       .scrollbar::-webkit-scrollbar-thumb:hover {
                                         background-color: #696969;   
                                       } 
+  
+                                      
+
   
   
   .secondcontainer{
@@ -2425,6 +2439,35 @@ Here’s how you
         stroke-dashoffset: 0;
     }
 }
+
+
+.scrollbarr::-webkit-scrollbar {
+                                          width: 20px;  
+                                      }
+                                     
+                      
+                                      .scrollbarr::-webkit-scrollbar-track {
+                                        background-color:#424242;  
+                                      }
+                      
+                                      .scrollbarr::-webkit-scrollbar-thumb {
+                                        background-color:transparent;  
+                                        border-radius: 5px;   
+                                           
+                                      }
+                      
+                                      .scrollbarr::-webkit-scrollbar-thumb:hover {
+                                        background-color: white;   
+                                      } 
+
+ .imgnnnnnn{
+        
+        height:34px;
+        border-radius:50%;
+     
+      }
+
+       
 
 
   </style>

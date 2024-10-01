@@ -57,7 +57,7 @@
                  
            </div>
 
-           <div class="col-9 home">
+           <div class="col-9 home" id="reelss">
                <h5>Reels</h5>
            </div>
 
