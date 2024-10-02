@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use App\Models\Reel;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -122,16 +123,20 @@ class ApiController extends Controller
 
     public function openreels()
     {
-        $reels = Reel::with('user')->get();
-        $user = Auth::user();
+        $reels = Reel::with('user')->get();  
+        $user = Auth::user();  
+        
+         
         return view('reelss', [
             'Name' => $user->name,
             'gender' => $user->gender,
             'bio' => $user->bio,
             'userName' => $user->userName,
             'user' => $user->account_suggestions,
-        ], compact('reels'));
+            'reels' => $reels,  
+        ]);
     }
+    
 
     public function admin(){ 
         $user = Auth::user();         
@@ -221,5 +226,8 @@ public function update(Request $request)
 
     return response()->json(['message' => 'Profile updated successfully.']);
 }
-    
+
+ 
 }
+    
+

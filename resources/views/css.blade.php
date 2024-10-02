@@ -2468,7 +2468,9 @@ Here’s how you
       }
 
        
-
+      .form::placeholder {
+        color: white; /* Change placeholder text color to white */
+    }
 
   </style>
 

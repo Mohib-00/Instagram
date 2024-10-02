@@ -322,13 +322,15 @@ $("#dddiscard").click(function() {
 
 //to hide discard container 
 $("#cancelDiscard").click(function() { 
-    $("#discardcontainer").hide();
-    
+    $("#discardcontainer").hide();  
 });
 
+ 
 
-
-
+//to hide comment section
+$("#hidecommentsection").click(function() { 
+    $("#showcommentsection").hide();  
+});
 
 
 //register
@@ -919,6 +921,50 @@ $(document).ready(function() {
         });
     });
 });
+
+
+$(".commentsvg").click(function() { 
+
+    var reelId = $(this).data('reel-id');  
+    $("#showcommentsection").show();
+    
+    $("#showcommentsection").data('reel-id', reelId);  
+    $("#reelIdInput").val(reelId);
+    
+});
+
+
+
+//to save comment on reels
+$(document).ready(function() {
+        $('#sendCommentButton').click(function(e) {
+            e.preventDefault();  
+
+            
+            const reelId = $("#reelIdInput").val();  
+            const comment = $('#commentInput').val();
+
+             
+            $.ajax({
+                url: '{{ route("comments.store") }}',  
+                method: 'POST',
+                data: {
+                    reel_id: reelId,
+                    comment: comment,
+                    _token: '{{ csrf_token() }}'  
+                },
+                success: function(response) {
+                    
+                    console.log(response);
+                    $('#commentInput').val('');  
+                },
+                error: function(xhr) {
+                   
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
 
  
 </script>

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Reel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReelController extends Controller
 {
@@ -52,6 +54,29 @@ class ReelController extends Controller
         return response()->json(['message' => 'Reel created successfully!', 'reel' => $reel], 201);
     }
     
+
+    public function save(Request $request)
+{
+     
+    $request->validate([
+        'reel_id' => 'required|exists:reels,id',  
+        'comment' => 'required|string|max:255',  
+    ]);
+
+    
+    $comment = new Comment();
+    $comment->reel_id = $request->reel_id;
+    $comment->user_id = Auth::id();  
+    $comment->comment = $request->comment;
+    $comment->save();
+
+     
+    return response()->json([
+        'success' => true,
+        'message' => 'Comment added successfully!',
+        'comment' => $comment  
+    ], 201);
+} 
     
 }
 

@@ -52,4 +52,6 @@ Route::post('/user-profile', [ApiController::class, 'update']);
 
 //route to store reel
 Route::post('/reels', [ReelController::class, 'store'])->name('reels.store');
+
+Route::post('/save', [ReelController::class, 'save'])->name('comments.store');
  
