@@ -56,27 +56,46 @@ class ReelController extends Controller
     
 
     public function save(Request $request)
-{
-     
-    $request->validate([
-        'reel_id' => 'required|exists:reels,id',  
-        'comment' => 'required|string|max:255',  
-    ]);
-
+    {
+        $request->validate([
+            'reel_id' => 'required|exists:reels,id',  
+            'comment' => 'required|string|max:255',  
+        ]);
     
-    $comment = new Comment();
-    $comment->reel_id = $request->reel_id;
-    $comment->user_id = Auth::id();  
-    $comment->comment = $request->comment;
-    $comment->save();
+        // Create and save the comment
+        $comment = new Comment();
+        $comment->reel_id = $request->reel_id;
+        $comment->user_id = Auth::id();  
+        $comment->comment = $request->comment;
+        $comment->save();
+    
+        // Retrieve the user who made the comment
+        $user = Auth::user();
+    
+        return response()->json([
+            'success' => true,
+            'message' => 'Comment added successfully!',
+            'comment' => [
+                'user_image' => $user->user_image, // User's image
+                'user_name' => $user->name, // User's name
+                'comment_text' => $comment->comment, // Comment text
+            ]
+        ], 201);
+    }
+    
 
-     
-    return response()->json([
-        'success' => true,
-        'message' => 'Comment added successfully!',
-        'comment' => $comment  
-    ], 201);
-} 
+public function getComments($id)
+    {
+        // Fetch comments for the reel with related user info
+        $comments = Comment::where('reel_id', $id)
+            ->with('user:id,name,user_image') // Assuming Comment belongs to User
+            ->get();
+
+        // Return comments with user details as JSON
+        return response()->json([
+            'comments' => $comments
+        ]);
+    }
     
 }
 

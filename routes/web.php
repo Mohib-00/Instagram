@@ -54,4 +54,7 @@ Route::post('/user-profile', [ApiController::class, 'update']);
 Route::post('/reels', [ReelController::class, 'store'])->name('reels.store');
 
 Route::post('/save', [ReelController::class, 'save'])->name('comments.store');
+
+//to get comments
+Route::get('/reels/{id}/comments', [ReelController::class, 'getComments'])->name('comments.get');
  

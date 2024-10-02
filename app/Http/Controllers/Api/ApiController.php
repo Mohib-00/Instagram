@@ -122,20 +122,26 @@ class ApiController extends Controller
     }
 
     public function openreels()
-    {
-        $reels = Reel::with('user')->get();  
-        $user = Auth::user();  
-        
-         
-        return view('reelss', [
-            'Name' => $user->name,
-            'gender' => $user->gender,
-            'bio' => $user->bio,
-            'userName' => $user->userName,
-            'user' => $user->account_suggestions,
-            'reels' => $reels,  
-        ]);
-    }
+{
+    $reels = Reel::with('user')->get();  
+    $user = Auth::user();  
+
+    
+    $commentCounts = Comment::selectRaw('reel_id, count(*) as count')
+                             ->groupBy('reel_id')
+                             ->pluck('count', 'reel_id');
+
+    return view('reelss', [
+        'Name' => $user->name,
+        'gender' => $user->gender,
+        'bio' => $user->bio,
+        'userName' => $user->userName,
+        'user' => $user->account_suggestions,
+        'reels' => $reels,  
+        'commentCounts' => $commentCounts,  
+    ]);
+}
+
     
 
     public function admin(){ 

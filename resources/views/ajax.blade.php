@@ -14,6 +14,107 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script>
+ let isScrolling = false;  
+
+const setupScrollListeners = () => {
+    const reelsContainer = document.querySelector('.secondreelscolumnn');
+
+   
+    if (!reelsContainer) return;
+
+    
+    const scrollToReel = (nextReelIndex) => {
+        const reels = Array.from(reelsContainer.querySelectorAll('.reel'));
+        
+      
+        if (nextReelIndex < 0 || nextReelIndex >= reels.length) return;
+
+        const nextReelTop = reels[nextReelIndex].offsetTop;
+
+      
+        reelsContainer.scrollTo({ top: nextReelTop, behavior: 'smooth' });
+
+       
+        isScrolling = true;
+
+        
+        setTimeout(() => {
+            isScrolling = false;
+        }, 600);  
+    };
+
+ 
+    const clearListeners = () => {
+        reelsContainer.removeEventListener('wheel', handleWheel);
+        document.removeEventListener('keydown', handleKeydown);
+    };
+
+    const handleWheel = (e) => {
+        e.preventDefault();
+
+        
+        if (isScrolling) return;
+
+     
+        const reels = Array.from(reelsContainer.querySelectorAll('.reel'));
+        const reelHeight = reels[0]?.offsetHeight || 0;  
+
+      
+        const currentScroll = reelsContainer.scrollTop;
+
+        
+        let nextReelIndex;
+
+        if (e.deltaY > 0) {
+           
+            nextReelIndex = Math.min(Math.floor((currentScroll + reelHeight) / reelHeight), reels.length - 1);
+        } else {
+           
+            nextReelIndex = Math.max(Math.floor((currentScroll - reelHeight) / reelHeight), 0);
+        }
+
+        scrollToReel(nextReelIndex);
+    };
+
+    const handleKeydown = (e) => {
+        
+        if (isScrolling) return;
+
+        
+        const reels = Array.from(reelsContainer.querySelectorAll('.reel'));
+        const reelHeight = reels[0]?.offsetHeight || 0;
+
+       
+        const currentScroll = reelsContainer.scrollTop;
+        let nextReelIndex;
+
+        if (e.key === 'ArrowDown') {
+          
+            nextReelIndex = Math.min(Math.floor((currentScroll + reelHeight) / reelHeight), reels.length - 1);
+        } else if (e.key === 'ArrowUp') {
+           
+            nextReelIndex = Math.max(Math.floor((currentScroll - reelHeight) / reelHeight), 0);
+        } else {
+            return;  
+        }
+
+        scrollToReel(nextReelIndex);
+    };
+
+ 
+    clearListeners();
+
+   
+    reelsContainer.addEventListener('wheel', handleWheel);
+    document.addEventListener('keydown', handleKeydown);
+};
+
+ 
+setupScrollListeners();
+ 
+</script>
+
    <script>
     function toggleSound() {
         var video = document.getElementById("customVideo");
@@ -937,35 +1038,112 @@ $(".commentsvg").click(function() {
 
 //to save comment on reels
 $(document).ready(function() {
-        $('#sendCommentButton').click(function(e) {
-            e.preventDefault();  
+    $('#sendCommentButton').click(function(e) {
+        e.preventDefault();  
 
-            
-            const reelId = $("#reelIdInput").val();  
-            const comment = $('#commentInput').val();
+        const reelId = $("#reelIdInput").val();  
+        const comment = $('#commentInput').val();
 
-             
-            $.ajax({
-                url: '{{ route("comments.store") }}',  
-                method: 'POST',
-                data: {
-                    reel_id: reelId,
-                    comment: comment,
-                    _token: '{{ csrf_token() }}'  
-                },
-                success: function(response) {
-                    
-                    console.log(response);
-                    $('#commentInput').val('');  
-                },
-                error: function(xhr) {
+        $.ajax({
+            url: '{{ route("comments.store") }}',  
+            method: 'POST',
+            data: {
+                reel_id: reelId,
+                comment: comment,
+                _token: '{{ csrf_token() }}'  
+            },
+            success: function(response) {
+                console.log("AJAX Response:", response);
+                
+                
+                if (response.comment && response.comment.user_image && response.comment.user_name && response.comment.comment_text) {
+                    const userImage = response.comment.user_image; 
+                    const userName = response.comment.user_name;   
+                    const commentText = response.comment.comment_text;  
+
                    
-                    console.error(xhr.responseText);
+                    const newCommentHtml = createCommentHtml(userName, userImage, commentText);                 
+                    $('#commentsSection').append(newCommentHtml);
+                                      
+                    const commentsContainer = $('#commentsSection');
+                    console.log("Comments Container:", commentsContainer);  
+                                       
+                    commentsContainer.scrollTop(commentsContainer[0].scrollHeight);              
+                    $('#commentInput').val('');  
+                } else {
+                    console.error("Missing data in response:", response);
                 }
-            });
+            },
+            error: function(xhr) {
+                console.error("AJAX Error:", xhr.responseText);
+            }
+        });
+    });
+});
+
+
+//to get comment    
+    $(document).ready(function() {
+    $('.commentsvg').click(function(e) {
+        e.preventDefault();
+
+        const reelId = $("#reelIdInput").val();  
+
+        
+        $.ajax({
+            url: `/reels/${reelId}/comments`,
+            method: 'GET',
+            success: function(response) {
+                console.log(response);
+
+                 
+                const comments = response.comments;
+
+                
+                $('#commentsSection').empty();
+
+                
+                comments.forEach(function(comment) {
+                    const commentHtml = createCommentHtml(
+                        comment.user.name, 
+                        comment.user.user_image, 
+                        comment.comment, 
+                        
+                    );
+                    $('#commentsSection').append(commentHtml);
+                });
+            },
+            error: function(xhr) {
+                console.error(xhr.responseText);
+            }
         });
     });
 
- 
+});
+
+function createCommentHtml(name, userImage, text, likes) {
+        return `
+            <div style="display: flex; align-items: center; ">
+               
+                    <img style="height:40px; width:40px; border-radius:50%;" src="/images/${userImage}" alt="${name}'s image">
+                             
+                    <h6 class="font" style="margin-left:15px; margin-top:50px;">
+                        ${name}
+                        <svg style="margin-left:20px" aria-label="Notifications" class="x1lliihq x1n2onr6 x5n08af" fill="currentColor" height="16" role="img" viewBox="0 0 24 24" width="16">
+                    <title>Notifications</title>
+                    <path d="M16.792 3.904A4.989 4.989 0 0 1 21.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.477-.309-2.143-1.823-4.303-3.752C5.141 14.072 2.5 12.167 2.5 9.122a4.989 4.989 0 0 1 4.708-5.218 4.21 4.21 0 0 1 3.675 1.941c.84 1.175.98 1.763 1.12 1.763s.278-.588 1.11-1.766a4.17 4.17 0 0 1 3.679-1.938m0-2a6.04 6.04 0 0 0-4.797 2.127 6.052 6.052 0 0 0-4.787-2.127A6.985 6.985 0 0 0 .5 9.122c0 3.61 2.55 5.827 5.015 7.97.283.246.569.494.853.747l1.027.918a44.998 44.998 0 0 0 3.518 3.018 2 2 0 0 0 2.174 0 45.263 45.263 0 0 0 3.626-3.115l.922-.824c.293-.26.59-.519.885-.774 2.334-2.025 4.98-4.32 4.98-7.94a6.985 6.985 0 0 0-6.708-7.218Z"></path>
+                   </svg>
+                        <br>
+                        <span style="font-weight:lighter">${text}</span>
+                        <br><br>
+                         <span style="font-weight:lighter;font-size:14px">4 likes <span class="mx-3">Reply</span></span>
+                    </h6>                  
+                
+            </div>
+
+             
+        `;
+    } 
+
 </script>
 </body>
