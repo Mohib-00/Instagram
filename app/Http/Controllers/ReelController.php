@@ -102,7 +102,7 @@ public function getComments($id)
 
     public function storelikes(Request $request)
     {
-        // Check if the user already liked the reel
+       
         $existingLike = Like::where('reel_id', $request->reel_id)
                             ->where('user_id', $request->user_id)
                             ->first();
@@ -111,7 +111,7 @@ public function getComments($id)
             return response()->json(['success' => false, 'error' => 'Already liked']);
         }
 
-        // Add a new like
+        
         Like::create([
             'reel_id' => $request->reel_id,
             'user_id' => $request->user_id,
@@ -122,7 +122,7 @@ public function getComments($id)
 
     public function destroy(Request $request)
     {
-        // Find the like
+        
         $like = Like::where('reel_id', $request->reel_id)
                     ->where('user_id', $request->user_id)
                     ->first();
@@ -131,7 +131,7 @@ public function getComments($id)
             return response()->json(['success' => false, 'error' => 'Like not found']);
         }
 
-        // Delete the like
+        
         $like->delete();
 
         return response()->json(['success' => true]);

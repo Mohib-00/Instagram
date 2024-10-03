@@ -1178,28 +1178,28 @@ $(document).ready(function() {
 
         console.log("Reel ID:", reelId);  
 
-        // Check if the user already liked the reel by checking the class
+        
         if ($(this).hasClass('liked')) {
-            // User has already liked it, now we will unlike
+            
             $.ajax({
-                url: '{{ route("likes.destroy") }}',  // Route for deleting a like
+                url: '{{ route("likes.destroy") }}',   
                 method: 'POST',
                 data: {
                     reel_id: reelId,
                     user_id: userId,
-                    _method: 'DELETE',  // We are simulating a DELETE request
+                    _method: 'DELETE',   
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
                     if (response.success) {
                         console.log('Like removed successfully');
 
-                        // Update the like count
+                       
                         const likeCountElement = $(`.like-count[data-reel-id="${reelId}"]`);
                         let currentCount = parseInt(likeCountElement.text()) || 0;
-                        likeCountElement.text(currentCount - 1);  // Decrease like count
+                        likeCountElement.text(currentCount - 1);  
 
-                        // Remove the 'liked' class (remove the red color)
+                         
                         $(`svg[data-reel-id="${reelId}"]`).removeClass('liked');
                     } else {
                         console.error('Error removing like:', response.error);
@@ -1210,9 +1210,9 @@ $(document).ready(function() {
                 }
             });
         } else {
-            // User has not liked it, so we will add a like
+            
             $.ajax({
-                url: '{{ route("likes.store") }}',  // Route for storing a like
+                url: '{{ route("likes.store") }}',  
                 method: 'POST',
                 data: {
                     reel_id: reelId,
@@ -1222,13 +1222,12 @@ $(document).ready(function() {
                 success: function(response) {
                     if (response.success) {
                         console.log('Like saved successfully');
-
-                        // Update the like count
+ 
                         const likeCountElement = $(`.like-count[data-reel-id="${reelId}"]`);
                         let currentCount = parseInt(likeCountElement.text()) || 0;
-                        likeCountElement.text(currentCount + 1);  // Increase like count
+                        likeCountElement.text(currentCount + 1);  
 
-                        // Add the 'liked' class (add the red color)
+                      
                         $(`svg[data-reel-id="${reelId}"]`).addClass('liked');
                     } else {
                         console.error('Error saving like:', response.error);
