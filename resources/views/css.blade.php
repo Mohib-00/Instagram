@@ -2120,25 +2120,12 @@
   content: "";
   left: 50px;
   color: #0075ff;
-}*/
-ChatGPT said:
-ChatGPT
-It looks like you have a CSS snippet for a toggle switch that is currently commented out. If you'd like to enable this toggle switch and customize it further, you can follow the steps below to set it up in your HTML and CSS.
-
-HTML Setup
-Here’s how you
-
-
-
-
-
-
-
+}
 
  .submitbtn{
   background: #0093f5;
   height:50px;
-   border-radius:10px;
+  border-radius:10px;
   margin-top:30px;
   padding:10px 30px 10px 80px
  }
