@@ -98,26 +98,43 @@ public function getComments($id)
         ]);
     }
 
+     
+
     public function storelikes(Request $request)
     {
-        $request->validate([
-            'reel_id' => 'required|exists:reels,id',  
-            'user_id' => 'required|exists:users,id',  
+        // Check if the user already liked the reel
+        $existingLike = Like::where('reel_id', $request->reel_id)
+                            ->where('user_id', $request->user_id)
+                            ->first();
+
+        if ($existingLike) {
+            return response()->json(['success' => false, 'error' => 'Already liked']);
+        }
+
+        // Add a new like
+        Like::create([
+            'reel_id' => $request->reel_id,
+            'user_id' => $request->user_id,
         ]);
-    
-      
-        $like = Like::updateOrCreate(
-            ['reel_id' => $request->reel_id, 'user_id' => $request->user_id],
-            ['likes' => 1]   
-        );
-    
-        
-        $likeCount = Like::where('reel_id', $request->reel_id)->count();
-    
-        return response()->json([
-            'success' => true,
-            'new_like_count' => $likeCount,
-        ]);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function destroy(Request $request)
+    {
+        // Find the like
+        $like = Like::where('reel_id', $request->reel_id)
+                    ->where('user_id', $request->user_id)
+                    ->first();
+
+        if (!$like) {
+            return response()->json(['success' => false, 'error' => 'Like not found']);
+        }
+
+        // Delete the like
+        $like->delete();
+
+        return response()->json(['success' => true]);
     }
     
 }

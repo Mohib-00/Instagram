@@ -1164,7 +1164,6 @@ $("#showlikesection").data('reel-id', reelId);
 $("#reelIdInput").val(reelId);
 
 });
-
 $(document).ready(function() {
     $('.likesvg').click(function(e) {
         e.preventDefault();
@@ -1172,7 +1171,6 @@ $(document).ready(function() {
         const reelId = $(this).data('reel-id');  
         const userId = "{{ Auth::id() }}";  
 
-        
         if (!reelId) {
             console.error("Reel ID is undefined or missing.");
             return;  
@@ -1180,33 +1178,67 @@ $(document).ready(function() {
 
         console.log("Reel ID:", reelId);  
 
-        $.ajax({
-            url: '{{ route("likes.store") }}',  
-            method: 'POST',
-            data: {
-                reel_id: reelId,
-                user_id: userId,
-                _token: '{{ csrf_token() }}'   
-            },
-            success: function(response) {
-                if (response.success) {
-                    console.log('Like saved successfully');
+        // Check if the user already liked the reel by checking the class
+        if ($(this).hasClass('liked')) {
+            // User has already liked it, now we will unlike
+            $.ajax({
+                url: '{{ route("likes.destroy") }}',  // Route for deleting a like
+                method: 'POST',
+                data: {
+                    reel_id: reelId,
+                    user_id: userId,
+                    _method: 'DELETE',  // We are simulating a DELETE request
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        console.log('Like removed successfully');
 
-                     
-                    const likeCountElement = $(`.like-count[data-reel-id="${reelId}"]`);
-                    let currentCount = parseInt(likeCountElement.text()) || 0;  
-                    likeCountElement.text(currentCount + 1);  
+                        // Update the like count
+                        const likeCountElement = $(`.like-count[data-reel-id="${reelId}"]`);
+                        let currentCount = parseInt(likeCountElement.text()) || 0;
+                        likeCountElement.text(currentCount - 1);  // Decrease like count
 
-                     
-                    $(`svg[data-reel-id="${reelId}"]`).addClass('liked');
-                } else {
-                    console.error('Error saving like:', response.error);
+                        // Remove the 'liked' class (remove the red color)
+                        $(`svg[data-reel-id="${reelId}"]`).removeClass('liked');
+                    } else {
+                        console.error('Error removing like:', response.error);
+                    }
+                },
+                error: function(xhr) {
+                    console.error("AJAX Error:", xhr.responseText);
                 }
-            },
-            error: function(xhr) {
-                console.error("AJAX Error:", xhr.responseText);
-            }
-        });
+            });
+        } else {
+            // User has not liked it, so we will add a like
+            $.ajax({
+                url: '{{ route("likes.store") }}',  // Route for storing a like
+                method: 'POST',
+                data: {
+                    reel_id: reelId,
+                    user_id: userId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        console.log('Like saved successfully');
+
+                        // Update the like count
+                        const likeCountElement = $(`.like-count[data-reel-id="${reelId}"]`);
+                        let currentCount = parseInt(likeCountElement.text()) || 0;
+                        likeCountElement.text(currentCount + 1);  // Increase like count
+
+                        // Add the 'liked' class (add the red color)
+                        $(`svg[data-reel-id="${reelId}"]`).addClass('liked');
+                    } else {
+                        console.error('Error saving like:', response.error);
+                    }
+                },
+                error: function(xhr) {
+                    console.error("AJAX Error:", xhr.responseText);
+                }
+            });
+        }
     });
 });
 

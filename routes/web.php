@@ -60,4 +60,7 @@ Route::get('/reels/{id}/comments', [ReelController::class, 'getComments'])->name
 
 //to save likes
 Route::post('/likes/store', [ReelController::class, 'storelikes'])->name('likes.store');
+
+//to delete like
+Route::delete('/likes/destroy', [ReelController::class, 'destroy'])->name('likes.destroy');
  
