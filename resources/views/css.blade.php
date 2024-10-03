@@ -2472,6 +2472,16 @@ Here’s how you
         color: white;  
     }
 
+    .likesvg {
+    transition: fill 0.3s ease; /* Smooth transition for fill color */
+}
+
+.likesvg.liked {
+    fill: red; /* This will override the currentColor when liked */
+}
+
+
+
   </style>
 
  

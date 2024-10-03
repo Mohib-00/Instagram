@@ -1055,21 +1055,29 @@ $(document).ready(function() {
             success: function(response) {
                 console.log("AJAX Response:", response);
                 
-                
                 if (response.comment && response.comment.user_image && response.comment.user_name && response.comment.comment_text) {
                     const userImage = response.comment.user_image; 
                     const userName = response.comment.user_name;   
                     const commentText = response.comment.comment_text;  
 
-                   
+                    
                     const newCommentHtml = createCommentHtml(userName, userImage, commentText);                 
                     $('#commentsSection').append(newCommentHtml);
-                                      
+                    
+                    
                     const commentsContainer = $('#commentsSection');
-                    console.log("Comments Container:", commentsContainer);  
-                                       
-                    commentsContainer.scrollTop(commentsContainer[0].scrollHeight);              
-                    $('#commentInput').val('');  
+                    commentsContainer.scrollTop(commentsContainer[0].scrollHeight);
+
+                     
+                    $('#commentInput').val('');
+
+                    
+                    const commentCountElement = $(`.comment-count[data-reel-id="${reelId}"]`);
+
+                   
+                    let currentCount = parseInt(commentCountElement.text()) || 0;
+                    commentCountElement.text(currentCount + 1);   
+
                 } else {
                     console.error("Missing data in response:", response);
                 }
@@ -1080,6 +1088,7 @@ $(document).ready(function() {
         });
     });
 });
+
 
 
 //to get comment    
@@ -1144,6 +1153,63 @@ function createCommentHtml(name, userImage, text, likes) {
              
         `;
     } 
+
+    
+$(".likesvg").click(function() { 
+
+var reelId = $(this).data('reel-id');  
+$("#showlikesection").show();
+
+$("#showlikesection").data('reel-id', reelId);  
+$("#reelIdInput").val(reelId);
+
+});
+
+$(document).ready(function() {
+    $('.likesvg').click(function(e) {
+        e.preventDefault();
+
+        const reelId = $(this).data('reel-id');  
+        const userId = "{{ Auth::id() }}";  
+
+        
+        if (!reelId) {
+            console.error("Reel ID is undefined or missing.");
+            return;  
+        }
+
+        console.log("Reel ID:", reelId);  
+
+        $.ajax({
+            url: '{{ route("likes.store") }}',  
+            method: 'POST',
+            data: {
+                reel_id: reelId,
+                user_id: userId,
+                _token: '{{ csrf_token() }}'   
+            },
+            success: function(response) {
+                if (response.success) {
+                    console.log('Like saved successfully');
+
+                     
+                    const likeCountElement = $(`.like-count[data-reel-id="${reelId}"]`);
+                    let currentCount = parseInt(likeCountElement.text()) || 0;  
+                    likeCountElement.text(currentCount + 1);  
+
+                     
+                    $(`svg[data-reel-id="${reelId}"]`).addClass('liked');
+                } else {
+                    console.error('Error saving like:', response.error);
+                }
+            },
+            error: function(xhr) {
+                console.error("AJAX Error:", xhr.responseText);
+            }
+        });
+    });
+});
+
 
 </script>
 </body>

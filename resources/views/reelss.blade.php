@@ -44,6 +44,10 @@
 
                     <div class="col-4">
                         
+
+                        <div id="showlikecontainer" style="height:440px;background:#262626;margin-top:10%; border-radius:15px 15px 0px 0px;position:fixed;width:20%;margin-left:15px;display:none">
+                            <input type="hidden" id="reelIdinput">
+                        </div>
                     </div>
 
                     <div class="col-4">
@@ -73,7 +77,7 @@
                                
                         </h5>
                        
-                        <h5 style="position: absolute;margin-left:28%;margin-top:-53%"  >
+                        <h5 style="position: absolute;margin-left:28%;margin-top:-53%;display: none"  >
                         <svg class="mt-1" id="soundoff" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-volume-mute" viewBox="0 0 16 16">
                             <path d="M6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06M6 5.04 4.312 6.39A.5.5 0 0 1 4 6.5H2v3h2a.5.5 0 0 1 .312.11L6 10.96zm7.854.606a.5.5 0 0 1 0 .708L12.207 8l1.647 1.646a.5.5 0 0 1-.708.708L11.5 8.707l-1.646 1.647a.5.5 0 0 1-.708-.708L10.793 8 9.146 6.354a.5.5 0 1 1 .708-.708L11.5 7.293l1.646-1.647a.5.5 0 0 1 .708 0"/>
                         </svg>
@@ -103,9 +107,19 @@
                               
                         </div> 
                         <div class="col-1" style="margin-top:105%">
-                            <svg aria-label="Like" class="x1lliihq x1n2onr6 xyb1xck" fill="currentColor" height="30" role="img" viewBox="0 0 24 24" width="30"><title>Like</title><path d="M16.792 3.904A4.989 4.989 0 0 1 21.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.477-.309-2.143-1.823-4.303-3.752C5.141 14.072 2.5 12.167 2.5 9.122a4.989 4.989 0 0 1 4.708-5.218 4.21 4.21 0 0 1 3.675 1.941c.84 1.175.98 1.763 1.12 1.763s.278-.588 1.11-1.766a4.17 4.17 0 0 1 3.679-1.938m0-2a6.04 6.04 0 0 0-4.797 2.127 6.052 6.052 0 0 0-4.787-2.127A6.985 6.985 0 0 0 .5 9.122c0 3.61 2.55 5.827 5.015 7.97.283.246.569.494.853.747l1.027.918a44.998 44.998 0 0 0 3.518 3.018 2 2 0 0 0 2.174 0 45.263 45.263 0 0 0 3.626-3.115l.922-.824c.293-.26.59-.519.885-.774 2.334-2.025 4.98-4.32 4.98-7.94a6.985 6.985 0 0 0-6.708-7.218Z"></path></svg>
-                             <p class="mx-1">344</p>
-
+                        @php
+                            $userLikedReel = in_array(Auth::id(), $reel->likes()->pluck('user_id')->toArray());
+                        @endphp
+                        
+                        <svg data-reel-id="{{ $reel->id }}" class="mt-2 likesvg {{ $userLikedReel ? 'liked' : '' }}" aria-label="Like" fill="currentColor" height="30" role="img" viewBox="0 0 24 24" width="30">
+                            <title>Like</title>
+                            <path d="M16.792 3.904A4.989 4.989 0 0 1 21.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.477-.309-2.143-1.823-4.303-3.752C5.141 14.072 2.5 12.167 2.5 9.122a4.989 4.989 0 0 1 4.708-5.218 4.21 4.21 0 0 1 3.675 1.941c.84 1.175.98 1.763 1.12 1.763s.278-.588 1.11-1.766a4.17 4.17 0 0 1 3.679-1.938m0-2a6.04 6.04 0 0 0-4.797 2.127 6.052 6.052 0 0 0-4.787-2.127A6.985 6.985 0 0 0 .5 9.122c0 3.61 2.55 5.827 5.015 7.97.283.246.569.494.853.747l1.027.918a44.998 44.998 0 0 0 3.518 3.018 2 2 0 0 0 2.174 0 45.263 45.263 0 0 0 3.626-3.115l.922-.824c.293-.26.59-.519.885-.774 2.334-2.025 4.98-4.32 4.98-7.94a6.985 6.985 0 0 0-6.708-7.218Z"></path>
+                        </svg>
+                        
+                        
+                        
+                        
+                            <p style="margin-left:12px;font-weight:bolder" class="like-count" data-reel-id="{{ $reel->id }}">{{ $likeCounts[$reel->id] ?? 0 }}</p>
                              <span>
                                 <svg  data-reel-id="{{ $reel->id }}"  class="mt-2 commentsvg" aria-label="Comment" class="x1lliihq x1n2onr6 xyb1xck" fill="currentColor" height="30" role="img" viewBox="0 0 24 24" width="30"><title>Comment</title><path d="M20.656 17.008a9.993 9.993 0 1 0-3.59 3.615L22 22Z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path></svg>
                                 <p style="margin-left:12px;font-weight:bolder" class=" comment-count" data-reel-id="{{ $reel->id }}">{{ $commentCounts[$reel->id] ?? 0 }}</p>
@@ -151,6 +165,9 @@
                                     
                                 </div>
                             </div>
+
+
+                             
 
                             <div style="background-color:#262626;height:80px;border-radius:0px 0px 15px 15px;margin-top:32.5%;margin-left:15px;width:20%;position:fixed">
                                 

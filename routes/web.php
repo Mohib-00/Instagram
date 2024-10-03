@@ -57,4 +57,7 @@ Route::post('/save', [ReelController::class, 'save'])->name('comments.store');
 
 //to get comments
 Route::get('/reels/{id}/comments', [ReelController::class, 'getComments'])->name('comments.get');
+
+//to save likes
+Route::post('/likes/store', [ReelController::class, 'storelikes'])->name('likes.store');
  

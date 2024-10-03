@@ -35,6 +35,11 @@ public function comments()
     return $this->hasMany(Comment::class);
 }
 
+public function likes()
+{
+    return $this->hasMany(Like::class);
+}
+
 
     /**
      * The attributes that should be hidden for serialization.

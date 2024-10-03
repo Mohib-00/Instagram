@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use App\Models\Like;
 use App\Models\Reel;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -131,6 +132,11 @@ class ApiController extends Controller
                              ->groupBy('reel_id')
                              ->pluck('count', 'reel_id');
 
+    $likeCounts = Like::selectRaw('reel_id, count(*) as count')
+                             ->groupBy('reel_id')
+                             ->pluck('count', 'reel_id');  
+
+                             
     return view('reelss', [
         'Name' => $user->name,
         'gender' => $user->gender,
@@ -138,7 +144,8 @@ class ApiController extends Controller
         'userName' => $user->userName,
         'user' => $user->account_suggestions,
         'reels' => $reels,  
-        'commentCounts' => $commentCounts,  
+        'commentCounts' => $commentCounts, 
+        'likeCounts' => $likeCounts,  
     ]);
 }
 

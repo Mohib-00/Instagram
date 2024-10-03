@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Like;
 use App\Models\Reel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -86,16 +87,40 @@ class ReelController extends Controller
 
 public function getComments($id)
     {
-        // Fetch comments for the reel with related user info
+      
         $comments = Comment::where('reel_id', $id)
-            ->with('user:id,name,user_image') // Assuming Comment belongs to User
+            ->with('user:id,name,user_image')  
             ->get();
 
-        // Return comments with user details as JSON
+         
         return response()->json([
             'comments' => $comments
         ]);
     }
+
+    public function storelikes(Request $request)
+    {
+        $request->validate([
+            'reel_id' => 'required|exists:reels,id',  
+            'user_id' => 'required|exists:users,id',  
+        ]);
+    
+      
+        $like = Like::updateOrCreate(
+            ['reel_id' => $request->reel_id, 'user_id' => $request->user_id],
+            ['likes' => 1]   
+        );
+    
+        
+        $likeCount = Like::where('reel_id', $request->reel_id)->count();
+    
+        return response()->json([
+            'success' => true,
+            'new_like_count' => $likeCount,
+        ]);
+    }
     
 }
+    
+
 
