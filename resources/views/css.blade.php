@@ -2460,14 +2460,45 @@
     }
 
     .likesvg {
-    transition: fill 0.3s ease; /* Smooth transition for fill color */
+    transition: fill 0.3s ease;  
 }
 
 .likesvg.liked {
-    fill: red; /* This will override the currentColor when liked */
+    fill: red;  
 }
 
+.modal-slide-left {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 650px;
+    height: 100%;
+    background-color:black;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
 
+.modal-content {
+    padding: 20px;
+    height: 100%;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-open {
+    left: 0;
+    
+}
+.hoverrequested:hover{
+  background:#262626
+}
 
   </style>
 

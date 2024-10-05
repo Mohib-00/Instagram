@@ -40,6 +40,19 @@ public function likes()
     return $this->hasMany(Like::class);
 }
 
+public function followers()
+{
+    return $this->belongsToMany(User::class, 'follows', 'following_id', 'follow_id');
+}
+
+/**
+ * 
+ */
+public function following()
+{
+    return $this->belongsToMany(User::class, 'follows', 'follow_id', 'following_id');
+}
+
 
     /**
      * The attributes that should be hidden for serialization.

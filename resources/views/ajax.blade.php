@@ -14,6 +14,32 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+{{--to open or close model--}}
+<script>
+   
+    var modal = document.getElementById('myModal');
+    var notificationOpenDiv = document.querySelector('.v');
+    var notificationCloseIcon = document.querySelector('.notificationssvg');
+   
+    function openModal() {
+        modal.classList.add('modal-open');
+    }
+   
+    function closeModal() {
+        modal.classList.remove('modal-open');
+    }
+
+    notificationOpenDiv.addEventListener('click', openModal);
+ 
+    notificationCloseIcon.addEventListener('click', closeModal);
+
+    window.addEventListener('click', function(event) {
+        if (!modal.contains(event.target) && !notificationOpenDiv.contains(event.target)) {
+            closeModal();
+        }
+    });
+</script>
+
 <script>
  let isScrolling = false;  
 
@@ -1240,6 +1266,90 @@ $(document).ready(function() {
         }
     });
 });
+
+//to follow user
+$(document).ready(function() {
+
+$('.follow-btn').click(function(e) {
+    e.preventDefault();
+
+    const followingId = $(this).data('user-id');  
+    const button = $(this);   
+
+
+    if (button.text().trim() === 'Follow') {
+        
+        $.ajax({
+            url: '/follow',   
+            method: 'POST',
+            data: {
+                following_id: followingId,   
+                _token: '{{ csrf_token() }}'   
+            },
+            success: function(response) {
+                if (response.success) {
+                    button.text('Requested');  
+                    
+                    console.log(response.message);
+                }
+            },
+            error: function(xhr) {
+                console.error('Error:', xhr.responseText);
+            }
+        });
+    } else if (button.text().trim() === 'Requested') {
+         
+        $.ajax({
+            url: '/unfollow',   
+            method: 'POST',
+            data: {
+                following_id: followingId,   
+                _token: '{{ csrf_token() }}'  
+            },
+            success: function(response) {
+                if (response.success) {
+                    button.text('Follow');    
+                    button.css('background-color', '');   
+                    console.log(response.message);
+                }
+            },
+            error: function(xhr) {
+                console.error('Error:', xhr.responseText);
+            }
+        });
+    }
+});
+});
+
+//to confirm request
+$(document).ready(function() {
+    $('.confirmhover').click(function(e) {
+        e.preventDefault();
+
+        const requestId = $(this).data('request-id');   
+        const button = $(this);
+
+        $.ajax({
+            url: '/confirm-request/' + requestId,    
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}'   
+            },
+            success: function(response) {
+                if (response.success) {   
+                    button.find('p').text('Follow Back');     
+                    console.log(response.message);
+                }
+            },
+            error: function(xhr) {
+                console.error('Error:', xhr.responseText);
+            }
+        });
+    });
+});
+
+
+
 
 
 </script>

@@ -44,32 +44,40 @@
 
                 <h6 class="font">Suggested for you</h6>
                 @foreach($users as $user)
-    <div class="col-10" style="padding:15px;">
-        <div class="row">
+                <div class="col-10" style="padding:15px;">
+                    <div class="row">
+            
+                        <div class="col-1">
+                            <img class="img9" src="{{ asset('images/' . $user->user_image) }}">
+                        </div>
+            
+                        <div class="col-8 homecolumN">
+                            <span class="font" style="font-weight:bolder">{{ $user->name }}</span><br>
+                            <span style="font-weight:lighter;color:#a8a8a8" class="font">{{ $user->userName }}</span><br>
+                            <span style="font-weight:lighter;font-size:13px;color:#a8a8a8" class="font">Suggested for you</span>
+                        </div>
+            
+                        <div class="col-3 bghover">
+                            <h5 class="font follow-btn" data-user-id="{{ $user->id }}" style="padding:10px 10px 60px 10px;">
+                                @if(Auth::user()->following->contains($user->id))
+                                    Requested
+                                @else
+                                    Follow
+                                @endif
+                            </h5>
+                        </div>
+                        
+            
+                    </div>
+                </div>
+            @endforeach
 
-            <div class="col-1 " >
-                <img class="img9" src="{{ asset('images/' . $user->user_image) }}">
+
+
+            
+
+                          
             </div>
-
-            <div class="col-8 homecolumN">
-                <span class="font" style="font-weight:bolder">{{ $user->name }}</span><br>
-                <span style="font-weight:lighter;color:#a8a8a8" class="font">{{ $user->userName }}</span><br>
-                <span style="font-weight:lighter;font-size:13px;color:#a8a8a8" class="font">Suggested for you</span>
-            </div>
-
-            <div class="col-3 bghover">
-                <h5 class="font" style="padding:10px 10px 60px 10px;">Follow</h5>
-            </div>
-
-        </div>
-    </div>
-@endforeach
-
-              
-                
-            </div>
-
-
 
             @include('createhtml')
          

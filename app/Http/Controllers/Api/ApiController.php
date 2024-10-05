@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use App\Models\Follow;
 use App\Models\Like;
 use App\Models\Reel;
 use Illuminate\Http\Request;
@@ -118,8 +119,15 @@ class ApiController extends Controller
         $users = User::where('id', '!=', Auth::id())
                  ->where('account_suggestions', 1)
                  ->get();
+
+                 $followRequests = Follow::where('following_id', auth()->id())
+                 ->with('follower')
+                 ->orderBy('created_at', 'desc')  
+                 ->get();
+             
+
                  
-        return view('home', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions],compact('users'));
+        return view('home', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions],compact('users','followRequests'));
     }
 
     public function openreels()

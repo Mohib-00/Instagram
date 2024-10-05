@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\ReelController;
 use Illuminate\Support\Facades\Route;
  
@@ -63,4 +64,14 @@ Route::post('/likes/store', [ReelController::class, 'storelikes'])->name('likes.
 
 //to delete like
 Route::delete('/likes/destroy', [ReelController::class, 'destroy'])->name('likes.destroy');
+
+//to follow user
+Route::post('/follow', [FollowController::class, 'follow'])->name('follow');
+
+//to unflow user
+Route::post('/unfollow', [FollowController::class, 'unfollow'])->name('unfollow');
+
+//to confirm request
+Route::post('/confirm-request/{id}', [FollowController::class, 'confirmFollowRequest']);
+
  
