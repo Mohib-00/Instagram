@@ -220,14 +220,14 @@
                                   </h6>
                               </div>
                       
-                              <div class="col-2 confirmhover" 
-                              style="height: 40px; width: fit-content; background: {{ $request->confirm_status == 1 ? '#0093f5' : '#0093f5' }}; border-radius: 10px; padding: 10px 25px 0px 25px" 
-                              data-request-id="{{ $request->id }}">
-                         
-                             <p class="font" style="font-weight: bolder">
-                                 {{ $request->confirm_status == 1 ? 'Follow Back' : 'Confirm' }}
-                             </p>
-                         </div>
+<div class="col-2 confirmhover" 
+     style="height: 40px; width: fit-content; background: {{ $request->confirm_status == 1 ? '#0093f5' : '#0093f5' }}; border-radius: 10px; padding: 10px 25px 0px 25px" 
+     data-request-id="{{ $request->id }}">
+    <p class="font" style="font-weight: bolder">
+        {{ $request->confirm_status == 1 ? 'Following' : ($request->confirm_status == 0 ? 'Confirm' : 'Follow Back') }}
+    </p>
+</div>
+
                          
                               <div class="col-2" style="height: 40px;width:fit-content;background:#363636;border-radius:10px;padding:10px 25px 0px 25px;margin-left:10px">
                                   <p class="font" style="font-weight:bolder">Delete</p>

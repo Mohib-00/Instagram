@@ -166,10 +166,24 @@ class ApiController extends Controller
 
     public function profile()
     {
-        $user = Auth::user();  
-        return view('profile', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions]);
+        $user = Auth::user()->loadCount(['followers', 'following']);  // Load follower and following counts
+    
+        $followRequests = Follow::where('following_id', auth()->id())
+            ->with('follower')
+            ->orderBy('created_at', 'desc')
+            ->get();
+    
+        return view('profile', [
+            'Name' => $user->name,
+            'gender' => $user->gender,
+            'bio' => $user->bio,
+            'userName' => $user->userName,
+            'user' => $user->account_suggestions,
+            'followersCount' => $user->followers_count,  // Add follower count
+            'followingCount' => $user->following_count   // Add following count
+        ], compact('followRequests'));
     }
-
+    
     public function posts()
     {
         $user = Auth::user();  

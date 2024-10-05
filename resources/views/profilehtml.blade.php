@@ -74,12 +74,12 @@
                 </div>
 
                 <div class="col-2 mt-4">
-                    <h5> 0 followers</h5>
+                    <h5>{{ $followersCount }} followers</h5>
                 </div>
-
                 <div class="col-8 mt-4">
-                    <h5> 0 following</h5>
+                    <h5>{{ $followingCount }} following</h5>
                 </div>
+                
 
                 <div class="col-12 mt-4">
                     <h5>

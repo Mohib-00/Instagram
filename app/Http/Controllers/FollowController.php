@@ -51,6 +51,7 @@ class FollowController extends Controller
 
     return response()->json(['success' => false, 'message' => 'Request not found.']);
 }
+    
 
 }
 

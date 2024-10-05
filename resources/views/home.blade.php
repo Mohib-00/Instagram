@@ -59,13 +59,30 @@
             
                         <div class="col-3 bghover">
                             <h5 class="font follow-btn" data-user-id="{{ $user->id }}" style="padding:10px 10px 60px 10px;">
-                                @if(Auth::user()->following->contains($user->id))
-                                    Requested
+                                @php
+                                    
+                                    $isFollowing = Auth::user()->following->contains($user->id);
+                        
+                                     
+                                    $followRequest = \App\Models\Follow::where('following_id', $user->id)
+                                                                        ->where('follow_id', Auth::id())
+                                                                        ->first();
+                                @endphp
+                        
+                                @if($isFollowing)
+                                    @if($followRequest && $followRequest->confirm_status == 1)
+                                        Following
+                                    @else
+                                        Requested
+                                    @endif
                                 @else
                                     Follow
                                 @endif
                             </h5>
                         </div>
+                        
+                        
+                        
                         
             
                     </div>
