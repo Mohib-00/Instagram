@@ -14,6 +14,66 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+   <script>
+     function slowScrollTo(target, duration) {
+            const container = document.getElementById('scrollableContainer');
+            const start = container.scrollLeft;
+            const change = target - start;
+            const startTime = performance.now();
+
+            function animateScroll() {
+                const currentTime = performance.now() - startTime;
+                const progress = Math.min(currentTime / duration, 1); // Calculate progress
+                const easeInOutQuad = progress < 0.5 ? 
+                    2 * progress * progress : 
+                    -1 + (4 - 2 * progress) * progress; // Easing function
+
+                container.scrollLeft = start + change * easeInOutQuad; // Update scroll position
+
+                if (progress < 1) {
+                    requestAnimationFrame(animateScroll); // Continue animating
+                } else {
+                    updateButtonVisibility(); // Update button visibility after scroll
+                }
+            }
+
+            requestAnimationFrame(animateScroll); // Start the animation
+        }
+
+        function updateButtonVisibility() {
+            const container = document.getElementById('scrollableContainer');
+            const scrollLeftButton = document.getElementById('scrollLeft');
+            const scrollRightButton = document.getElementById('scrollRight');
+
+            // Show/hide buttons based on scroll position
+            scrollLeftButton.style.display = container.scrollLeft > 0 ? 'inline-block' : 'none';
+            scrollRightButton.style.display = container.scrollLeft < container.scrollWidth - container.clientWidth ? 'inline-block' : 'none';
+
+            // Ensure the left button is shown if at the left end and the right button if at the right end
+            if (container.scrollLeft <= 0) {
+                scrollLeftButton.style.display = 'none';
+            }
+            if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
+                scrollRightButton.style.display = 'none';
+            }
+        }
+
+        document.getElementById('scrollLeft').addEventListener('click', function() {
+            slowScrollTo(0, 800); // Scroll to the leftmost position over 800 milliseconds
+        });
+
+        document.getElementById('scrollRight').addEventListener('click', function() {
+            const container = document.getElementById('scrollableContainer');
+            const target = container.scrollLeft + container.clientWidth; // Scroll to the right by the width of the container
+            slowScrollTo(target, 800); // Scroll to the rightmost position over 800 milliseconds
+        });
+
+        // Initialize button visibility on load
+        document.addEventListener('DOMContentLoaded', updateButtonVisibility);
+</script>
+
+
+
 {{--to open or close model--}}
 <script>
    
@@ -1323,21 +1383,72 @@ $('.follow-btn').click(function(e) {
 
 //to confirm request
 $(document).ready(function() {
-    $('.confirmhover').click(function(e) {
+     
+    $(document).on('click', '.confirmhover', function(e) {
+        e.preventDefault();
+
+        const requestId = $(this).data('request-id');
+        const button = $(this);
+        const followingId = $(this).data('user-id');  
+
+       
+        if (button.find('p').text().trim() === 'Confirm') {
+            $.ajax({
+                url: '/confirm-request/' + requestId,
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        button.find('p').text('Follow Back');  
+                        console.log(response.message);
+                    }
+                },
+                error: function(xhr) {
+                    console.error('Error:', xhr.responseText);
+                }
+            });
+        } else if (button.find('p').text().trim() === 'Follow Back') {
+            
+            $.ajax({
+                url: '/follow',
+                method: 'POST',
+                data: {
+                    following_id: followingId,  
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        button.find('p').text('Requested');  
+                        console.log(response.message);
+                    }
+                },
+                error: function(xhr) {
+                    console.error('Error:', xhr.responseText);
+                }
+            });
+        }
+    });
+});
+
+//to delete request
+$(document).ready(function() {
+    $('.deletehover').click(function(e) {
         e.preventDefault();
 
         const requestId = $(this).data('request-id');   
-        const button = $(this);
+        const button = $(this);     
 
         $.ajax({
-            url: '/confirm-request/' + requestId,    
-            method: 'POST',
+            url: '/delete-request/' + requestId,    
+            method: 'DELETE',                     
             data: {
-                _token: '{{ csrf_token() }}'   
+                _token: '{{ csrf_token() }}'       
             },
             success: function(response) {
-                if (response.success) {   
-                    button.find('p').text('Follow Back');     
+                if (response.success) {
+                    button.closest('.hoverrequested').remove();    
                     console.log(response.message);
                 }
             },
@@ -1347,6 +1458,7 @@ $(document).ready(function() {
         });
     });
 });
+
 
 </script>
 </body>

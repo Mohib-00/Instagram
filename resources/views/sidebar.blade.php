@@ -144,7 +144,7 @@
                         <h2 class="font" style="font-weight:bolder;margin-top:5px;margin-left:10px">Notifications</h2>
 
                         @foreach ($followRequests as $request)
-                        <div class="row" style="margin-left:1px">
+                        <div class="row remove" style="margin-left:1px">
                             <div class="col-2 mt-3">
                                 <img style="height:50px;width:50px;border-radius:50%" src="{{ asset('images/' . $request->follower->user_image) }}">
                             </div>
@@ -220,18 +220,25 @@
                                   </h6>
                               </div>
                       
-<div class="col-2 confirmhover" 
-     style="height: 40px; width: fit-content; background: {{ $request->confirm_status == 1 ? '#0093f5' : '#0093f5' }}; border-radius: 10px; padding: 10px 25px 0px 25px" 
-     data-request-id="{{ $request->id }}">
-    <p class="font" style="font-weight: bolder">
-        {{ $request->confirm_status == 1 ? 'Following' : ($request->confirm_status == 0 ? 'Confirm' : 'Follow Back') }}
-    </p>
-</div>
+                              <div class="col-2 confirmhover" 
+                              style="height: 40px; width: fit-content; background: {{ $request->confirm_status == 1 ? '#0093f5' : '#0093f5' }}; border-radius: 10px; padding: 10px 25px 0px 25px" 
+                              data-request-id="{{ $request->id }}" 
+                              data-user-id="{{ $request->user_id }}">   
+                              <p class="font" style="font-weight: bolder">
+                                  {{ $request->confirm_status == 1 ? 'Following' : ($request->confirm_status == 0 ? 'Confirm' : 'Follow Back') }}
+                              </p>
+                          </div>
+                          
 
-                         
-                              <div class="col-2" style="height: 40px;width:fit-content;background:#363636;border-radius:10px;padding:10px 25px 0px 25px;margin-left:10px">
-                                  <p class="font" style="font-weight:bolder">Delete</p>
-                              </div>
+                          @if ($request->confirm_status == 0)
+                          <div class="col-2 deletehover" 
+                               style="height: 40px;width:fit-content;background:#363636;border-radius:10px;padding:10px 25px 0px 25px;margin-left:10px" 
+                               data-request-id="{{ $request->id }}">
+                              <p class="font" style="font-weight: bolder">Delete</p>
+                          </div>
+                         @endif
+                      
+
                           </div>
                       
                       @endforeach

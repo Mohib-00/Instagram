@@ -74,4 +74,8 @@ Route::post('/unfollow', [FollowController::class, 'unfollow'])->name('unfollow'
 //to confirm request
 Route::post('/confirm-request/{id}', [FollowController::class, 'confirmFollowRequest']);
 
+//to delete request 
+Route::delete('/delete-request/{id}', [FollowController::class, 'deleteRequest']);
+
+
  

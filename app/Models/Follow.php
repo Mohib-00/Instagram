@@ -25,4 +25,9 @@ class Follow extends Model
     {
         return $this->belongsTo(User::class, 'following_id', 'id');
     }
+
+    public function confirm()
+{
+    return $this->hasOne(Confirm::class, 'follow_id');
+}
 }

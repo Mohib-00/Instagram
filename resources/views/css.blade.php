@@ -2500,6 +2500,27 @@
   background:#262626
 }
 
+
+
+.scrollbarstory::-webkit-scrollbar {
+                                          width: 10px;  
+                                      }
+                                     
+                      
+                                      .scrollbar::-webkit-scrollbar-track {
+                                        background-color:transparent;  
+                                      }
+                      
+                                      .scrollbar::-webkit-scrollbar-thumb {
+                                        background-color: transparent;  
+                                        border-radius: 5px;   
+                                           
+                                      }
+                      
+                                      .scrollbar::-webkit-scrollbar-thumb:hover {
+                                        background-color:transparent;   
+                                      } 
+
   </style>
 
  

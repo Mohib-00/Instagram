@@ -124,10 +124,11 @@ class ApiController extends Controller
                  ->with('follower')
                  ->orderBy('created_at', 'desc')  
                  ->get();
-             
 
-                 
-        return view('home', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions],compact('users','followRequests'));
+                 $followedUserIds = $user->following()->pluck('following_id');
+                 $reels = Reel::whereIn('user_id', $followedUserIds)->get();
+                          
+        return view('home', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions],compact('users','followRequests', 'reels'));
     }
 
     public function openreels()
@@ -142,7 +143,12 @@ class ApiController extends Controller
 
     $likeCounts = Like::selectRaw('reel_id, count(*) as count')
                              ->groupBy('reel_id')
-                             ->pluck('count', 'reel_id');  
+                             ->pluck('count', 'reel_id'); 
+                             
+    $followRequests = Follow::where('following_id', auth()->id())
+                             ->with('follower')
+                             ->orderBy('created_at', 'desc')  
+                             ->get();
 
                              
     return view('reelss', [
@@ -154,7 +160,7 @@ class ApiController extends Controller
         'reels' => $reels,  
         'commentCounts' => $commentCounts, 
         'likeCounts' => $likeCounts,  
-    ]);
+    ],compact('followRequests'));
 }
 
     

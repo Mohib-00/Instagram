@@ -52,6 +52,20 @@ class FollowController extends Controller
     return response()->json(['success' => false, 'message' => 'Request not found.']);
 }
     
+public function deleteRequest($id)
+{
+   
+    $followRequest = Follow::find($id);
+
+    if ($followRequest) {
+        $followRequest->delete();  
+
+        return response()->json(['success' => true, 'message' => 'Request deleted.']);
+    }
+
+    return response()->json(['success' => false, 'message' => 'Request not found.'], 404);
+}
+
 
 }
 
