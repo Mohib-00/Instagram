@@ -110,8 +110,7 @@
 
                                             <div class="col-9">
                                                 <h5 class="font" style="font-weight:bolder">
-                                                    {{ $reel->user->name }} <span style="color:grey;font-size:25px">.</span><span style="color:grey">1d</span>
-                                                </h5>
+                                                    {{ $reel->user->name }} <span style="color:grey;font-size:25px">.</span><span style="color:grey">{{ $reel->created_at->diffForHumans() }}</span>
                                             </div>
                                              
                                             <div class="col-1">
