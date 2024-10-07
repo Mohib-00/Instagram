@@ -23,21 +23,21 @@
 
             function animateScroll() {
                 const currentTime = performance.now() - startTime;
-                const progress = Math.min(currentTime / duration, 1); // Calculate progress
+                const progress = Math.min(currentTime / duration, 1); 
                 const easeInOutQuad = progress < 0.5 ? 
                     2 * progress * progress : 
-                    -1 + (4 - 2 * progress) * progress; // Easing function
+                    -1 + (4 - 2 * progress) * progress;  
 
-                container.scrollLeft = start + change * easeInOutQuad; // Update scroll position
+                container.scrollLeft = start + change * easeInOutQuad; 
 
                 if (progress < 1) {
-                    requestAnimationFrame(animateScroll); // Continue animating
+                    requestAnimationFrame(animateScroll); 
                 } else {
-                    updateButtonVisibility(); // Update button visibility after scroll
+                    updateButtonVisibility(); 
                 }
             }
 
-            requestAnimationFrame(animateScroll); // Start the animation
+            requestAnimationFrame(animateScroll);  
         }
 
         function updateButtonVisibility() {
@@ -45,11 +45,11 @@
             const scrollLeftButton = document.getElementById('scrollLeft');
             const scrollRightButton = document.getElementById('scrollRight');
 
-            // Show/hide buttons based on scroll position
+          
             scrollLeftButton.style.display = container.scrollLeft > 0 ? 'inline-block' : 'none';
             scrollRightButton.style.display = container.scrollLeft < container.scrollWidth - container.clientWidth ? 'inline-block' : 'none';
 
-            // Ensure the left button is shown if at the left end and the right button if at the right end
+        
             if (container.scrollLeft <= 0) {
                 scrollLeftButton.style.display = 'none';
             }
@@ -59,16 +59,16 @@
         }
 
         document.getElementById('scrollLeft').addEventListener('click', function() {
-            slowScrollTo(0, 800); // Scroll to the leftmost position over 800 milliseconds
+            slowScrollTo(0, 800); 
         });
 
         document.getElementById('scrollRight').addEventListener('click', function() {
             const container = document.getElementById('scrollableContainer');
-            const target = container.scrollLeft + container.clientWidth; // Scroll to the right by the width of the container
-            slowScrollTo(target, 800); // Scroll to the rightmost position over 800 milliseconds
+            const target = container.scrollLeft + container.clientWidth;  
+            slowScrollTo(target, 800);  
         });
 
-        // Initialize button visibility on load
+        
         document.addEventListener('DOMContentLoaded', updateButtonVisibility);
 </script>
 
