@@ -192,14 +192,23 @@ class ApiController extends Controller
     
     public function posts()
     {
-        $user = Auth::user();  
-        return view('posts', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions]); 
+        $user = Auth::user(); 
+        $followRequests = Follow::where('following_id', auth()->id())
+                 ->with('follower')
+                 ->orderBy('created_at', 'desc')  
+                 ->get(); 
+
+        return view('posts', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions],compact('followRequests')); 
     }
 
     public function edit()
     {
         $user = Auth::user(); 
-        return view('edit', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions]);  
+         $followRequests = Follow::where('following_id', auth()->id())
+                 ->with('follower')
+                 ->orderBy('created_at', 'desc')  
+                 ->get(); 
+        return view('edit', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions],compact('followRequests'));  
     }
 
 
