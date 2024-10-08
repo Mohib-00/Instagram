@@ -785,10 +785,30 @@ $(document).ready(function () {
 
 
         
-       if ((window.location.pathname === '/home' || window.location.pathname === '/profile' || window.location.pathname === '/reelss' || window.location.pathname === '/edit' || window.location.pathname === '/posts' || window.location.pathname === '/admin') && !localStorage.getItem('token')) {
+       if ((window.location.pathname === '/home' || window.location.pathname === '/seeallusers' || window.location.pathname === '/profile' || window.location.pathname === '/reelss' || window.location.pathname === '/edit' || window.location.pathname === '/posts' || window.location.pathname === '/admin') && !localStorage.getItem('token')) {
            window.location.href = '/';
        }
    });
+
+
+    //to open seeallusers page  
+ $(document).ready(function(){
+        $('#seeallusers').click(function() {
+             
+            $.ajax({
+                url: '/seeallusers',
+                type: 'GET',
+                success: function(response) {
+                   
+                    $('body').html(response);
+                    window.history.pushState(null, null, '/seeallusers');
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error: ', status, error);
+                }
+            });
+        });
+    }); 
 
  
  //to open profile page  

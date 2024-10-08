@@ -2363,6 +2363,13 @@
   background-color:grey
 }
 
+.contentstorycreate{
+ 
+ height:600px;
+ border-radius: 0px 0px 0px 20px;
+ background-color:grey
+}
+
 .img11{
     width:670%;
         height:46px;
@@ -2521,6 +2528,15 @@
                                         background-color:transparent;   
                                       } 
 
+.sharestorycolumn{
+  margin-top:-790px;
+  margin-left:400px;
+  position: absolute;
+  background:#262626;
+  border-radius:0px 0px 20px 20px ;
+  height:660px;
+  
+}                                    
   </style>
 
  

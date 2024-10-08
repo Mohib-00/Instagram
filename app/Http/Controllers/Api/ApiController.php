@@ -116,19 +116,43 @@ class ApiController extends Controller
     public function home(){ 
         $user = Auth::user();    
 
+        $followedUserIds = Auth::user()->following()->pluck('following_id');
+
         $users = User::where('id', '!=', Auth::id())
-                 ->where('account_suggestions', 1)
-                 ->get();
+             ->where('account_suggestions', 1)
+             ->whereNotIn('id', $followedUserIds)  
+             ->take(5) 
+             ->get();
 
                  $followRequests = Follow::where('following_id', auth()->id())
                  ->with('follower')
                  ->orderBy('created_at', 'desc')  
+                  
                  ->get();
 
                  $followedUserIds = $user->following()->pluck('following_id');
                  $reels = Reel::whereIn('user_id', $followedUserIds)->get();
                           
         return view('home', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions],compact('users','followRequests', 'reels'));
+    }
+
+    public function seeallusers(){ 
+        $user = Auth::user();    
+
+         
+
+        $users = User::where('id', '!=', Auth::id())
+             ->where('account_suggestions', 1)
+             ->get();
+
+                 $followRequests = Follow::where('following_id', auth()->id())
+                 ->with('follower')
+                 ->orderBy('created_at', 'desc')   
+                 ->get();
+
+                 
+                          
+        return view('seeallusers', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions],compact('users','followRequests'));
     }
 
     public function openreels()

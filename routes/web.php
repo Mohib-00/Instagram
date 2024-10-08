@@ -22,6 +22,9 @@ Route::group([
 //User Page    
 Route::get("home",[ApiController::class,"home"]);
 
+//seeallusers page
+Route::get('/seeallusers', [ApiController::class, 'seeallusers'])->name('seeallusers');
+
 //Admin Page    
 Route::get("admin",[ApiController::class,"admin"]);
 

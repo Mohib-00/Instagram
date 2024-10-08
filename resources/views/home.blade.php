@@ -49,15 +49,22 @@
             <div class="col-12 secondcolumn scrollbar" style="overflow: auto">
                 <div class="row" style="padding:30px 0px 0px 180px">
 
-                    <div class="col-7">
+                    <div class="col-6" style="width:55.5%">
  
                             
                                     <div class="col-10">
                                      
-<div class="button" style="position: absolute;margin-top:20px">
+{{--<div class="button" style="position: absolute;margin-top:20px">
     <button id="scrollLeft" style=" color:grey">&#9664;</button>
     <button id="scrollRight" style=" color:grey">&#9654;</button>
+</div>--}}
+
+<div style="position: absolute;margin-left:45px;margin-top:50px;height:35px;width:35px;background:blue;border-radius:50%;border:4px solid black">
+    <svg style="color:white;font-weight:bolder;margin-top:-2px;margin-left:-2px" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+      </svg>
 </div>
+
                                     <div class="row flex-nowrap scrollbarstory" id="scrollableContainer" style="overflow-x: auto;">
                                        
 
@@ -100,7 +107,13 @@
                                         </div>
                                     </div>
 
+                                     
+                    
+
                                     @foreach($reels as $reel)
+
+                                     
+
                                     <div class="col-9 mt-5" >
                                         <div class="row" style="padding:30px 0px 0px 100px">
 
@@ -110,7 +123,24 @@
 
                                             <div class="col-9">
                                                 <h5 class="font" style="font-weight:bolder">
-                                                    {{ $reel->user->name }} <span style="color:grey;font-size:25px">.</span><span style="color:grey">{{ $reel->created_at->diffForHumans() }}</span>
+                                                    {{ $reel->user->name }} <span style="color:grey;font-size:25px">.</span> 
+                                                    <span style="color:grey">
+                                                        @php
+                                                            $created = $reel->created_at;
+                                                            $now = \Carbon\Carbon::now();
+                                    
+                                                            
+                                                            if ($created->diffInSeconds($now) < 60) {
+                                                                echo intval($created->diffInSeconds($now)) . ' sec';
+                                                            } elseif ($created->diffInMinutes($now) < 60) {
+                                                                echo intval($created->diffInMinutes($now)) . ' min';
+                                                            } elseif ($created->diffInHours($now) < 24) {
+                                                                echo intval($created->diffInHours($now)) . ' h';
+                                                            } else {
+                                                                echo intval($created->diffInDays($now)) . ' d';
+                                                            }
+                                                        @endphp
+                                                    </span>
                                             </div>
                                              
                                             <div class="col-1">
@@ -197,9 +227,9 @@
                             </div>
 
 
-                            <div class="col-12 mt-5" style="overflow-auto;height:100px">
+                            <div class="col-12 mt-5" >
 
-                                <h6 class="font">Suggested for you</h6>
+                                <h6 class="font">Suggested for you <span id="seeallusers" style="margin-left:36%">See All</span></h6>
                                 @foreach($users as $user)
                                 <div class="col-10" style="padding:10px;">
                                     <div class="row">
@@ -241,6 +271,34 @@
                                     </div>
                                 </div>
                             @endforeach
+
+                            <div class="col-12 mx-3 mt-3">
+                                <div class="row">
+
+                                    <div class="col-12" style="border: 1px soli white">
+                                        <p class="font" style="color:#737373">
+                                            <span>About<span style=" margin-left:5px">.</span></span>
+                                            <span>Help<span style=" margin-left:5px">.</span></span>
+                                            <span>Press<span style=" margin-left:5px">.</span></span>
+                                            <span>Api<span style=" ;margin-left:5px">.</span></span>
+                                            <span>Jobs<span style=" margin-left:5px">.</span></span>
+                                            <span>Privacy<span style=" margin-left:5px">.</span></span>
+                                            <span>Terms<span style=" margin-left:5px">.</span></span>
+                                        </p>
+
+                                        <p class="font" style="color:#737373">
+                                            <span>Location<span style=" margin-left:5px">.</span></span>
+                                            <span>Language<span style=" margin-left:5px">.</span></span>
+                                            <span>Meta Verified<span style=" margin-left:5px">.</span></span>
+                                        </p>
+
+                                        <p class="font" style="color:#737373">
+                                        <span>© 2024 Instagram from Meta</span>
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
             
                             </div>
 
@@ -251,6 +309,7 @@
             </div>
 
             @include('createhtml')
+            @include('storyhtml')
 
         </div>
     </div>
