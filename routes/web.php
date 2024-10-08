@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\ReelController;
+use App\Http\Controllers\StoryController;
 use Illuminate\Support\Facades\Route;
  
 
@@ -79,6 +80,9 @@ Route::post('/confirm-request/{id}', [FollowController::class, 'confirmFollowReq
 
 //to delete request 
 Route::delete('/delete-request/{id}', [FollowController::class, 'deleteRequest']);
+
+//to store story
+Route::post('/save-story', [StoryController::class, 'store']);
 
 
  

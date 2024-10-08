@@ -59,51 +59,40 @@
     <button id="scrollRight" style=" color:grey">&#9654;</button>
 </div>--}}
 
-<div style="position: absolute;margin-left:45px;margin-top:50px;height:35px;width:35px;background:blue;border-radius:50%;border:4px solid black">
-    <svg style="color:white;font-weight:bolder;margin-top:-2px;margin-left:-2px" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+<div id="uploadstory" style="position: absolute; margin-left: 45px; margin-top: 50px; height: 35px; width: 35px; background: blue; border-radius: 50%; border: 4px solid black; cursor: pointer;">
+    <svg style="color: white; font-weight: bolder; margin-top: -2px; margin-left: -2px;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-      </svg>
+    </svg>
 </div>
+
+<input type="file" id="storyFileInput" accept="image/*,video/*" style="display: none;">
 
                                     <div class="row flex-nowrap scrollbarstory" id="scrollableContainer" style="overflow-x: auto;">
                                        
 
                                             <div class="col-1 mx-2" style="height:80px;width:80px;border-radius:50%;border:1px solid grey;padding:4px">
-                                                <div class="col-6" style="height:70px;width:70px;border-radius:50%;background:white"></div>
+                                                <div class="col-6" style="height:70px;width:70px;border-radius:50%;background:white">
+                                                    <img style="height:70px;width:70px;border-radius:50%;"   src="{{ asset('images/' . auth()->user()->user_image) }}">
+
+                                                </div>
                                             </div>
-                                            <div class="col-1 mx-2" style="height:80px;width:80px;border-radius:50%;border:1px solid grey;padding:4px">
-                                                <div class="col-6" style="height:70px;width:70px;border-radius:50%;background:white"></div>
-                                            </div>
-                                            <div class="col-1 mx-2" style="height:80px;width:80px;border-radius:50%;border:1px solid grey;padding:4px">
-                                                <div class="col-6" style="height:70px;width:70px;border-radius:50%;background:white"></div>
-                                            </div>
-                                            <div class="col-1 mx-2" style="height:80px;width:80px;border-radius:50%;border:1px solid grey;padding:4px">
-                                                <div class="col-6" style="height:70px;width:70px;border-radius:50%;background:white"></div>
-                                            </div>
-                                            <div class="col-1 mx-2" style="height:80px;width:80px;border-radius:50%;border:1px solid grey;padding:4px">
-                                                <div class="col-6" style="height:70px;width:70px;border-radius:50%;background:white"></div>
-                                            </div>
-                                            <div class="col-1 mx-2" style="height:80px;width:80px;border-radius:50%;border:1px solid grey;padding:4px">
-                                                <div class="col-6" style="height:70px;width:70px;border-radius:50%;background:white"></div>
-                                            </div>
-                                            <div class="col-1 mx-2" style="height:80px;width:80px;border-radius:50%;border:1px solid grey;padding:4px">
-                                                <div class="col-6" style="height:70px;width:70px;border-radius:50%;background:white"></div>
-                                            </div>
-                                            <div class="col-1 mx-2" style="height:80px;width:80px;border-radius:50%;border:1px solid grey;padding:4px">
-                                                <div class="col-6" style="height:70px;width:70px;border-radius:50%;background:white"></div>
-                                            </div>
-                                            <div class="col-1 mx-2" style="height:80px;width:80px;border-radius:50%;border:1px solid grey;padding:4px">
-                                                <div class="col-6" style="height:70px;width:70px;border-radius:50%;background:white"></div>
-                                            </div>
-                                            <div class="col-1 mx-2" style="height:80px;width:80px;border-radius:50%;border:1px solid grey;padding:4px">
-                                                <div class="col-6" style="height:70px;width:70px;border-radius:50%;background:white"></div>
-                                            </div>
-                                            <div class="col-1 mx-2" style="height:80px;width:80px;border-radius:50%;border:1px solid grey;padding:4px">
-                                                <div class="col-6" style="height:70px;width:70px;border-radius:50%;background:white"></div>
-                                            </div>
-                                            <div class="col-1 mx-2" style="height:80px;width:80px;border-radius:50%;border:1px solid grey;padding:4px">
-                                                <div class="col-6" style="height:70px;width:70px;border-radius:50%;background:white"></div>
-                                            </div>
+                                            @php
+                                            $groupedStories = $stories->groupBy('user_id');
+                                            @endphp
+
+                                            
+                                            @foreach($groupedStories as $userId => $userStories)
+                                            @php
+                                            $user = \App\Models\User::find($userId);  
+                                            @endphp
+                                    
+                                                <div class="col-1 mx-2" style="height:80px;width:80px;border-radius:50%;border:1px solid grey;padding:4px">
+                                                    <div class="col-6" style="height:70px;width:70px;border-radius:50%;background:white">
+                                                        <img src="{{ asset('images/' . $user->user_image) }}"   style="height:70px;width:70px;border-radius:50%;">
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                            
                                         </div>
                                     </div>
 

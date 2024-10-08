@@ -14,64 +14,80 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-   <script>
-     function slowScrollTo(target, duration) {
-            const container = document.getElementById('scrollableContainer');
-            const start = container.scrollLeft;
-            const change = target - start;
-            const startTime = performance.now();
-
-            function animateScroll() {
-                const currentTime = performance.now() - startTime;
-                const progress = Math.min(currentTime / duration, 1); 
-                const easeInOutQuad = progress < 0.5 ? 
-                    2 * progress * progress : 
-                    -1 + (4 - 2 * progress) * progress;  
-
-                container.scrollLeft = start + change * easeInOutQuad; 
-
-                if (progress < 1) {
-                    requestAnimationFrame(animateScroll); 
-                } else {
-                    updateButtonVisibility(); 
-                }
-            }
-
-            requestAnimationFrame(animateScroll);  
-        }
-
-        function updateButtonVisibility() {
-            const container = document.getElementById('scrollableContainer');
-            const scrollLeftButton = document.getElementById('scrollLeft');
-            const scrollRightButton = document.getElementById('scrollRight');
-
-          
-            scrollLeftButton.style.display = container.scrollLeft > 0 ? 'inline-block' : 'none';
-            scrollRightButton.style.display = container.scrollLeft < container.scrollWidth - container.clientWidth ? 'inline-block' : 'none';
-
-        
-            if (container.scrollLeft <= 0) {
-                scrollLeftButton.style.display = 'none';
-            }
-            if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
-                scrollRightButton.style.display = 'none';
-            }
-        }
-
-        document.getElementById('scrollLeft').addEventListener('click', function() {
-            slowScrollTo(0, 800); 
-        });
-
-        document.getElementById('scrollRight').addEventListener('click', function() {
-            const container = document.getElementById('scrollableContainer');
-            const target = container.scrollLeft + container.clientWidth;  
-            slowScrollTo(target, 800);  
-        });
-
-        
-        document.addEventListener('DOMContentLoaded', updateButtonVisibility);
+{{--to show story html--}}
+ 
+<script>
+    document.getElementById('uploadstory').addEventListener('click', function () {
+       document.getElementById('storyUploadInput').click();
+   });
+   
+   document.getElementById('storyUploadInput').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        const previewContainer = document.getElementById('previewstoryContainer');
+        const storyUploadSection = document.querySelector('.showstorycontainer');  
+        const discardstorycontainer = document.getElementById('discardstorycontainer');  
+        discardstorycontainer.style.display = 'none';   
+   
+        previewContainer.innerHTML = '';   
+   
+        if (file) {
+           const fileType = file.type;
+           const fileURL = URL.createObjectURL(file);
+   
+           storyUploadSection.style.display = 'block';  
+           const bzContainer = document.getElementById('bzContainer');  
+   
+           if (fileType.startsWith('image/')) {
+               const img = document.createElement('img');
+               img.src = fileURL;
+               img.style.width = '103.2%';   
+               img.style.height = '600px';  
+               img.style.objectFit = 'cover';  
+               img.style.borderRadius = '0px 0px 0px 10px';
+               img.style.marginLeft = '-12px';
+               previewContainer.appendChild(img);
+           } 
+           else if (fileType.startsWith('video/')) {
+               const video = document.createElement('video');
+               video.src = fileURL;
+               video.controls = false;
+               video.setAttribute('muted', true);
+               video.setAttribute('playsinline', true);
+               video.setAttribute('autoplay', true);
+               video.style.width = '103.2%';   
+               video.style.height = '600px'; 
+               video.style.objectFit = 'cover';
+               video.style.borderRadius ='0px 0px 0px 10px';
+               video.style.marginLeft = '-12px';
+               previewContainer.appendChild(video);
+           } 
+           else {
+               alert('Please select a valid image or video file.');
+           }
+       }
+   });
+   
+   document.querySelector('.discardstorysvg').addEventListener('click', function () {
+       const discardstorycontainer = document.getElementById('discardstorycontainer');
+       discardstorycontainer.style.display = 'block';   
+   });
+   
+   document.getElementById('dddiscardstory').addEventListener('click', function () {
+       const storyUploadSection = document.querySelector('.showstorycontainer');   
+       const discardContainer = document.getElementById('discardcontainer');
+       storyUploadSection.style.display = 'none';   
+       discardContainer.style.display = 'none';  
+   });
+   
+   document.getElementById('cancelstoryDiscard').addEventListener('click', function () {
+       const discardContainer = document.getElementById('discardstorycontainer');
+       discardContainer.style.display = 'none';   
+   });
 </script>
 
+
+
+   
 
 
 {{--to open or close model--}}
@@ -201,47 +217,7 @@ setupScrollListeners();
  
 </script>
 
-   <script>
-    function toggleSound() {
-        var video = document.getElementById("customVideo");
-        var soundOnIcon = document.getElementById("soundon");
-        var soundOffIcon = document.getElementById("soundoff");
-
-        if (video) {
-            if (video.muted) {
-                video.muted = false;
-                soundOnIcon.style.display = "block";
-                soundOffIcon.style.display = "none";
-            } else {
-                video.muted = true;
-                soundOnIcon.style.display = "none";
-                soundOffIcon.style.display = "block";
-            }
-        }
-    }
-
-    window.onload = function() {
-        var video = document.getElementById("customVideo");
-        var soundOnIcon = document.getElementById("soundon");
-        var soundOffIcon = document.getElementById("soundoff");
-
-        if (video) {
-            if (video.muted) {
-                soundOnIcon.style.display = "none";
-                soundOffIcon.style.display = "block";
-            } else {
-                soundOnIcon.style.display = "block";
-                soundOffIcon.style.display = "none";
-            }
-
-            soundOnIcon.parentNode.onclick = toggleSound;
-            soundOffIcon.parentNode.onclick = toggleSound;
-        }
-    };
-</script> 
-
-
-
+  
    
    <script>
  document.getElementById('openDesktop').addEventListener('click', function () {
@@ -517,6 +493,23 @@ $("#cancelDiscard").click(function() {
 //to hide comment section
 $("#hidecommentsection").click(function() { 
     $("#showcommentsection").hide();  
+});
+
+
+//to show story discard container 
+$(".discardstorysvg").click(function() { 
+    $("#discardstorycontainer").show();
+});
+
+//to hide story discard container 
+$("#dddiscardstory").click(function() { 
+    $(".showstorycontainer").hide();
+    $("#discardstorycontainer").hide();
+});
+
+//to hide story discard container 
+$("#cancelstoryDiscard").click(function() { 
+    $("#discardstorycontainer").hide();  
 });
 
 
@@ -1479,6 +1472,47 @@ $(document).ready(function() {
     });
 });
 
+//to store story
+$(document).ready(function() {
+    $('#shareStoryButton').click(function() {
+        const storyCaption = $('#storyInput').val();
+        const fileInput = $('#storyUploadInput')[0];
+        const file = fileInput.files[0];  
+
+        const formData = new FormData();
+        formData.append('story_caption', storyCaption);
+        
+        if (file) {
+            formData.append('story_file', file);
+        }
+
+        const userId = "{{ Auth::id() }}"; 
+        formData.append('user_id', userId);
+
+        $('.showstorycontainer').hide();  
+        $.ajax({
+            url: '/save-story',
+            type: 'POST',
+            data: formData,
+            processData: false,  
+            contentType: false, 
+            success: function(data) {
+                if (data.success) {
+                  
+                    $('.showstorycontainer').hide();  
+                    $('#previewstoryContainer').empty();  
+                    $('#storyInput').val('');  
+                } else {
+                   
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error:', textStatus, errorThrown);
+                alert('An error occurred while sharing the story.');
+            }
+        });
+    });
+});
 
 </script>
 </body>

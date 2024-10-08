@@ -7,12 +7,16 @@ use App\Models\Comment;
 use App\Models\Follow;
 use App\Models\Like;
 use App\Models\Reel;
+use App\Models\Story;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+ 
+
 
 
 
@@ -132,8 +136,18 @@ class ApiController extends Controller
 
                  $followedUserIds = $user->following()->pluck('following_id');
                  $reels = Reel::whereIn('user_id', $followedUserIds)->get();
+
+                 $followedUsers = DB::table('follows')
+                ->where('follow_id', auth()->id()) 
+                ->pluck('following_id');    
+
+ 
+                 $stories = Story::whereIn('user_id', $followedUsers)  
+                ->orderBy('created_at', 'desc')                  
+                ->get(); 
+
                           
-        return view('home', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions],compact('users','followRequests', 'reels'));
+        return view('home', ['Name' => $user->name, 'gender' => $user->gender, 'bio' => $user->bio, 'userName' => $user->userName, 'user' => $user->account_suggestions],compact('users','followRequests', 'reels','stories'));
     }
 
     public function seeallusers(){ 
