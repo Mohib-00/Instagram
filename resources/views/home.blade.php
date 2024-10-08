@@ -275,13 +275,13 @@
                                             <span>Terms<span style=" margin-left:5px">.</span></span>
                                         </p>
 
-                                        <p class="font" style="color:#737373">
+                                        <p class="font" style="color:#737373;margin-top:-12px">
                                             <span>Location<span style=" margin-left:5px">.</span></span>
                                             <span>Language<span style=" margin-left:5px">.</span></span>
                                             <span>Meta Verified<span style=" margin-left:5px">.</span></span>
                                         </p>
 
-                                        <p class="font" style="color:#737373">
+                                        <p class="font" style="color:#737373;margin-top:-12px">
                                         <span>© 2024 Instagram from Meta</span>
                                         </p>
                                     </div>
