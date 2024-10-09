@@ -84,5 +84,8 @@ Route::delete('/delete-request/{id}', [FollowController::class, 'deleteRequest']
 //to store story
 Route::post('/save-story', [StoryController::class, 'store']);
 
+//to get user story
+Route::get('/user-stories/{userId}', [StoryController::class, 'getUserStories']);
+
 
  

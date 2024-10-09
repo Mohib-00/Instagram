@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Story;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class StoryController extends Controller
@@ -38,5 +39,36 @@ class StoryController extends Controller
 
     return response()->json(['message' => 'Story created successfully!', 'story' => $story], 201);
 }
+
+public function getUserStories($userId)
+{
+    
+    $user = User::find($userId);  
+
+    if (!$user) {
+        return response()->json(['message' => 'User not found'], 404);
+    }
+
+    
+    $stories = Story::where('user_id', $userId)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+
+    if ($stories->isEmpty()) {
+        return response()->json(['message' => 'No stories available for this user'], 404);
+    }
+
+   
+    return response()->json([
+        'user' => [
+            'id' => $user->id,
+            'name' => $user->name,
+            'user_image' => $user->user_image,  
+        ],
+        'stories' => $stories,
+        'message' => 'Stories retrieved successfully!'
+    ], 200);
+}
+
 
 }

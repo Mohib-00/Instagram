@@ -41,7 +41,7 @@
 </head>
 <body>
 
-    <div class="container-fluid" style="background-color:black;height:922px">
+   <div class="container-fluid whenshowstoryhide" style="background-color:black;height:922px">
         <div class="row">
           
             @include('sidebar')
@@ -54,10 +54,7 @@
                             
                                     <div class="col-10">
                                      
-{{--<div class="button" style="position: absolute;margin-top:20px">
-    <button id="scrollLeft" style=" color:grey">&#9664;</button>
-    <button id="scrollRight" style=" color:grey">&#9654;</button>
-</div>--}}
+ 
 
 <div id="uploadstory" style="position: absolute; margin-left: 45px; margin-top: 50px; height: 35px; width: 35px; background: blue; border-radius: 50%; border: 4px solid black; cursor: pointer;">
     <svg style="color: white; font-weight: bolder; margin-top: -2px; margin-left: -2px;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
@@ -80,19 +77,18 @@
                                             $groupedStories = $stories->groupBy('user_id');
                                             @endphp
 
-                                            
                                             @foreach($groupedStories as $userId => $userStories)
                                             @php
-                                            $user = \App\Models\User::find($userId);  
+                                            $user = \App\Models\User::find($userId);
                                             @endphp
-                                    
-                                                <div class="col-1 mx-2" style="height:80px;width:80px;border-radius:50%;border:1px solid grey;padding:4px">
-                                                    <div class="col-6" style="height:70px;width:70px;border-radius:50%;background:white">
-                                                        <img src="{{ asset('images/' . $user->user_image) }}"   style="height:70px;width:70px;border-radius:50%;">
-                                                    </div>
-                                                </div>
-                                            @endforeach
                                             
+                                            <div class="col-1 mx-2 profile-container" data-user-id="{{ $userId }}" style="height:80px;width:80px;border-radius:50%;border:1px solid grey;padding:4px">
+                                                <div class="col-6" style="height:70px;width:70px;border-radius:50%;background:white">
+                                                    <img src="{{ asset('images/' . $user->user_image) }}" style="height:70px;width:70px;border-radius:50%;">
+                                                </div>
+                                            </div>
+                                            @endforeach  
+
                                         </div>
                                     </div>
 
@@ -302,6 +298,15 @@
 
         </div>
     </div>
+
+     <div id="storiesContainer" class="container-fluid" style="background: black;height:921px;display:none">
+         
+     </div>
+
+
+     
+
+
 
     @include('more')
 

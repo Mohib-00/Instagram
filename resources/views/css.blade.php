@@ -416,6 +416,10 @@
       margin-top:35px;
       margin-left:30px;
   }
+  .logohomee {
+      font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+      
+  }
   .home {
     font-family: "Open Sans", sans-serif;
     font-weight: 700;
@@ -2536,7 +2540,62 @@
   border-radius:0px 0px 20px 20px ;
   height:660px;
   
-}                                    
+}        
+
+.prgrs {
+    position: relative;  
+}
+
+ 
+.progress-bar {
+    width: 95%;
+    height: 2px;  
+    background-color: rgba(255, 255, 255, 0.2);  
+    border-radius: 5px;  
+    overflow: hidden;  
+    margin-top: 20px;  
+    position: relative;
+}
+
+ 
+.progress-bar-inner {
+    width: 0%;  
+    height: 100%;
+    background-color: white;  
+    transition: width 2s ease-in-out;  
+}
+
+ 
+@keyframes progressAnimation {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+ 
+.progress-bar-inner {
+    animation: progressAnimation 7s linear infinite;
+}
+
+ 
+.carousel-control-prev, .carousel-control-next {
+    width: 70px;   
+    height: 30px;   
+    transition: height 0.3s ease;  
+    border-radius: 50%;
+    margin-top:70%;
+}
+
+ 
+.carousel-control-prev:hover, .carousel-control-next:hover {
+    height: 70px;  
+}
+
+
+.story::placeholder {
+    color: white; /* Change the placeholder text color to white */
+    opacity: 1; /* Ensure opacity is 1 for better visibility */
+  }
+
   </style>
 
  
