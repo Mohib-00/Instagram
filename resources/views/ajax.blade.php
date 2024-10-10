@@ -1519,40 +1519,151 @@ $(document).ready(function() {
     });
 });
 
-//to get stories 
+
+//to get story
 $(document).ready(function() {
+    
     $('.profile-container').on('click', function() {
         const userId = $(this).data('user-id');
 
         $.ajax({
-            url: `/user-stories/${userId}`,  
+            url: `/user-stories/${userId}`,
             type: 'GET',
             success: function(response) {
                 if (response && response.user && response.stories) {
-             
-            const clickedUser = {
-                name: response.user.name || 'Unknown User',  
-                image: response.user.user_image || 'default.png'  
-            };
+                    const clickedUser = {
+                        name: response.user.name || 'Unknown User',
+                        image: response.user.user_image || 'default.png'
+                    };
 
-             
-            const storiesHtml = storyHTML(response.stories, clickedUser);
+                    stories = response.stories;   
+                    storiesLength = stories.length;
 
-            
-            $('#storiesContainer').html(storiesHtml);
-        } else {
-            console.log('No stories or user data found.');
-        }
-    },
+                    if (storiesLength > 0) {
+                        const storiesHtml = storyHTML(stories, clickedUser);
+                        $('#storiesContainer').html(storiesHtml);
+
+                        
+                        currentStoryIndex = 0;  
+                        loadStory(currentStoryIndex);  
+                    } else {
+                        console.log('No stories available for this user.');
+                    }
+                } else {
+                    console.log('No stories or user data found.');
+                }
+            },
             error: function(xhr, status, error) {
                 console.error("An error occurred: ", error);
             }
         });
     });
 
- 
+    let currentStoryIndex = 0;
+    let stories = [];
+    let storiesLength = 0;
+    let isVideo = false;
+    let videoDuration = 0;
 
-function timeAgo(createdTime) {
+   
+    function startStoryProgress(storyIndex) {
+        if (storyIndex >= storiesLength || !stories[storyIndex]) {
+            console.error("Invalid story index or story is undefined.");
+            return;
+        }
+
+        const story = stories[storyIndex];
+        const $progressBarInner = $('.progress-bar-inner');
+
+        
+        isVideo = !!story.story_video;
+
+        if (isVideo) {
+           
+            const $video = document.querySelector('video');
+            $video.onloadedmetadata = function() {
+                videoDuration = $video.duration * 1000; 
+                updateProgressBar(videoDuration, storyIndex);
+            };
+
+            $video.play();
+        } else if (story.story_image) {
+           
+            updateProgressBar(6000, storyIndex);
+        } else {
+            console.error("Story does not have a valid video or image.");
+        }
+    }
+
+   
+    function updateProgressBar(duration, storyIndex) {
+        const $progressBarInner = $('.progress-bar-inner');
+
+        $progressBarInner.css('width', '0');
+        $progressBarInner.animate({ width: '100%' }, duration, 'linear', function() {
+            
+            currentStoryIndex++;
+
+            if (currentStoryIndex < storiesLength) {
+                
+                loadStory(currentStoryIndex);
+            } else {
+               
+                $('#storiesContainer').hide();
+                $('.whenshowstoryhide').show();
+            }
+        });
+    }
+
+    
+    function loadStory(storyIndex) {
+        if (storyIndex >= storiesLength || !stories[storyIndex]) {
+            console.error("Invalid story index or story is undefined.");
+            return;
+        }
+
+        $('#carouselExample').carousel(storyIndex);
+        startStoryProgress(storyIndex);
+    }
+
+     
+    $(document).ready(function() {
+        startStoryProgress(currentStoryIndex);
+
+        
+        $('#carouselExample').on('slide.bs.carousel', function (e) {
+            currentStoryIndex = $(e.relatedTarget).index();
+
+            if (currentStoryIndex < storiesLength) {
+                startStoryProgress(currentStoryIndex);
+            } else {
+                $('#storiesContainer').hide();
+                $('.whenshowstoryhide').show();
+            }
+        });
+    });
+
+     
+    $(document).on('click', '#storiesContainerhide', function () {
+        $('#storiesContainer').hide();
+        $('.whenshowstoryhide').show();
+    });
+
+
+    $(document).on('click', '#pausesvg', function () {
+        $('#pausesvg').hide();
+        $('#playsvg').show();
+        
+    });
+
+    $(document).on('click', '#playsvg', function () {
+ 
+    $('#pausesvg').show();  
+    $('#playsvg').hide();  
+    
+});
+
+   function timeAgo(createdTime) {
     const now = new Date();
     const storyTime = new Date(createdTime);
     const timeDifference = Math.abs(now - storyTime);
@@ -1573,143 +1684,135 @@ function timeAgo(createdTime) {
 }
 
 
-
+     
 function storyHTML(stories, clickedUser) {
 
-        return `
-      <div class="row">
-  <div class="col-4">
-    <h1 class="logohomee">Instagram</h1>
+return `
+<div class="row">
+<div class="col-4">
+<h1 class="logohomee">Instagram</h1>
+</div>
+
+<div class="col-4" style="padding:30px 0px 0px 0px">
+<div class="col-9 prgrs" style="background-color:#1f1f1f;height:860px;border-radius:10px;margin-left:25px;width:80%">
+<div class="row" style="padding:0px 0px 0px 15px">
+
+<div class="col-12 mt-3">
+  <div class="progress-bar">
+    <div class="progress-bar-inner"></div>
+  </div>
+</div>
+
+<div class="col-12">
+  <div class="row">
+
+    <div class="col-1">
+      <img style="margin-top:20px;margin-left:2px" class="img1" src="/images/${clickedUser.image || 'default.png'}">
+    </div>
+
+    <div class="col-1" style="margin-top:20px;margin-left:2px">
+      <p class="font" style="font-weight: bolder">${clickedUser.name}</p>
+    </div>
+
+    <div class="col-7">
+      <p class="font" style="font-weight: bolder;color:gray;margin-top:20px;margin-left:40px">${timeAgo(stories[0].created_at)}</p>
+    </div>
+
+    <div id="pausesvg" class="col-1" style="margin-top:20px;">   
+    <svg id="pausesvg" aria-label="Pause" class="x1lliihq x1n2onr6 xq3z1fi" fill="currentColor" height="20" role="img" viewBox="0 0 48 48" width="20"><title>Pause</title><path d="M15 1c-3.3 0-6 1.3-6 3v40c0 1.7 2.7 3 6 3s6-1.3 6-3V4c0-1.7-2.7-3-6-3zm18 0c-3.3 0-6 1.3-6 3v40c0 1.7 2.7 3 6 3s6-1.3 6-3V4c0-1.7-2.7-3-6-3z"></path></svg>
+    </div>
+
+    <div id="playsvg" class="col-1" style="margin-top:20px;display:none">        
+      <svg id="playsvg"     aria-label="Play" class="x1lliihq x1n2onr6 xq3z1fi" fill="currentColor" height="20" role="img" viewBox="0 0 24 24" width="29">
+        <title>Play</title>
+        <path d="M5.888 22.5a3.46 3.46 0 0 1-1.721-.46l-.003-.002a3.451 3.451 0 0 1-1.72-2.982V4.943a3.445 3.445 0 0 1 5.163-2.987l12.226 7.059a3.444 3.444 0 0 1-.001 5.967l-12.22 7.056a3.462 3.462 0 0 1-1.724.462Z"></path>
+      </svg>
+    </div>
+
+    <div class="col-1" style="margin-top:20px;">
+      <svg aria-label="Menu" class="x1lliihq x1n2onr6 x1g9anri" fill="currentColor" height="30" role="img" viewBox="0 0 24 24" width="30">
+        <title>Menu</title>
+        <circle cx="12" cy="12" r="2.75"></circle>
+        <circle cx="19.5" cy="12" r="2.75"></circle>
+        <circle cx="4.5" cy="12" r="2.75"></circle>
+      </svg>
+    </div>
+
   </div>
 
-  <div class="col-4" style="padding:30px 0px 0px 0px">
-    <div class="col-9 prgrs" style="background-color:#1f1f1f;height:860px;border-radius:10px;margin-left:25px;width:80%">
-      <div class="row" style="padding:0px 0px 0px 15px">
+  <div class="col-11">
+ <div id="carouselExample" class="carousel slide">
+                          <div class="carousel-inner">
+                              ${stories.map((story, index) => {
+                                 
+                                  const activeClass = index === 0 ? 'active' : '';
+                                   
+                                  return `
+                                      <div class="carousel-item ${activeClass}">
+                                          <div class="col-12" style="height:700px;background:gray;border-radius:5px;">
+                                              ${story.story_image ? 
+                                                  `<img src="/${story.story_image}" style="width:100%; height:700px; border-radius:5px;" alt="Story Image">` :
+                                                  story.story_video ?
+                                                  `<video src="/${story.story_video}" style="width:100%; height:700px; border-radius:5px;object-fit:cover" autoplay loop></video>` : ''
+                                              }
+                                          </div>
+                                      </div>
+                                  `;
+                              }).join('')}
+                          </div>
+                          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Previous</span>
+                          </button>
+                          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Next</span>
+                          </button>
+                      </div>
 
-        <div class="col-12">
-          <div class="progress-bar">
-            <div class="progress-bar-inner"></div>
-          </div>
-        </div>
+  </div>
 
-        <div class="col-12">
-          <div class="row">
+  <div class="col-12">
+    <div class="row">
 
-            <div class="col-1">
-              <img style="margin-top:20px;margin-left:2px" class="img1" src="/images/${clickedUser.image || 'default.png'}">
-            </div>
-
-            <div class="col-1" style="margin-top:20px;margin-left:2px">
-              <p class="font" style="font-weight: bolder">${clickedUser.name}</p>
-            </div>
-
-            <div class="col-7">
-              <p class="font" style="font-weight: bolder;color:gray;margin-top:20px;margin-left:40px">${timeAgo(stories[0].created_at)}</p>
-            </div>
-
-            <div class="col-1" style="margin-top:20px;">
-              <svg aria-label="Play" class="x1lliihq x1n2onr6 xq3z1fi" fill="currentColor" height="20" role="img" viewBox="0 0 24 24" width="29">
-                <title>Play</title>
-                <path d="M5.888 22.5a3.46 3.46 0 0 1-1.721-.46l-.003-.002a3.451 3.451 0 0 1-1.72-2.982V4.943a3.445 3.445 0 0 1 5.163-2.987l12.226 7.059a3.444 3.444 0 0 1-.001 5.967l-12.22 7.056a3.462 3.462 0 0 1-1.724.462Z"></path>
-              </svg>
-            </div>
-
-            <div class="col-1" style="margin-top:20px;">
-              <svg aria-label="Menu" class="x1lliihq x1n2onr6 x1g9anri" fill="currentColor" height="30" role="img" viewBox="0 0 24 24" width="30">
-                <title>Menu</title>
-                <circle cx="12" cy="12" r="2.75"></circle>
-                <circle cx="19.5" cy="12" r="2.75"></circle>
-                <circle cx="4.5" cy="12" r="2.75"></circle>
-              </svg>
-            </div>
-
-          </div>
-
-          <div class="col-11">
-         <div id="carouselExample" class="carousel slide">
-                                  <div class="carousel-inner">
-                                      ${stories.map((story, index) => {
-                                         
-                                          const activeClass = index === 0 ? 'active' : '';
-                                           
-                                          return `
-                                              <div class="carousel-item ${activeClass}">
-                                                  <div class="col-12" style="height:700px;background:gray;border-radius:5px;">
-                                                      ${story.story_image ? 
-                                                          `<img src="/${story.story_image}" style="width:100%; height:700px; border-radius:5px;" alt="Story Image">` :
-                                                          story.story_video ?
-                                                          `<video src="/${story.story_video}" style="width:100%; height:700px; border-radius:5px;object-fit:cover" autoplay loop></video>` : ''
-                                                      }
-                                                  </div>
-                                              </div>
-                                          `;
-                                      }).join('')}
-                                  </div>
-                                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                      <span class="visually-hidden">Previous</span>
-                                  </button>
-                                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                      <span class="visually-hidden">Next</span>
-                                  </button>
-                              </div>
-
-
-
-
-          </div>
-
-          <div class="col-12">
-            <div class="row">
-
-              <div class="col-8">
-                <input style="background:transparent;margin-left:8px;margin-top:15px;height:50px;border-radius:20px;color:white" type="text" class="form-control story" placeholder="Reply to..." />
-              </div>
-              <div class="col-1">
-                <svg class="mt-4 mx-3" aria-label="Like" fill="currentColor" height="30" role="img" viewBox="0 0 24 24" width="30">
-                  <title>Like</title>
-                  <path d="M16.792 3.904A4.989 4.989 0 0 1 21.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.477-.309-2.143-1.823-4.303-3.752C5.141 14.072 2.5 12.167 2.5 9.122a4.989 4.989 0 0 1 4.708-5.218 4.21 4.21 0 0 1 3.675 1.941c.84 1.175.98 1.763 1.12 1.763s.278-.588 1.11-1.766a4.17 4.17 0 0 1 3.679-1.938m0-2a6.04 6.04 0 0 0-4.797 2.127 6.052 6.052 0 0 0-4.787-2.127A6.985 6.985 0 0 0 .5 9.122c0 3.61 2.55 5.827 5.015 7.97.283.246.569.494.853.747l1.027.918a44.998 44.998 0 0 0 3.518 3.018 2 2 0 0 0 2.174 0 45.263 45.263 0 0 0 3.626-3.115l.922-.824c.293-.26.59-.519.885-.774 2.334-2.025 4.98-4.32 4.98-7.94a6.985 6.985 0 0 0-6.708-7.218Z"></path>
-                </svg>
-              </div>
-              <div class="col-1">
-                <svg class="mt-4 mx-4" aria-label="Direct" class="x1lliihq x1n2onr6 x1g9anri" fill="currentColor" height="30" role="img" viewBox="0 0 24 24" width="30">
-                  <title>Direct</title>
-                  <line fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2" x1="22" x2="9.218" y1="3" y2="10.083"></line>
-                  <polygon fill="none" points="11.698 20.334 22 3.001 2 3.001 9.218 10.084 11.698 20.334" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></polygon>
-                </svg>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-
+      <div class="col-8">
+        <input style="background:transparent;margin-left:8px;margin-top:15px;height:50px;border-radius:20px;color:white" type="text" class="form-control story" placeholder="Reply to..." />
       </div>
+      <div class="col-1">
+        <svg class="mt-4 mx-3" aria-label="Like" fill="currentColor" height="30" role="img" viewBox="0 0 24 24" width="30">
+          <title>Like</title>
+          <path d="M16.792 3.904A4.989 4.989 0 0 1 21.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.477-.309-2.143-1.823-4.303-3.752C5.141 14.072 2.5 12.167 2.5 9.122a4.989 4.989 0 0 1 4.708-5.218 4.21 4.21 0 0 1 3.675 1.941c.84 1.175.98 1.763 1.12 1.763s.278-.588 1.11-1.766a4.17 4.17 0 0 1 3.679-1.938m0-2a6.04 6.04 0 0 0-4.797 2.127 6.052 6.052 0 0 0-4.787-2.127A6.985 6.985 0 0 0 .5 9.122c0 3.61 2.55 5.827 5.015 7.97.283.246.569.494.853.747l1.027.918a44.998 44.998 0 0 0 3.518 3.018 2 2 0 0 0 2.174 0 45.263 45.263 0 0 0 3.626-3.115l.922-.824c.293-.26.59-.519.885-.774 2.334-2.025 4.98-4.32 4.98-7.94a6.985 6.985 0 0 0-6.708-7.218Z"></path>
+        </svg>
+      </div>
+      <div class="col-1">
+        <svg class="mt-4 mx-4" aria-label="Direct" class="x1lliihq x1n2onr6 x1g9anri" fill="currentColor" height="30" role="img" viewBox="0 0 24 24" width="30">
+          <title>Direct</title>
+          <line fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2" x1="22" x2="9.218" y1="3" y2="10.083"></line>
+          <polygon fill="none" points="11.698 20.334 22 3.001 2 3.001 9.218 10.084 11.698 20.334" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></polygon>
+        </svg>
+      </div>
+
     </div>
   </div>
 
-  <div class="col-4">
-    <svg id="storiesContainerhide" style="margin-left: 90%;margin-top:3%" aria-label="Close" class="x1lliihq x1n2onr6 x9bdzbf" fill="currentColor" height="40" role="img" viewBox="0 0 24 24" width="40">
-      <title>Close</title>
-      <path d="M12 10.586l4.243-4.243 1.414 1.414L13.414 12l4.243 4.243-1.414 1.414L12 13.414l-4.243 4.243-1.414-1.414L10.586 12 6.343 7.757l1.414-1.414z"></path>
-    </svg>
-  </div>
 </div>
-    `;   
- 
-    }
-        
-$(document).on('click', '#storiesContainerhide', function () {
-        $('#storiesContainer').hide();
-        $('.whenshowstoryhide').show();  
-});
-    
-  
+
+</div>
+</div>
+</div>
+
+<div class="col-4">
+<svg id="storiesContainerhide" style="margin-left: 90%;margin-top:3%" aria-label="Close" class="x1lliihq x1n2onr6 x9bdzbf" fill="currentColor" height="40" role="img" viewBox="0 0 24 24" width="40">
+<title>Close</title>
+<path d="M12 10.586l4.243-4.243 1.414 1.414L13.414 12l4.243 4.243-1.414 1.414L12 13.414l-4.243 4.243-1.414-1.414L10.586 12 6.343 7.757l1.414-1.414z"></path>
+</svg>
+</div>
+</div>
+`;   
+
+}
 
 });
-
-
 
 </script>
 </body>

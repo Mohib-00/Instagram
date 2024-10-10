@@ -2546,35 +2546,20 @@
     position: relative;  
 }
 
- 
 .progress-bar {
-    width: 95%;
-    height: 2px;  
-    background-color: rgba(255, 255, 255, 0.2);  
-    border-radius: 5px;  
-    overflow: hidden;  
-    margin-top: 20px;  
-    position: relative;
-}
-
- 
-.progress-bar-inner {
-    width: 0%;  
-    height: 100%;
-    background-color: white;  
-    transition: width 2s ease-in-out;  
-}
-
- 
-@keyframes progressAnimation {
-    0% { width: 0%; }
-    100% { width: 100%; }
-}
-
- 
-.progress-bar-inner {
-    animation: progressAnimation 7s linear infinite;
-}
+      width: 92%;
+      background-color: #ccc;
+      height: 5px;
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+  }
+  .progress-bar-inner {
+      background-color: white;
+      height: 100%;
+      width: 0;
+      transition: width 0.1s linear;
+  }
 
  
 .carousel-control-prev, .carousel-control-next {
@@ -2592,8 +2577,8 @@
 
 
 .story::placeholder {
-    color: white; /* Change the placeholder text color to white */
-    opacity: 1; /* Ensure opacity is 1 for better visibility */
+    color: white;  
+    opacity: 1; 
   }
 
   </style>
