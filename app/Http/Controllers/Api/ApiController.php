@@ -315,6 +315,12 @@ public function update(Request $request)
     return response()->json(['message' => 'Profile updated successfully.']);
 }
 
+
+public function message(){  
+    $followingUsers = Auth::user()->following()->get();           
+    return view('message',compact('followingUsers'));
+}
+
  
 }
     

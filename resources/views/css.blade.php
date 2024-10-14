@@ -2581,6 +2581,107 @@
     opacity: 1; 
   }
 
+  .padng:hover{
+    background: #262626;
+  }
+
+  .padng{
+    padding:15px 5px 20px 20px;
+    border-radius:10px;
+  }
+
+  #responsive-div {
+        width: 66%;
+    }
+
+   
+    @media screen and (min-width: 1601px) and (max-width: 1607px) {
+      #responsive-div {
+            width: 62%;
+        }
+}
+
+@media screen and (min-width: 1501px) and (max-width: 1600px) {
+      #responsive-div {
+            width: 60%;
+        }
+}
+
+@media screen and (min-width: 1401px) and (max-width: 1500px) {
+      #responsive-div {
+            width: 58%;
+        }
+}
+
+
+@media screen and (min-width: 1301px) and (max-width: 1400px) {
+      #responsive-div {
+            width: 55%;
+        }
+}
+
+@media screen and (min-width: 1201px) and (max-width: 1300px) {
+      #responsive-div {
+            width: 52%;
+        }
+}
+
+@media screen and (min-width: 1101px) and (max-width: 1200px) {
+      #responsive-div {
+            width: 48%;
+        }
+}
+
+@media screen and (min-width: 1001px) and (max-width: 1100px) {
+      #responsive-div {
+            width: 42%;
+        }
+}
+
+@media screen and (min-width: 900px) and (max-width: 1001px) {
+      #responsive-div {
+            width: 40%;
+        }
+}
+
+
+@media screen and (min-width: 800px) and (max-width: 901px) {
+      #responsive-div {
+            width: 33%;
+        }
+}
+
+    
+    #fixed-width-div {
+        width: 480px;
+    }
+
+    
+    @media (max-width: 1200px) {
+        #fixed-width-div {
+            width: 480px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        #fixed-width-div {
+            width: 480px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        #fixed-width-div {
+            width: 140px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        #fixed-width-div {
+            width: 120px;
+        }
+    }
+    
+
   </style>
 
  

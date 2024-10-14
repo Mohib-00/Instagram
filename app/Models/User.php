@@ -53,6 +53,23 @@ public function following()
     return $this->belongsToMany(User::class, 'follows', 'follow_id', 'following_id');
 }
 
+public function sentMessages()
+{
+    return $this->hasMany(Message::class, 'sender_id');
+}
+
+ 
+public function receivedMessages()
+{
+    return $this->hasMany(Message::class, 'receiver_id');
+}
+
+ 
+public function userMessages()
+{
+    return $this->hasMany(Message::class, 'user_id');
+}
+
 
     /**
      * The attributes that should be hidden for serialization.

@@ -783,7 +783,7 @@ $(document).ready(function () {
 
 
         
-       if ((window.location.pathname === '/home' || window.location.pathname === '/seeallusers' || window.location.pathname === '/profile' || window.location.pathname === '/reelss' || window.location.pathname === '/edit' || window.location.pathname === '/posts' || window.location.pathname === '/admin') && !localStorage.getItem('token')) {
+       if ((window.location.pathname === '/home' || window.location.pathname === '/message' || window.location.pathname === '/seeallusers' || window.location.pathname === '/profile' || window.location.pathname === '/reelss' || window.location.pathname === '/edit' || window.location.pathname === '/posts' || window.location.pathname === '/admin') && !localStorage.getItem('token')) {
            window.location.href = '/';
        }
    });
@@ -943,6 +943,26 @@ $(document).ready(function(){
     });
 
 });
+
+
+//to open message page 
+$(document).ready(function(){
+     
+     $('#message').click(function() {
+         $.ajax({
+             url: '/message',  
+             type: 'GET',
+             success: function(response) {
+        
+                 window.location.href = '/message';
+             },
+             error: function(xhr, status, error) {
+                 console.error('AJAX Error: ', status, error);
+             }
+         });
+     });
+ 
+ });
 
 
 
@@ -1710,12 +1730,12 @@ return `
       <img style="margin-top:20px;margin-left:2px" class="img1" src="/images/${clickedUser.image || 'default.png'}">
     </div>
 
-    <div class="col-1" style="margin-top:20px;margin-left:2px">
+    <div class="col-1" style="margin-top:20px;margin-left:2px;width:fit-content">
       <p class="font" style="font-weight: bolder">${clickedUser.name}</p>
     </div>
 
-    <div class="col-7">
-      <p class="font" style="font-weight: bolder;color:gray;margin-top:20px;margin-left:40px">${timeAgo(stories[0].created_at)}</p>
+    <div class="col-5">
+      <p class="font" style="font-weight: bolder;color:gray;margin-top:20px; ">${timeAgo(stories[0].created_at)}</p>
     </div>
 
     <div id="pausesvg" class="col-1" style="margin-top:20px;">   

@@ -64,7 +64,7 @@
        </div>
     </div>
 
-    <div class="col-12  explore">
+    <div class="col-12  explore" id="message">
        <div class="row srchdiv">
 
            <div class="col-1 homesvg ">

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ReelController;
 use App\Http\Controllers\StoryController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,9 @@ Route::get('/posts', [ApiController::class, 'posts'])->name('posts');
 
 // reels page
 Route::get('/reelss', [ApiController::class, 'openreels'])->name('reelss');
+
+// message page
+Route::get('/message', [ApiController::class, 'message'])->name('message');
 
 //Logout
 Route::post("logout",[ApiController::class,"logout"]);
@@ -86,6 +90,13 @@ Route::post('/save-story', [StoryController::class, 'store']);
 
 //to get user story
 Route::get('/user-stories/{userId}', [StoryController::class, 'getUserStories']);
+
+//to send message
+Route::post('/send-message', [MessageController::class, 'sendMessage']);
+
+//to get message
+Route::get('/message/{id}', [MessageController::class, 'getMessages'])->name('messages.get');
+
 
 
  
