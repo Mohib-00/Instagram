@@ -294,10 +294,10 @@
             <div class="row mt-3">
 
                 <div class="col-1 profile-image">
-                    <img class="profile-image" src="https://bootdey.com/img/Content/avatar/avatar6.png">
+                    <img class="profile-image chatUserImage"    >
                 </div>
-                <div class="col-9 font mt-3">
-                    <h5 style="font-weight:bolder">Mohib ahmad</h5>
+                <div class="col-9 font">
+                    <h5 style="font-weight: bolder;margin-top:15px" class="chatUserName"></h5>
                 </div>
 
                 <div class="col-2" style="position: fixed; margin-left:1130px;">
@@ -321,70 +321,28 @@
             </div>
             <hr style="border-color: 1px solid #262626;margin-left:-15px;width:106%">
 
-            <div id="chat-container" class="col-12 scrollbar" style=" overflow:auto;height:680px">
+            <div  class="col-12 scrollbar" style=" overflow:auto;height:680px;width:105%">
+                <div class="col-1 profile-imagee mt-5" style="margin-left:45%;">
+                    <img class="profile-imagee chatUserImage"  >
+                </div>
+                <div class="col-5 mt-3" style="width:fit-content;margin-left:39%;">
+                    <h5 style="margin-left:60%;" class="font chatUserName"></h5>
+                    <h6 class="font chatusername" style="margin-left: 32%;"></h6>
+                </div>
+                <div class="col-1 mt-4" style="background:#363636;width:fit-content;height:30px;border-radius:10px;padding:10px 25px 35px 25px;margin-left:43.5%;">
+                    <span class="font">View profile</span>
+                </div>
+                <div class="col-6" style="align-items: center;margin-top:250px;margin-left:47%;">
+                    <p class="font" style="font-weight:bolder"></p>
+                </div>  
                 
-                
-                
-                    <div class="col-1 profile-imagee mt-5" style="margin-left:45%;" >
-                        <img class="profile-imagee" src="https://bootdey.com/img/Content/avatar/avatar6.png">
-                    </div>
-                    <div class="col-5 mt-3" style="width:fit-content;margin-left:39%" >
-                        <h5 style="margin-left:28%" class="font">Mohib Ahmad</h5>
-                        <h6 class="font" style="margin-left: 12%">mohibahmad93.instagram</h6>
-                    </div>
-                    <div class="col-1 mt-4" style="background:#363636;width:fit-content;height:30px;border-radius:10px;padding:10px 25px 35px 25px;margin-left:43%">
-                        <span class="font">View profile</span>
-                    </div>
-
-
-                    <div class="col-6" style="align-items: center;margin-top:250px;margin-left:47%">
-                        <p class="font" style="font-weight:bolder">11:41</p>
-                    </div>  
+                <div id="chat-container" class="col-12">
                     
-                    <div class="col-12" id="recivermessage" style="display: flex; justify-content: flex-start;">
-                        <div style="width: fit-content; background: #262626; padding: 10px; color: white;border-radius:20px">
-                            <h5>Receiver message</h5>
-                        </div>
-                    </div>
-                
-                     
-                    <div class="col-12 mt-2" id="sendermessage" style="display: flex; justify-content: flex-end;">
-                        <div style="width: fit-content; background: #3796f0; padding: 10px; color: white;border-radius:20px">
-                            <h5>Sender message</h5>
-                        </div>
-                    </div>
-                    <div class="col-12" id="recivermessage" style="display: flex; justify-content: flex-start;">
-                        <div style="width: fit-content; background: #262626; padding: 10px; color: white;border-radius:20px">
-                            <h5>Receiver message</h5>
-                        </div>
-                    </div>
-                
-                     
-                    <div class="col-12 mt-2" id="sendermessage" style="display: flex; justify-content: flex-end;">
-                        <div style="width: fit-content; background: #3796f0; padding: 10px; color: white;border-radius:20px">
-                            <h5>Sender message</h5>
-                        </div>
-                    </div>
-                    <div class="col-12" id="recivermessage" style="display: flex; justify-content: flex-start;">
-                        <div style="width: fit-content; background: #262626; padding: 10px; color: white;border-radius:20px">
-                            <h5>Receiver message</h5>
-                        </div>
-                    </div>
-                
-                     
-                    <div class="col-12 mt-2" id="sendermessage" style="display: flex; justify-content: flex-end;">
-                        <div style="width: fit-content; background: #3796f0; padding: 10px; color: white;border-radius:20px">
-                            <h5>Sender message</h5>
-                        </div>
-                    </div>
-
-                
- 
-
+                </div>
             </div>
 
             
-            <div class="col-12 mt-5">
+            <div class="col-12 mt-5" style="width:103%">
                 <form>
                 <div  style="display: flex; align-items: center; justify-content: space-between; background-color: #000; padding: 14px; border-radius: 25px; width: 101%; border: 1px solid #fff;">
                    
@@ -403,6 +361,7 @@
                         <span id="addPhoto" style="color: white; font-size: 20px; margin: 0 10px; cursor: pointer;">
                             <svg aria-label="Add Photo or Video" class="x1lliihq x1n2onr6 x5n08af" fill="currentColor" height="30" role="img" viewBox="0 0 24 24" width="30"><title>Add Photo or Video</title><path d="M6.549 5.013A1.557 1.557 0 1 0 8.106 6.57a1.557 1.557 0 0 0-1.557-1.557Z" fill-rule="evenodd"></path><path d="m2 18.605 3.901-3.9a.908.908 0 0 1 1.284 0l2.807 2.806a.908.908 0 0 0 1.283 0l5.534-5.534a.908.908 0 0 1 1.283 0l3.905 3.905" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path><path d="M18.44 2.004A3.56 3.56 0 0 1 22 5.564h0v12.873a3.56 3.56 0 0 1-3.56 3.56H5.568a3.56 3.56 0 0 1-3.56-3.56V5.563a3.56 3.56 0 0 1 3.56-3.56Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                         </span>
+                        <input type="file" id="mediaInput" style="display: none;" accept="image/*,video/*">
                         <span id="like" style="color: white; font-size: 20px; margin: 0 10px; cursor: pointer;">
                             <svg aria-label="Like" class="x1lliihq x1n2onr6 x5n08af" fill="currentColor" height="30" role="img" viewBox="0 0 24 24" width="30"><title>Like</title><path d="M16.792 3.904A4.989 4.989 0 0 1 21.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.477-.309-2.143-1.823-4.303-3.752C5.141 14.072 2.5 12.167 2.5 9.122a4.989 4.989 0 0 1 4.708-5.218 4.21 4.21 0 0 1 3.675 1.941c.84 1.175.98 1.763 1.12 1.763s.278-.588 1.11-1.766a4.17 4.17 0 0 1 3.679-1.938m0-2a6.04 6.04 0 0 0-4.797 2.127 6.052 6.052 0 0 0-4.787-2.127A6.985 6.985 0 0 0 .5 9.122c0 3.61 2.55 5.827 5.015 7.97.283.246.569.494.853.747l1.027.918a44.998 44.998 0 0 0 3.518 3.018 2 2 0 0 0 2.174 0 45.263 45.263 0 0 0 3.626-3.115l.922-.824c.293-.26.59-.519.885-.774 2.334-2.025 4.98-4.32 4.98-7.94a6.985 6.985 0 0 0-6.708-7.218Z"></path></svg>
                         </span>

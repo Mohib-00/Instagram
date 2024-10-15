@@ -97,6 +97,8 @@ Route::post('/send-message', [MessageController::class, 'sendMessage']);
 //to get message
 Route::get('/message/{id}', [MessageController::class, 'getMessages'])->name('messages.get');
 
+Route::get('/user/{id}', [MessageController::class, 'show']);
+
 
 
  

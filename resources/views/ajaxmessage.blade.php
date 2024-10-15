@@ -495,85 +495,203 @@ $(document).ready(function(){
      });
  
  });
- 
+ let lastMessageDate = null;  
 
- $(document).on('click', '.select-user', function(e) {
-    e.preventDefault();
+function Html(conversation, user_id) {
+    let messageHtml = '';
+
+    const messageDateObj = new Date(conversation.created_at);
     
-    var userId = $(this).data('user-id');
-    console.log('Receiver ID:', userId);  $('#receiverId').val(userId); 
-    var userName = $(this).data('user-userName');
-    var name = $(this).data('user-name');
+    
+    const messageDay = messageDateObj.toLocaleDateString('en-US', { weekday: 'short' }); 
+    const messageTime = messageDateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });  
 
-    var userImage = $(this).data('user-image');
- 
-});
+     
+    const messageDate = `${messageDay} ${messageTime}`;
 
-$('.select-user').on('click', function() {
-        const userId = $(this).data('user-id');  
-        $('#receiverId').val(userId);  
-
+    
+    if (lastMessageDate !== messageDay) {
         
+        messageHtml += `
+            <div class="col-6" style="align-items: center; margin-top: 20px; margin-left: 45%;">
+                <p class="font" style="font-weight: bolder;">${messageDate}</p>
+            </div>
+        `;
+        lastMessageDate = messageDay;  
+    }
+
+    
+    if (conversation.video) {
+        messageHtml += `
+            <div class="message">
+                <video controls>
+                    <source src="/videos/${conversation.video}" type="video/mp4">
+                </video>
+            </div>
+        `;
+    } else if (conversation.image) {
+        messageHtml += `
+            <div class="message">
+                <img src="/images/${conversation.image}" alt="Image message">
+            </div>
+        `;
+    } else if (conversation.message) {
+        messageHtml += `
+            <div class="message-container" style="display: flex; flex-direction: column; width: 100%;">
+                <div class="message-content" style="font-size: 17px; background: ${conversation.user_id == user_id ? '#3796f0' : '#262626'}; padding: 10px 10px 5px 10px; border-radius: 20px; color: #dfe3e6; margin: 5px 0; width: fit-content; ${conversation.user_id == user_id ? 'margin-left: auto;' : ''}; letter-spacing: 1px;">
+                    <p class="font">${conversation.message}</p>
+                </div>
+            </div>
+        `;
+    }
+
+    return messageHtml;
+}
+
+
+ 
+$(document).ready(function() {
+    var user_id = "{{ Auth::user()->id }}";  
+    const path = window.location.pathname;  
+    const userIdMatch = path.match(/\/message\/(\d+)/);   
+
+     
+    if (userIdMatch && userIdMatch[1]) {
+        const userId = userIdMatch[1];
+        $('#receiverId').val(userId);   
+        getMessages(userId);  
+        updateUserInfo(userId);   
+    }
+
+     
+    $('.select-user').on('click', function() {
+        const userId = $(this).data('user-id');  
+        $('#receiverId').val(userId);   
+        getMessages(userId);  
+        updateUserInfo(userId); 
+        window.history.pushState(null, '', `/message/${userId}`);   
+    });
+
+    
+    function getMessages(userId) {
         $.ajax({
             url: `/message/${userId}`,  
             type: 'GET',
-            success: function(messages) {
-                console.log(messages);  
-               
-               // updateMessageContainer(messages);
-                
-                window.history.pushState(null, '', `/message/${userId}`);
+            success: function(response) {
+                const messages = response.messages || [];   
+                console.log('Messages received:', messages);  
+                $('#chat-container').empty();  
+
+                if (Array.isArray(messages) && messages.length > 0) {
+                    messages.forEach(function(conversation) {
+                        var messageHtml = Html(conversation, user_id);  
+                        $('#chat-container').append(messageHtml);  
+                    });
+                } else {
+                    $('#chat-container').append('<p>No messages found.</p>');  
+                }
             },
             error: function(xhr) {
-                alert('Error fetching messages: ' + xhr.responseJSON.message);
+                console.error('Error fetching messages:', xhr);  
+                alert('Error fetching messages: ' + xhr.responseJSON.message);  
             }
         });
+    }
+
+    
+    function updateUserInfo(userId) {
+         
+        $.ajax({
+            url: `/user/${userId}`,   
+            type: 'GET',
+            success: function(response) {
+                const userResponse = response.user;  
+                if (userResponse) {
+                    $('.chatUserImage').attr('src', userResponse.user_image);   
+                    $('.chatUserName').text(userResponse.userName); 
+                    $('.chatusername').text(userResponse.name + '.instagram');  
+                }
+            },
+            error: function(xhr) {
+                console.error('Error fetching user info:', xhr);   
+            }
+        });
+    }
+});
+
+    $(document).ready(function() {
+   
+    const url = window.location.pathname;
+    
+    const receiverIdFromUrl = url.split('/').pop();
+  
+    if (receiverIdFromUrl && !isNaN(receiverIdFromUrl)) {
+        $('#receiverId').val(receiverIdFromUrl);
+    }
+});
+
+$(document).ready(function() {  
+    $('#addPhoto').on('click', function() {
+        $('#mediaInput').click();  
     });
 
+    $('#mediaInput').on('change', function() {
+        const file = this.files[0];  
+        sendMessage(file);  
+    });
+});
 
 
 $('#send').click(function(e) {
     e.preventDefault();
-       sendMessage();  
-   });
+    sendMessage();
+});
+ 
+function sendMessage(file = null) {
+    const messageInput = $('#messageInput').val();
+    const senderId = "{{ Auth::user()->id }}";
+    const receiverId = $('#receiverId').val();
+    const userId = "{{ Auth::user()->id }}";
 
-    function sendMessage() {
-        const messageInput = $('#messageInput').val();
-        const senderId = "{{ Auth::user()->id }}";
-        const receiverId = $('#receiverId').val();  
-        const userId = "{{ Auth::user()->id }}";
+    if (!messageInput && !file) {
+        alert('Please enter a message or select a file.');
+        return;
+    }
 
-        if (!messageInput) {
-            alert('Please enter a message.');
-            return;
-        }
+    if (!receiverId) {
+        alert('Receiver ID not found.');
+        return;
+    }
 
+     
+    const formData = new FormData();
+    formData.append('sender_id', senderId);
+    formData.append('receiver_id', receiverId);
+    formData.append('user_id', userId);
+    formData.append('message', messageInput || '');   
+    if (file) {
+        formData.append('media', file);   
+    }
 
-        $.ajax({
-            url: '/send-message',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                sender_id: senderId,
-                receiver_id: receiverId,
-                user_id: userId,
-                message: messageInput
-            }),
-            success: function(response) {
-                if (response.success) {
-                    
-                    $('#messageInput').val('');  
-                }
-            },
-            error: function(xhr) {
-                alert('Error sending message: ' + xhr.responseJSON.message);
+    $.ajax({
+        url: '/send-message',
+        type: 'POST',
+        processData: false,   
+        contentType: false,   
+        data: formData,
+        success: function(response) {
+            if (response.success) {
+                $('#messageInput').val('');  
+                $('#mediaInput').val('');   
             }
-        });
-    };
-
+        },
+        error: function(xhr) {
+            alert('Error sending message: ' + xhr.responseJSON.message);
+        }
+    });
+}
 
  
-
 
 </script>
 </body>
