@@ -16,6 +16,8 @@ class Message extends Model
         'message',
         'image',
         'video',
+        'reel_image',
+        'reel_video',
     ];
 
    

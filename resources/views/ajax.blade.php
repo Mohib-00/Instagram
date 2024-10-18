@@ -519,7 +519,7 @@ $('.whenshowstoryhide').hide();
 
 
 
-$("#opnfrwrdcntnr").click(function() { 
+$(".opnfrwrdcntnr").click(function() { 
 $('#forwardcontainer').show();
 });
 
