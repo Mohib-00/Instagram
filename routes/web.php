@@ -50,7 +50,6 @@ Route::post("logout",[ApiController::class,"logout"]);
 
 });
 
-
 //route for upload user image 
 Route::post('/upload-profile-image', [ApiController::class, 'uploadProfileImage']);
 
@@ -97,8 +96,8 @@ Route::post('/send-message', [MessageController::class, 'sendMessage']);
 //to get message
 Route::get('/message/{id}', [MessageController::class, 'getMessages'])->name('messages.get');
 
+//to get user data with message
 Route::get('/user/{id}', [MessageController::class, 'show']);
 
-
-
- 
+//to get interval messages
+Route::get('getConversations', [MessageController::class, 'getConversations'])->name('getConversations');

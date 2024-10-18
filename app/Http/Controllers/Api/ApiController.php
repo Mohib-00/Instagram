@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Follow;
 use App\Models\Like;
+use App\Models\Message;
 use App\Models\Reel;
 use App\Models\Story;
 use Illuminate\Support\Facades\DB;

@@ -2597,7 +2597,7 @@
    
     @media screen and (min-width: 1601px) and (max-width: 1607px) {
       #responsive-div {
-            width: 62%;
+            width: 61%;
         }
 }
 
@@ -2680,6 +2680,14 @@
             width: 120px;
         }
     }
+
+    .message-container:hover .showoptions {
+    display: block; 
+}
+.showoptions{
+  display: none;
+}
+
     
 
   </style>

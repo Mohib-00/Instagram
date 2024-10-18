@@ -245,7 +245,7 @@
                 <div class="col-12 scrollbar" style="overflow: auto;height:550px">
 
                     @foreach ($followingUsers as $user)
-                    <div class="row roww mt-3 select-user" data-user-id="{{ $user->id }}" data-user-name="{{ $user->name }}" data-user-userName="{{ $user->userName }}" data-user-image="{{ $user->userName }}">
+                    <div id="selected-user-name" class="row roww mt-3 select-user" data-user-id="{{ $user->id }}" data-user-name="{{ $user->name }}" data-user-userName="{{ $user->userName }}" data-user-image="{{ $user->userName }}">
                         <div class="col-2">
                             <div class="profile-img">
                                 <img class="profile-img" src="{{ asset('images/' . $user->user_image) }}">
@@ -297,7 +297,7 @@
                     <img class="profile-image chatUserImage"    >
                 </div>
                 <div class="col-9 font">
-                    <h5 style="font-weight: bolder;margin-top:15px" class="chatUserName"></h5>
+                    <h5 style="font-weight: bolder;margin-top:15px" class="chatUserNamee"></h5>
                 </div>
 
                 <div class="col-2" style="position: fixed; margin-left:1130px;">
@@ -325,11 +325,11 @@
                 <div class="col-1 profile-imagee mt-5" style="margin-left:45%;">
                     <img class="profile-imagee chatUserImage"  >
                 </div>
-                <div class="col-5 mt-3" style="width:fit-content;margin-left:39%;">
-                    <h5 style="margin-left:60%;" class="font chatUserName"></h5>
-                    <h6 class="font chatusername" style="margin-left: 32%;"></h6>
+                <div class="col-5 mt-3" style="width:fit-content;margin-left:45%;">
+                    <h5 class="font chatUserName"  ></h5>
+                    <h6 class="font chatusername"  ></h6>
                 </div>
-                <div class="col-1 mt-4" style="background:#363636;width:fit-content;height:30px;border-radius:10px;padding:10px 25px 35px 25px;margin-left:43.5%;">
+                <div class="col-1 mt-4" style="background:#363636;width:fit-content;height:30px;border-radius:10px;padding:10px 25px 35px 25px;margin-left:45%;">
                     <span class="font">View profile</span>
                 </div>
                 <div class="col-6" style="align-items: center;margin-top:250px;margin-left:47%;">

@@ -41,7 +41,7 @@
 
 <script>
 
-    //open logout
+//open logout
 $("#openlogout").click(function() { 
     $("#showlogout").fadeIn(150);
 });
@@ -495,7 +495,8 @@ $(document).ready(function(){
      });
  
  });
- let lastMessageDate = null;  
+ 
+let lastMessageDate = null;  
 
 function Html(conversation, user_id) {
     let messageHtml = '';
@@ -522,27 +523,33 @@ function Html(conversation, user_id) {
 
     
     if (conversation.video) {
+        
         messageHtml += `
-            <div class="message">
-                <video controls>
-                    <source src="/videos/${conversation.video}" type="video/mp4">
-                </video>
-            </div>
+        <div id="message-${conversation.id}" class="message-content" style="${conversation.user_id == user_id ? 'margin-left: 73%;width:15%;' : ''};">           
+          <video controls style="${conversation.user_id == user_id ? 'width:180%;height:170px;object-fit:cover;border-radius:20px' : 'width:28.5%;height:170px;object-fit:cover;border-radius:20px'}"  autoplay muted loop>
+             <source src="{{ asset('${conversation.video.trim()}') }} ">
+           </video>
+        </div>  
         `;
+
     } else if (conversation.image) {
+
         messageHtml += `
-            <div class="message">
-                <img src="/images/${conversation.image}" alt="Image message">
-            </div>
+        <div id="message-${conversation.id}" class="message-content" style="${conversation.user_id == user_id ? 'margin-left: 83.5%;width:15%;' : ''};">
+            <img style="${conversation.user_id == user_id ? 'object-fit:cover;height:300px;width:110%;background:white;border-radius:20px' : 'object-fit:cover;height:300px;width:17%;background:white;border-radius:20px'};" src="{{ asset('${conversation.image.trim()}') }}">
+        </div>
         `;
+
     } else if (conversation.message) {
+
         messageHtml += `
-            <div class="message-container" style="display: flex; flex-direction: column; width: 100%;">
-                <div class="message-content" style="font-size: 17px; background: ${conversation.user_id == user_id ? '#3796f0' : '#262626'}; padding: 10px 10px 5px 10px; border-radius: 20px; color: #dfe3e6; margin: 5px 0; width: fit-content; ${conversation.user_id == user_id ? 'margin-left: auto;' : ''}; letter-spacing: 1px;">
-                    <p class="font">${conversation.message}</p>
-                </div>
+        <div id="message-${conversation.id}" class="message-container" style="display: flex; flex-direction: column; width: 100%;">
+            <div class="message-content" style="font-size: 17px; background: ${conversation.user_id == user_id ? '#3796f0' : '#262626'}; padding: 10px 10px 5px 10px; border-radius: 20px; color: #dfe3e6; margin: 5px 0; width: fit-content; ${conversation.user_id == user_id ? 'margin-left: auto;' : ''}; letter-spacing: 1px;">
+                <p class="font">${conversation.message}</p>
             </div>
+        </div>
         `;
+
     }
 
     return messageHtml;
@@ -573,11 +580,17 @@ $(document).ready(function() {
     });
 
     
+    function scrollToBottom() {
+    const chatContainer = $('#chat-container'); 
+    chatContainer.scrollTop(chatContainer[0].scrollHeight);  
+}
+
     function getMessages(userId) {
         $.ajax({
             url: `/message/${userId}`,  
             type: 'GET',
             success: function(response) {
+                scrollToBottom();
                 const messages = response.messages || [];   
                 console.log('Messages received:', messages);  
                 $('#chat-container').empty();  
@@ -588,7 +601,7 @@ $(document).ready(function() {
                         $('#chat-container').append(messageHtml);  
                     });
                 } else {
-                    $('#chat-container').append('<p>No messages found.</p>');  
+                      
                 }
             },
             error: function(xhr) {
@@ -609,6 +622,7 @@ $(document).ready(function() {
                 if (userResponse) {
                     $('.chatUserImage').attr('src', userResponse.user_image);   
                     $('.chatUserName').text(userResponse.userName); 
+                    $('.chatUserNamee').text(userResponse.userName);
                     $('.chatusername').text(userResponse.name + '.instagram');  
                 }
             },
@@ -642,10 +656,16 @@ $(document).ready(function() {
 });
 
 
+
 $('#send').click(function(e) {
     e.preventDefault();
     sendMessage();
 });
+
+function scrollToBottomm() {
+        var chatContainer = $('#chat-container');
+        chatContainer.scrollTop(chatContainer[0].scrollHeight);
+    }
  
 function sendMessage(file = null) {
     const messageInput = $('#messageInput').val();
@@ -684,6 +704,7 @@ function sendMessage(file = null) {
                 $('#messageInput').val('');  
                 $('#mediaInput').val('');   
             }
+            scrollToBottomm();
         },
         error: function(xhr) {
             alert('Error sending message: ' + xhr.responseJSON.message);
@@ -691,7 +712,109 @@ function sendMessage(file = null) {
     });
 }
 
+
+
+var lastCheckedTimestamp = null;
+$(document).ready(function() {
+     
+
+    getLastCheckedTimestamp(false);
+
+    function scrollToBottom() {
+        var chatContainer = $('#chat-container');
+        chatContainer.scrollTop(chatContainer[0].scrollHeight);
+    }
+
+     
+var fetchConversationsPollingFlag = true;  
+var loadingMessages = false;   
+
+function getLastCheckedTimestamp() {
+    return localStorage.getItem('lastCheckedTimestamp');
+}
+
+function fetchConversations() {
+    if (!fetchConversationsPollingFlag || loadingMessages) {
+        return;  
+    }
+
+    fetchConversationsPollingFlag = false;  
+    loadingMessages = true;   
+
+    var lastCheckedTimestamp = getLastCheckedTimestamp() || 0;
+    var receiver_id = $('[name="receiver_id"]').val();  
+    var user_id = "{{ Auth::user()->id }}";  
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');  
+
+    $.ajax({
+        url: "{{ route('getConversations') }}", 
+        method: "get",  
+        data: {
+            lastCheckedUniqueTimestamp: lastCheckedTimestamp,
+            receiver_id: receiver_id, 
+            _token: csrfToken,  
+        },
+        success: function(response) {
+            if (response && Array.isArray(response.conversations)) {
+                var conversations = response.conversations;
+                var updatedConversations = response.updatedConversations;
+
+                
+                if (lastCheckedTimestamp === 0) {
+                    $('#chat-container').empty();
+                }
+
+              
+                if (conversations.length > 0 || updatedConversations.length > 0) {
+                    conversations.forEach(function(conversation) {
+                        var messageHtml = Html(conversation, user_id);
+                        $('#chat-container').append(messageHtml);
+                        lastCheckedTimestamp = conversation.uniquetimestamp;
+                    });
+
+                  
+                    if (updatedConversations.length > 0) {
+                        updatedConversations.forEach(function(updatedConversation) {
+                            var messageHtml = Html(updatedConversation, user_id);
+                            $('#chat-container > #message-' + updatedConversation.id).replaceWith(messageHtml);
+
+                            if (lastCheckedTimestamp < updatedConversation.updatedtimestamp) {
+                                lastCheckedTimestamp = updatedConversation.updatedtimestamp;
+                            }
+                        });
+                    }
+
+                   
+                    localStorage.setItem('lastCheckedTimestamp', lastCheckedTimestamp);
+                    scrollToBottom();
+                }
+            }
+
+            loadingMessages = false;  
+            fetchConversationsPollingFlag = true;  
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching conversations:', error);
+            loadingMessages = false;
+            fetchConversationsPollingFlag = true;  
+        }
+    });
+}
+
  
+setTimeout(fetchConversations, 1000);   
+
+ 
+setInterval(function() {
+    if (fetchConversationsPollingFlag && !loadingMessages) {
+        fetchConversations();
+    }
+}, 2000);  
+
+    
+});
+ 
+
 
 </script>
 </body>
