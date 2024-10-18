@@ -245,7 +245,7 @@
                 <div class="col-12 scrollbar" style="overflow: auto;height:550px">
 
                     @foreach ($followingUsers as $user)
-                    <div id="selected-user-name" class="row roww mt-3 select-user" data-user-id="{{ $user->id }}" data-user-name="{{ $user->name }}" data-user-userName="{{ $user->userName }}" data-user-image="{{ $user->userName }}">
+                    <div class="row roww mt-3 select-user" data-user-id="{{ $user->id }}" data-user-name="{{ $user->name }}" data-user-userName="{{ $user->userName }}" data-user-image="{{ $user->userName }}">
                         <div class="col-2">
                             <div class="profile-img">
                                 <img class="profile-img" src="{{ asset('images/' . $user->user_image) }}">

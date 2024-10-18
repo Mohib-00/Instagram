@@ -518,6 +518,32 @@ $('.whenshowstoryhide').hide();
 });
 
 
+
+$("#opnfrwrdcntnr").click(function() { 
+$('#forwardcontainer').show();
+});
+
+
+$("#closeforwardcontainer").click(function() { 
+$('#forwardcontainer').hide();
+});
+
+
+
+
+$(".flaggggg").click(function() { 
+$('.show').show();
+$('.hidwhenclkonimg').hide();
+});
+
+$(document).ready(function() {
+        $('.user-image').on('click', function() {
+            $(this).siblings('.tick-mark').toggle();
+        });
+    });
+
+
+
 //register
 $(document).ready(function () {
     $.ajaxSetup({

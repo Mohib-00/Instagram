@@ -189,6 +189,8 @@ class ApiController extends Controller
                              ->orderBy('created_at', 'desc')  
                              ->get();
 
+    $followingUsers = Auth::user()->following()->get();
+
                              
     return view('reelss', [
         'Name' => $user->name,
@@ -199,7 +201,7 @@ class ApiController extends Controller
         'reels' => $reels,  
         'commentCounts' => $commentCounts, 
         'likeCounts' => $likeCounts,  
-    ],compact('followRequests'));
+    ],compact('followRequests','followingUsers'));
 }
 
     

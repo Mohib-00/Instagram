@@ -2532,6 +2532,10 @@
                                         background-color:transparent;   
                                       } 
 
+
+
+
+
 .sharestorycolumn{
   margin-top:-790px;
   margin-left:400px;
@@ -2689,6 +2693,21 @@
 }
 
     
+.createforwardcolumn{
+  margin-top:-720px;
+  margin-left:600px;
+  position: absolute;
+  background:#262626;
+  border-radius:20px 20px 20px 20px;
+  height:680px;
+  width:37%;
+}
+
+.forward::placeholder {
+    color: rgba(255, 255, 255, 0.7);  
+}
+
+ 
 
   </style>
 
