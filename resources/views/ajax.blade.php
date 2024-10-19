@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -219,7 +220,7 @@ setupScrollListeners();
 
   
    
-   <script>
+<script>
  document.getElementById('openDesktop').addEventListener('click', function () {
     document.getElementById('reelUploadInput').click();
 });
@@ -1859,6 +1860,72 @@ return `
 }
 
 });
+
+
+$(document).ready(function() {
+    let selectedUsers = [];
+
+    
+    $('.flaggggg').click(function() {
+        const userId = $(this).data('user-id');
+
+        
+        if (selectedUsers.includes(userId)) {
+            selectedUsers = selectedUsers.filter(id => id !== userId); 
+            $(this).find('.tick-mark').hide();  
+        } else {
+            selectedUsers.push(userId); 
+            $(this).find('.tick-mark').show(); 
+        }
+    });
+
+     
+    $('.opnfrwrdcntnr').click(function() {
+        const reelId = $(this).data('reel-id');
+        let reelImage = null;
+        let reelVideo = null;
+
+      
+        const reelElement = $(`[data-reel-id=${reelId}]`);
+        if (reelElement.find('img').length) {
+            reelImage = reelElement.find('img').attr('src');
+        } else if (reelElement.find('video').length) {
+            reelVideo = reelElement.find('video source').attr('src');
+        }
+
+       
+        $('#forwardcontainer').show();
+
+        
+        $('.font').click(function() {
+            const message = $('input[name="message"]').val();
+
+            
+            $.ajax({
+                url: "{{ route('forward.reel') }}",
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    sender_id: "{{ Auth::id() }}",   
+                    receiver_ids: selectedUsers,  
+                    message: message,
+                    reel_image: reelImage,
+                    reel_video: reelVideo,
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        alert('Reel forwarded successfully!');
+                        $('#forwardcontainer').hide();  
+                    }
+                },
+                error: function(xhr) {
+                    alert('Error forwarding reel');
+                }
+            });
+        });
+    });
+});
+
 
 </script>
 </body>

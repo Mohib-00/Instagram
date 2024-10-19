@@ -1,3 +1,4 @@
+
 <div id="forwardcontainer" class="container"  style="display:none">
     <div class="createforwardcolumn">
 
@@ -29,7 +30,7 @@
                 <div class="row">
                     @foreach ($followingUsers as $user)
                     <div class="col-3 mt-5">
-                        <div class="flag position-relative flaggggg" style="position: relative; display: inline-block;">
+                        <div data-user-id="{{ $user->id }}" class="flag position-relative flaggggg" style="position: relative; display: inline-block;">
                             <img data-user-id="{{ $user->id }}" 
                                  data-user-name="{{ $user->name }}" 
                                  data-user-userName="{{ $user->userName }}" 
@@ -153,14 +154,16 @@
                 </div>
             </div>
 
+            <form>
             <div class="show" style="display:none">
             <div class="col-12  "  >
-                <input class="font" style="border:none; background:transparent; outline:none;color:white" type="text" name="message" placeholder="Write a message..."/>
+                <input   style="border:none; background:transparent; outline:none;color:white" type="text" name="message" placeholder="Write a message..."/>
             </div>
             <div class="col-12 mt-4  " style="background:#0093f5;height:45px;border-radius:10px;display:flex;align-items:center;justify-content:center;">
                 <h5 style="font-weight:bolder" class="font">Send</h5>
             </div>
             </div>
+            <form>
             
             
         </div>

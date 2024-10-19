@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use App\Models\Reel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -134,6 +135,37 @@ public function getConversations(Request $request)
 
     return response()->json(['conversations' => $conversations, 'updatedConversations' => $updatedConversations]);
 }
-    
+
+// MessageController.php
+
+public function forwardReel(Request $request)
+{
+    $request->validate([
+        'message' => 'nullable|string',
+        'sender_id' => 'required|integer|exists:users,id',
+        'receiver_ids' => 'required|array',
+        'receiver_ids.*' => 'integer|exists:users,id',
+        'reel_image' => 'nullable|string',
+        'reel_video' => 'nullable|string',
+    ]);
+
+    // Loop through each receiver to create individual messages
+    foreach ($request->receiver_ids as $receiver_id) {
+        \App\Models\Message::create([
+            'sender_id' => $request->sender_id,
+            'receiver_id' => $receiver_id,
+            'user_id' => $request->sender_id,
+            'message' => $request->message,
+            'reel_image' => $request->reel_image,
+            'reel_video' => $request->reel_video,
+        ]);
+    }
+
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Reel forwarded successfully!',
+    ]);
+}
+
 }
 

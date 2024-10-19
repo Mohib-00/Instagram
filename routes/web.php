@@ -1,3 +1,4 @@
+
 <?php
 
 use App\Http\Controllers\Api\ApiController;
@@ -101,3 +102,6 @@ Route::get('/user/{id}', [MessageController::class, 'show']);
 
 //to get interval messages
 Route::get('getConversations', [MessageController::class, 'getConversations'])->name('getConversations');
+
+ 
+Route::post('/forward-reel', [MessageController::class, 'forwardReel'])->name('forward.reel');
