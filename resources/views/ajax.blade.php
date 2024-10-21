@@ -1861,15 +1861,12 @@ return `
 
 });
 
-
 $(document).ready(function() {
     let selectedUsers = [];
 
-    
     $('.flaggggg').click(function() {
         const userId = $(this).data('user-id');
 
-        
         if (selectedUsers.includes(userId)) {
             selectedUsers = selectedUsers.filter(id => id !== userId); 
             $(this).find('.tick-mark').hide();  
@@ -1879,28 +1876,33 @@ $(document).ready(function() {
         }
     });
 
-     
     $('.opnfrwrdcntnr').click(function() {
         const reelId = $(this).data('reel-id');
         let reelImage = null;
         let reelVideo = null;
 
-      
         const reelElement = $(`[data-reel-id=${reelId}]`);
         if (reelElement.find('img').length) {
-            reelImage = reelElement.find('img').attr('src');
+            reelImage = reelElement.find('img').attr('src');  
         } else if (reelElement.find('video').length) {
-            reelVideo = reelElement.find('video source').attr('src');
+            reelVideo = reelElement.find('video source').attr('src');  
         }
 
-       
         $('#forwardcontainer').show();
 
-        
         $('.font').click(function() {
             const message = $('input[name="message"]').val();
 
             
+            if (reelImage) {
+                reelImage = reelImage.replace(/^.*[\\\/]/, ''); 
+                reelImage = `images/${reelImage}`; 
+            }
+            if (reelVideo) {
+                reelVideo = reelVideo.replace(/^.*[\\\/]/, ''); 
+                reelVideo = `videos/${reelVideo}`; 
+            }
+
             $.ajax({
                 url: "{{ route('forward.reel') }}",
                 type: 'POST',
@@ -1914,7 +1916,6 @@ $(document).ready(function() {
                 },
                 success: function(response) {
                     if (response.status === 'success') {
-                        alert('Reel forwarded successfully!');
                         $('#forwardcontainer').hide();  
                     }
                 },

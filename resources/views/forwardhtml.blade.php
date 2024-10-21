@@ -159,8 +159,8 @@
             <div class="col-12  "  >
                 <input   style="border:none; background:transparent; outline:none;color:white" type="text" name="message" placeholder="Write a message..."/>
             </div>
-            <div class="col-12 mt-4  " style="background:#0093f5;height:45px;border-radius:10px;display:flex;align-items:center;justify-content:center;">
-                <h5 style="font-weight:bolder" class="font">Send</h5>
+            <div class="col-12 mt-4  font" style="background:#0093f5;height:45px;border-radius:10px;display:flex;align-items:center;justify-content:center;">
+                <h5 style="font-weight:bolder">Send</h5>
             </div>
             </div>
             <form>
