@@ -70,6 +70,11 @@ public function userMessages()
     return $this->hasMany(Message::class, 'user_id');
 }
 
+public function replyComments()
+{
+    return $this->hasMany(ReplyComment::class);
+}
+
 
     /**
      * The attributes that should be hidden for serialization.

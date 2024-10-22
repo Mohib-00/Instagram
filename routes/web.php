@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ReelController;
+use App\Http\Controllers\ReplyCommentController;
 use App\Http\Controllers\StoryController;
 use Illuminate\Support\Facades\Route;
  
@@ -102,6 +103,8 @@ Route::get('/user/{id}', [MessageController::class, 'show']);
 
 //to get interval messages
 Route::get('getConversations', [MessageController::class, 'getConversations'])->name('getConversations');
-
  
 Route::post('/forward-reel', [MessageController::class, 'forwardReel'])->name('forward.reel');
+
+Route::post('/reply-comments', [ReplyCommentController::class, 'store']);
+
