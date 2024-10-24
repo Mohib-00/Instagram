@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Reel;
+use App\Models\ReplyComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -63,41 +64,50 @@ class ReelController extends Controller
             'comment' => 'required|string|max:255',  
         ]);
     
-        // Create and save the comment
+       
         $comment = new Comment();
         $comment->reel_id = $request->reel_id;
         $comment->user_id = Auth::id();  
         $comment->comment = $request->comment;
         $comment->save();
     
-        // Retrieve the user who made the comment
+         
         $user = Auth::user();
     
         return response()->json([
             'success' => true,
             'message' => 'Comment added successfully!',
             'comment' => [
-                'user_image' => $user->user_image, // User's image
-                'user_name' => $user->name, // User's name
-                'comment_text' => $comment->comment, // Comment text
+                'user_image' => $user->user_image,  
+                'user_name' => $user->name,  
+                'comment_text' => $comment->comment,  
             ]
         ], 201);
     }
     
 
-public function getComments($id)
-    {
-      
-        $comments = Comment::where('reel_id', $id)
-            ->with('user:id,name,user_image')  
-            ->get();
+    public function getComments($id)
+{
+    $comments = Comment::where('reel_id', $id)
+        ->with(['user:id,name,user_image', 'replies.user'])  
+        ->get();
 
-         
-        return response()->json([
-            'comments' => $comments
-        ]);
-    }
+    return response()->json([
+        'comments' => $comments
+    ]);
+}
 
+    
+public function getreplyComments($id)
+{
+    $comments = ReplyComment::where('comment_id', $id)
+        ->with(['user:id,name,user_image'])  
+        ->get();
+
+    return response()->json([
+        'comments' => $comments
+    ]);
+}
      
 
     public function storelikes(Request $request)

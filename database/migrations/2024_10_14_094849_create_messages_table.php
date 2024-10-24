@@ -16,9 +16,11 @@ return new class extends Migration
             $table->foreignId('sender_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('receiver_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->text('message');  
-            $table->string('reel_image')->nullable()->after('image');
-            $table->string('reel_video')->nullable()->after('video');
+            $table->text('message')->nullable();
+            $table->integer('uniquetimestamp')->nullable();
+            $table->string('updatedtimestamp')->nullable(); 
+            $table->string('image')->nullable();   
+            $table->string('video')->nullable(); 
             $table->timestamps();  
         });
     }
