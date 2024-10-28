@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LikeComment;
 use App\Models\ReplyComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,28 @@ class ReplyCommentController extends Controller
         return response()->json([
             'success' => true,
             'reply' => $replyComment,  
+        ]);
+    }
+
+    public function likeComment(Request $request)
+    {
+        $commentId = $request->input('comment_id');
+        $userId = Auth::id();
+
+       
+        $like = LikeComment::firstOrCreate(
+            ['comment_id' => $commentId, 'user_id' => $userId],
+            ['likes' => 0]
+        );
+
+        
+        $like->likes = $like->likes === 0 ? 1 : 0;
+        $like->save();
+
+        return response()->json([
+            'status' => 'success',
+            'liked' => $like->likes === 1,
+            'message' => 'Comment like status updated successfully.',
         ]);
     }
 }

@@ -87,15 +87,17 @@ class ReelController extends Controller
     
 
     public function getComments($id)
-{
-    $comments = Comment::where('reel_id', $id)
-        ->with(['user:id,name,user_image', 'replies.user'])  
-        ->get();
-
-    return response()->json([
-        'comments' => $comments
-    ]);
-}
+    {
+        $comments = Comment::where('reel_id', $id)
+            ->with(['user:id,name,user_image', 'replies.user'])
+            ->withCount('likes')   
+            ->get();
+    
+        return response()->json([
+            'comments' => $comments
+        ]);
+    }
+    
 
     
 public function getreplyComments($id)

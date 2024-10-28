@@ -75,6 +75,12 @@ public function replyComments()
     return $this->hasMany(ReplyComment::class);
 }
 
+public function likedComments()
+{
+    return $this->hasMany(LikeComment::class);
+}
+
+
 
     /**
      * The attributes that should be hidden for serialization.

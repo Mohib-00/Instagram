@@ -111,3 +111,6 @@ Route::post('/forward-reel', [MessageController::class, 'forwardReel'])->name('f
 
 Route::post('/reply-comments', [ReplyCommentController::class, 'store']);
 
+Route::post('/like-comment', [ReplyCommentController::class, 'likeComment'])->name('like.comment');
+
+

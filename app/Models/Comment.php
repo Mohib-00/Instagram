@@ -25,4 +25,10 @@ class Comment extends Model
     {
         return $this->hasMany(ReplyComment::class);
     }
+
+    public function likes()
+{
+    return $this->hasMany(LikeComment::class);
+}
+
 }
